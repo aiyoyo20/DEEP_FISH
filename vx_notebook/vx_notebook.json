@@ -1,0 +1,11 @@
+{
+    "attachment_folder": "vx_attachments",
+    "config_mgr": "vx.vnotex",
+    "created_time": "2021-05-16T06:39:22Z",
+    "description": "",
+    "image_folder": "vx_images",
+    "name": "note_test",
+    "next_node_id": "2",
+    "version": "1",
+    "version_controller": "dummy.vnotex"
+}
