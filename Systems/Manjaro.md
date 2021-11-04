@@ -15,7 +15,7 @@ color: red;
 <p class='ind'> KDE 版本 最明显的当然是它的华丽了，很多的桌面修改不用额外去安装、直接在设置里面修改就有很惊艳的效果。</p>
 
 以下就以我自己的配置为例
-<img src="image/manjaro_screenfetch.png" alt="pic_1 manjaro_screenfetch"  width=900px />
+<img src="images/manjaro_screenfetch.png" alt="pic_1 manjaro_screenfetch"  width=900px />
 
 <p class='ind'>此次安装的为 KDE 版本，正常使用的话没有问题，但是在后期设置了不少软件自启，以及桌面装饰 dock 和其他一些美化后，整个使用体验就大幅下降，时不时就卡顿一下，去掉了不必要的配置能够保证正常的使用了，而且虽然 dock 的软件只有几M，但是在运行后是很占空间的。</p>
 
@@ -271,7 +271,7 @@ yay -S telegram-desktop  # Telegram，电报需要做小小的配置才能使用
 ```
 
 qq 和 qq-lite 的对比图
-![pic_2 qq_compared](image/manjaro_qq_compared.png)
+![pic_2 qq_compared](images/manjaro_qq_compared.png)
 
 ```
 yay -S simplescreenrecorder # 录屏软件：SimpleScreenRecorder
@@ -284,7 +284,7 @@ yay -S deepin-screen-recorder  # 另一个简单录制工具，可录制gif
 ```
 
 区别：
-<img src="image/manajro_peek&deepin-screen.png" alt="pic_3 peek&deepin-screen"  width=900px />
+<img src="images/manajro_peek&deepin-screen.png" alt="pic_3 peek&deepin-screen"  width=900px />
 左为 peek，右为 deepin-screen-recorder
 peek 是先打开一个窗口，通过拖动边缘可调节大小
 deepin-screen-recorder 为打开像截图那样给出截选框先选择大小再录制
@@ -368,8 +368,8 @@ yay -S mindmaster  # 思维导图工具
 <p class='ind'>后期使用效果：mindmaster 在 linux没用找到破解的，但是很多功能是可以使用的，目前发现的 pro 用户可使用的模板要多几个，导出时没用水印，zmind 有幸找到破解的，但是对比之下功能要少很多，如果不是很专业的要求的话是值得一用的，当然能使用 mindmanager 是更好的，毕竟可以与 office 对接是一个很大的优势，但是目前好像没有 linux 的版本</p>
 
 xmind与mindmaster简单对比
-<img src="image/manjaro_xmind.png" alt="pic_4 xmind"  width=900px />
-<img src="image/manjaro_mindmaster.png" alt="pic_5 mindmaster"  width=900px />
+<img src="images/manjaro_xmind.png" alt="pic_4 xmind"  width=900px />
+<img src="images/manjaro_mindmaster.png" alt="pic_5 mindmaster"  width=900px />
 
 
 ### (5)开发工具
@@ -477,7 +477,7 @@ sudo mysqld --initialize --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 ```
 
 这时会输出密码，记下
-<img  src="image/manjaro_mysql_init_password.png" alt="pic_7 mysql_init_password" width=900px />
+<img  src="images/manjaro_mysql_init_password.png" alt="pic_7 mysql_init_password" width=900px />
 
 需要留意安装过程中的警告和报错，这次运气好没有遇到，不过看别人的有，留个链接吧，以备不时之需：
 https://blog.csdn.net/uniondong/article/details/98392738
@@ -532,7 +532,7 @@ ssh -p port ldz@192.168.0.1
 ```
 
 第一次连接时会出现下面的情况，输入 yes 即可
-![pic_8 ssh](image/manjaro_ssh.png)
+![pic_8 ssh](images/manjaro_ssh.png)
 
 ##### 公钥登录(免密登录)
 
@@ -653,7 +653,7 @@ yay -S latte-dock
 (5)设置自动隐藏
 ```
 
-<img src="image/manjaro_dock.gif" alt="pic_9"  width=900px />
+<img src="images/manjaro_dock.gif" alt="pic_9"  width=900px />
 
 ----
 
@@ -661,7 +661,7 @@ yay -S latte-dock
 
 （1）原来的状态栏是通栏且在下面，调节为在左边，因为有 dock 栏之后，dock 栏我是放在下面的，尝试把状态栏放在右边，但是鼠标滑动滚动条的时候会带出来，影响较大
 （2）调节大小不为通栏且居中
-<img src="image/manjaro_Status_Bar.gif" alt="pic_10 Status_Bar"  width=900px />
+<img src="images/manjaro_Status_Bar.gif" alt="pic_10 Status_Bar"  width=900px />
 
 ----
 
@@ -669,14 +669,14 @@ yay -S latte-dock
 
 <p class='ind'> win + e 打开文件管理器-->定位到顶栏右键-->more actions-->configure special application setting-->appearance fixes-->active opacity-->force,我调到79%，感觉还不错</p>
 
-<img src="image/manjaro_Dolphin_beautify.png" alt="pic_11 Dolphin_beautify"  width=900px />
+<img src="images/manjaro_Dolphin_beautify.png" alt="pic_11 Dolphin_beautify"  width=900px />
 
 ----
 
 ## 4、终端(konsole)半透明
 
 <p > ctrl + alt + t 打开终端-->定位到顶栏右键-->more actions-->configure special application setting-->appearance fixes-->active opacity-->force 同样调到79</p>
-<img src="image/manjaro_konsole_beautify.png" alt="pic_12 konsole__beautify"  width=900px />
+<img src="images/manjaro_konsole_beautify.png" alt="pic_12 konsole__beautify"  width=900px />
 
 ----
 
@@ -684,7 +684,7 @@ yay -S latte-dock
 
 第一种是直接换一个透明的终端主题就可以了，比如 KDE-story
 第二种是选中主题后点击编辑，去添加透明度
-<img src="image/manjaro_yakuake_beautify.png" alt="pic_13 yakuake_beautify"  width=900px />
+<img src="images/manjaro_yakuake_beautify.png" alt="pic_13 yakuake_beautify"  width=900px />
 
 ----
 
@@ -743,9 +743,9 @@ source ～/.zshrc
 ```
 
 效果展示：
-![zsh_jonathan_show](vx_images/5355834158896.png)
+![zsh_jonathan_show](vx_imagess/5355834158896.png)
 
-<img src="image/manjaro_oh_my_zsh.gif" alt="pic_14  zsh_candy"  width=900px />
+<img src="images/manjaro_oh_my_zsh.gif" alt="pic_14  zsh_candy"  width=900px />
 
 关闭自动更新
 在使用的过程中，如果最新的版本发生变更在新开的命令行窗口中会提示更新，但是往往因为网络问题（未使用代理）而导致更新失败，可以选择关闭自动更新。
@@ -758,10 +758,10 @@ source ～/.zshrc
 
 ## 7、壁纸
 
-进入图片目录将图片拖拽到桌面然后会有提示，选择set image便是设置壁纸，要注意的是这相当与指定壁纸文件在哪，当壁纸文件移动或者删除就会恢复为默认的壁纸，也不要是 u盘 和 windows 盘里面的图片，在当次可以读取但是关机重启后默认是读取不了非系统所在分区外的其他分区.
+进入图片目录将图片拖拽到桌面然后会有提示，选择set images便是设置壁纸，要注意的是这相当与指定壁纸文件在哪，当壁纸文件移动或者删除就会恢复为默认的壁纸，也不要是 u盘 和 windows 盘里面的图片，在当次可以读取但是关机重启后默认是读取不了非系统所在分区外的其他分区.
 
 SHOW：
-<img src="image/manjaro_wallpaper.jpg" alt="pic_15 wallpaper"  width=900px />
+<img src="images/manjaro_wallpaper.jpg" alt="pic_15 wallpaper"  width=900px />
 
 或者使用本地的壁纸其实也挺不错的。
 
@@ -769,7 +769,7 @@ SHOW：
 
 由于是用做开发环境，对于各个字符的区分就格外重要，像一些字体里面的 [ I (大写的i) 、1、 l (小写的L) ]、[ 0、O (大写的o) ] 等一度让人崩溃。
 JetBrainsMono,下载后解压到 /usr/share/fonts 下重启即可。
-<img src="image/manjaro_font.png" alt="pic_16 font" width=900px />
+<img src="images/manjaro_font.png" alt="pic_16 font" width=900px />
 
 
 > JetBrains 最近也专门为开发人员设计了一种全新的编程专用字体——JetBrains Mono！代码显示效果非常出色，字体辨识度很高，而且这款字体是完全开源免费、可商用！
@@ -848,10 +848,10 @@ windows10 + manjaro双系统，先有的 win10后安装manjaro，manjaro 的 gru
 #### 现在比较热门的两个主题:
 
 ##### Tela grub themeOriginal
-<img src="image/manjaro_grub_Tela.png" alt="pic_17 grub_Tela"  width=900px />
+<img src="images/manjaro_grub_Tela.png" alt="pic_17 grub_Tela"  width=900px />
 
 ##### Grub-theme-vimixOriginal
-<img src="image/manjaro_grub_vimixOriginal.png" alt="pic_18 grub_vimixOriginal"  width=900px />
+<img src="images/manjaro_grub_vimixOriginal.png" alt="pic_18 grub_vimixOriginal"  width=900px />
 
 
 
@@ -894,7 +894,7 @@ balooctl disable  # 禁止启用
 
 ## 5、mysql问题
 
-![pic_19 mysql-problem](image/manjaro_mysql-problem.png)
+![pic_19 mysql-problem](images/manjaro_mysql-problem.png)
 
 mysql服务没有启动。
 
@@ -917,7 +917,7 @@ yay -S gnome-settings-daemon
 在 OSI 七层网络模型中，`ICMP` 协议工作在第三层 - **网络层**，`SOCKS`（非套接字 socket）协议工作在第五层 - **会话层**，`HTTP/HTTPS` 协议工作在第七层 - **应用层**，SSH 工作在第七层 - **应用层**，它们在模型中不同的层次位置，决定了 HTTP/HTTPS 和 SSH 协议可以直接走 SOCKS 代理，而 ICMP 无法直接走 SOCKS 代理。
 
 模型中不同协议的位置如下图：
-<img src="image/manjaro_TCP&IP.gif" alt="pic_20 TCP/IP"  width=900px />
+<img src="images/manjaro_TCP&IP.gif" alt="pic_20 TCP/IP"  width=900px />
 
 HTTP 代理-仅有网页需求，访问Google，YouTube等网站
 Socks 代理-需要使用npm,brew等访问国外源下载软件，以及在Android Studio等软件中下载SDK等需要代理
@@ -937,7 +937,7 @@ debtap package_name.deb  # 对包进行转换
 sudo pacman -U package  # 安装
 ```
 
-![pic_21 debtap_error](image/manjaro_debtap_error.png)
+![pic_21 debtap_error](images/manjaro_debtap_error.png)
 
 法二：
 直接解压 deb 文件，然后再解压包到根目录下
@@ -962,17 +962,17 @@ sudo pacman -U package  # 安装
 
 这个没法解决，更新时会默认强制把boot/grub里面的文件更新，不能随便删除替换，只能更新一次去更改一次 /boot/grub/grub.cfg文件，而且是重启后更改。
 
-## 13、AppImage软件创建桌面图标
+## 13、Appimages软件创建桌面图标
 
-> 您是否曾经下载过AppImage文件，却不知道如何使用它；或者也许您知道如何使用它，但是每次运行该文件时，都必须导航到下载.AppImage文件的文件夹，或者手动为其创建启动器。
-> 用 AppImageLauncher，这些都是过去的问题。该应用程序可让您轻松运行AppImage文件，而无需使其可执行文件，但其最有趣的功能是轻松将AppImage与系统集成：AppImageLauncher可以自动将AppImage应用程序快捷方式添加到桌面环境的应用程序中启动器/菜单（包括应用程序图标和正确的说明）。
+> 您是否曾经下载过Appimages文件，却不知道如何使用它；或者也许您知道如何使用它，但是每次运行该文件时，都必须导航到下载.Appimages文件的文件夹，或者手动为其创建启动器。
+> 用 AppimagesLauncher，这些都是过去的问题。该应用程序可让您轻松运行Appimages文件，而无需使其可执行文件，但其最有趣的功能是轻松将Appimages与系统集成：AppimagesLauncher可以自动将Appimages应用程序快捷方式添加到桌面环境的应用程序中启动器/菜单（包括应用程序图标和正确的说明）。
 >
-> 这是一个例子，我想用 肯登利夫 在Ubuntu中，但是我不想从存储库中安装它，因为它具有大量的KDE依赖关系，并且我不希望它们在我的Gnome系统上。由于没有Flatpak或Snap映像，因此我’继续下载Kdenlive AppImage。
-> 在没有手动使下载的Kdenline AppImage可执行文件的情况下，我第一次双击它（安装了AppImageLauncher），AppImageLauncher提供了两个选项：一次运行或集成并运行。
+> 这是一个例子，我想用 肯登利夫 在Ubuntu中，但是我不想从存储库中安装它，因为它具有大量的KDE依赖关系，并且我不希望它们在我的Gnome系统上。由于没有Flatpak或Snap映像，因此我’继续下载Kdenlive Appimages。
+> 在没有手动使下载的Kdenline Appimages可执行文件的情况下，我第一次双击它（安装了AppimagesLauncher），AppimagesLauncher提供了两个选项：一次运行或集成并运行。
 >
-> 单击集成并运行，将AppImage复制到〜/ Applications文件夹（在主目录中）并添加到菜单中，然后启动该应用程序。更新或删除AppImage文件就像在桌面上一样简单您使用的环境支持桌面操作。例如，在Gnome Shell中，只需右键单击“活动概述”中的应用程序图标，然后选择“更新AppImage”或“从系统中删除：”
+> 单击集成并运行，将Appimages复制到〜/ Applications文件夹（在主目录中）并添加到菜单中，然后启动该应用程序。更新或删除Appimages文件就像在桌面上一样简单您使用的环境支持桌面操作。例如，在Gnome Shell中，只需右键单击“活动概述”中的应用程序图标，然后选择“更新Appimages”或“从系统中删除：”
 
-下载地址：[https://github.com/TheAssassin/AppImageLauncher/releases](https://github.com/TheAssassin/AppImageLauncher/releases)
+下载地址：[https://github.com/TheAssassin/AppimagesLauncher/releases](https://github.com/TheAssassin/AppimagesLauncher/releases)
 
 ## 14、无法连接到 Tor
 
@@ -1040,7 +1040,7 @@ KDE 暂时不清楚，在 XFCE 下无论是通过在 /etc/fstab 里写入挂载�
 这次大多软件采用手动安装了
 
 ```
-redis mongodb mysql  anaconda nodejs wps mindmaster tor-browser telegram appimagelauncher  vnote sublime go qv2ray  foxitreader filezilla
+redis mongodb mysql nodejs wps tor-browser telegram appimageslauncher vnote sublime go qv2ray foxitreader
 ```
 
 ```
@@ -1064,9 +1064,9 @@ cp oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 
 ## 问题
 
-### 1、.AppImage文件无法打开
+### 1、.Appimages文件无法打开
 
-不知道是不是动了什么东西，导致最开始能打开的 .AppImage 文件无法打开了，报错忘记截图了，大概意思是 linux 的 fuse 模块没有自动加载，
+不知道是不是动了什么东西，导致最开始能打开的 .Appimages 文件无法打开了，报错忘记截图了，大概意思是 linux 的 fuse 模块没有自动加载，
 
 ```
 sudo vim /etc/rc.moudules
@@ -1078,7 +1078,7 @@ sudo vim /etc/rc.moudules
 在一开始的时候 win 键盘可以正常使用，但是后来可能是更新了还是什么的，不起作用了，而且之前设置的 xfce4-terminal 下拉终端也 不起作用了，去快捷方式里面找，直接不见之前的一些设置了，而且重置也和最开始配置的那会不一样，最后查询了终于补齐了，但是有新的问题，比如调用文件夹的是`WIN + E` ，会先打开开始模块再打开文件夹，相当于是个bug吧，只能用右边的 WIN 键，但是不方便，只好改一个键。
 
 而且有两个设置快捷键的地方，都去改动一下。删除不需要的，以免是全局的影响了其他软件的使用
-![pic_22 Keyboard](image/manjaro_keyboard.png)
+![pic_22 Keyboard](images/manjaro_keyboard.png)
 
 ### 3、pycharm  中 md 文件预览乱码 & 一些中文字体的不正常(如门，画等)
 
@@ -1239,8 +1239,3 @@ sudo pacman -S noto-fonts-cjk adobe-source-han-sans-cn-fonts adobe-source-han-se
 ## 使用体验
 
 卡顿的情况缓解了很多，其次很明显的是在更新，不会两三天就提醒更新一次，以前更新的大多是 KDE 的配置文件以及一些自带的软件但是自己没有区使用或者不清楚其用处而又不敢轻易删除的软件。
-
-
-# TO DO 1
-在一次使用 kali_live 的时候，manjaro 的家目录被挂载了，以前其他的也会这样，但是这次进去后可以有权限打开、浏览、修改里面的文件。
-为什么以及如何避免。
