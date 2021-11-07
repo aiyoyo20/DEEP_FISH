@@ -31,5 +31,34 @@ itertools.repeat(object[, times])
 ``` 
 
 # 根据最短输入序列长度停止的迭代器
+## islice() ：迭代器切片
+函数 itertools.islice() 正好适用于在迭代器和生成器上做切片操作。
+```
+import itertools
+
+def count(n):
+    while True:
+        yield n
+        n += 1
+
+c = count(0)
+for x in itertools.islice(c, 10, 13):
+    print(x)
+
+# 10
+# 11
+# 12
+```
+
+## dropwhile() ：
+
+# TODO 
+太多了，日后补上
+
+
+[python3-cookbook](https://python3-cookbook.readthedocs.io/)
+[Documentation » Python 标准库 » 函数式编程模块 ](https://docs.python.org/zh-cn/3.8/library/itertools.html)
+
+
 https://docs.python.org/zh-tw/3/library/itertools.html#itertools.repeat
 http://www.cppcns.com/jiaoben/python/242169.html
