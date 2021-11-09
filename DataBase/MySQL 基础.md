@@ -1,4 +1,18 @@
-数据类型、约束
-条件查询、范围查询、排序、聚合、分组、链接查询（内连、外连[左连接，右连接]）、自关联、子查询
-数据库设计：三范式
-增删改查、视图、事务、索引、账户管理、主从
+# 数据库操作
+## 创建数据库
+`create database database_name;`  # 创建一个数库，数据库的名字为 database_name
+
+## 查看数据库
+`show databases;`  # 显示当前服务器的所有数据库
+
+## 选中数据库
+`use database_name;`  # 使用数据库 database_name
+
+## 查看数据库中的表
+`show tables;`  # 使用 use 进入到某个数据库后可以使用 show tables 显示当前数据库下所有的表
+
+## 删除数据库
+`drop database database_name;`  # 删除一个数库，数据库的名字为 database_name
+
+# 数据表操作
+
