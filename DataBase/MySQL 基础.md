@@ -243,8 +243,34 @@ values('黄晓明', 'abcdef', 1),
 ('王宝强', '987654', 1);
 
 ## 删除数据
+使用 delete 删除记录
+|类别		|详细解示|
+|基本语法	|delete from 表 [where 条件];|
+|示例		|delete from user where id > 10;|
+|示例说明	|删除掉用户表中id大于10的所有用户|
+
+清空表记录
+delete和truncate是一样的，但它们有一点不同，那就是DELETE可以返回被删除的记录数，而TRUNCATE TABLE返回的是0。
+
+如果一个表中有自增字段，使用truncate table 这个自增字段将起始值恢复成1.
+|
+|类别		|说明|
+|基本语法	|TRUNCATE TABLE 表名;|
+|示例		|TRUNCATE TABLE user;|
+|示例说明	|清空表的数据，并且让自增的id从1开始自增|
+
 ## 修改数据
-## 查询数据
+|类别		|详细解示|
+|基本语法	|update 表名 set 字段1=值1,字段2=值2,字段n=值n where 条件|
+|示例		|update money set balance=balance-500 where userid = 15;|
+|示例说明	|修改money表，将balance余额减500。要求userid为15|
+
+同时对两个表进行更新
+|类别		|详细解示
+|基本语法	|update 表1,表2 set 字段1=值1,字段2=值2,字段n=值n where 条件|
+|示例		|update money m,user u m.balance=m.balance*u.age where m.userid=u.id;|
+示例说明	修改money，将money表的别名设置为m；user表的别名设置为u；将m表的余额改为m表的balance*用户表的age。执行条件是：m.userid = u.id|
+## 单表查|询数据
 语法：
 	select
 		字段列表
@@ -299,9 +325,10 @@ not
 #### 模糊查询
 like
 	`%`  # 替换一个或者多个
-	`select name from table_name where name like `李%`；`  # 查询姓李的用户
+	`select name from table_name where name like 李%；`  # 查询姓李的用户
 	`_`  # 替换一个
-	`select name from table_name where name like `__%`；`  # 查询名字长度大于等于3的用户
+	`select name from table_name where name like __%；`  # 查询名字长度大于等于3的用户
+
 
 rlike
 	接正则表达式
@@ -347,3 +374,83 @@ avg  # 求平均值
 `select avg(age) from table_name；`  # 求平均年龄
 sum  # 求和
 `select sum(age) from table_name；`  # 求所有人的年龄总和
+
+### 分组
+语法：`group by`
+`select gender,count(*) from table_name group by gender`  # table_name 中的数据按照性别分组，并统计各个性别的总数
+`select gender,count(*) from table_name where gender=1 group by gender`  # table_name 中的数据按照性别分组，并统计男生的总数
+
+group_concat() 查看分组信息
+`select gender,group_concat(name,age) from table_name where gender=1 group by gender`  # table_name 中的数据按照性别分组，并展示详细的姓名、年龄
+group_concat(name,age) 会把显示的信息拼接在一起输出 ，可以使用一些方法获得更适合阅读的 group_concat(name,'  '，age)
+
+having 过滤分组
+`select gender,group_concat(name,age) from table_name group by gender having avg(age)>18`  # table_name 中的数据按照性别分组，并过滤出平均年龄大于18岁的分组并展示详细的姓名、年龄
+
+with rollup
+在对分组使用函数的时候也可以对全表用函数，但是使用后不能进行排序了
+coalesce(a,b,c); 配合 with rollup 使用，增加显示字段，更宜读
+参数说明：如果a==null,则选择b；如果b==null,则选择c；如果a!=null,则选择a；如果a b c 都为null ，则返回为null（没意义）。
+
+where 的判断是针对原表的，having 是针对分组的
+
+### 结果集限制/分页
+`select name from table_name where age>18 limit 5；`  # 查询年龄大于18的用户,只显示查询结果的前五个
+`select name from table_name where age>18 limit 1,5；`  # 查询年龄大于18的用户,只显示查询的第1位往后走五个
+
+## 多表联合查询
+### 内连接
+取交集
+基本语法一：
+|类别		|详细解示|
+|基本语法	|select 表1.字段 [as 别名],表n.字段 from 表1 [别名],表n where 条件;|
+|示例		|select user.uid ,user.username as username,order_goods.oid,order_goods.uid,order_goods.name as shopname from user,order_goods where user.uid = order_goods.uid;|
+|示例说明	|查询商品表中哪些用户购买过商品，并将用户信息显示出来|
+
+基本语法二：
+|类别	|详细解示|
+|基本语法	|select 表1.字段 [as 别名],表n.字段 from 表1 INNER JOIN 表n on 条件;|
+|示例	|select user.uid ,user.username as username,order_goods.oid,order_goods.uid,order_goods.name as shopname from user inner join order_goods on user.uid = order_goods.uid;|
+|示例说明	|查询商品表中哪些用户购买过商品，并将用户信息显示出来|
+### 外连接
+外连接又分为左连接和右链接
+
+左连接：包含所有的左边表中的记录甚至是右边表中没有和它匹配的记录
+|说明		|详解|
+|基本语法		|select 表1.字段 [as 别名],表n.字段 from 表1 LEFT JOIN 表n on 条件;|
+|示例		|select * from user left join order_goods on user.uid = order_goods.uid;|
+|示例说明		|以左边为主，查询哪些用户未购买过商品，并将用户信息显示出来|
+
+右连接：包含所有的右边表中的记录甚至是右边表中没有和它匹配的记录
+|类别		|详细解示|
+|基本语法		|select 表1.字段 [as 别名],表n.字段 from 表1 right JOIN 表n on 条件;|
+|示例		|select * from user right join order_goods on user.uid = order_goods.uid;|
+|示例说明		|查询商品表中哪些用户购买过商品，并将用户信息显示出来|
+
+### 子查询
+有时候，当我们查询的时候，需要的条件是另外一个select语句的结果，这时就需要使用子查询。用于子查询的关键字包括in、not in、=、!=、exists、not exists等。
+
+类别	详细解示
+|基本语法	|select 字段 from 表 where 字段 in(条件)|
+|示例1	|select * from user where uid in (1,3,4);|
+|示例1说明|	按照id 查询指定用户|
+|示例2	|select * from user where uid in (select uid from order_goods);|
+|示例2说明|	将购买过商品的用户信息显示出来|
+
+### 记录联合
+使用 union 和 union all 关键字，将两个表的数据按照一定的查询条件查询出来后，将结果合并到一起显示。两者主要的区别是把结果直接合并在一起，而 union 是将 union all 后的结果进行一次distinct，去除重复记录后的结果。
+
+### 自关联：
+表中的某一列，通过外键引用了本表的另外一列（主键），但是它们的业务逻辑含义又是不一样的，这就是自关联
+物理上一张表，逻辑上是多张表，必须通过取别名来区分，能够节省表的开销
+
+自关联的应用场景：
+	我们设计了省(provinces)信息的表结构（id,ptitle）和市（cities）信息的表结构（id,ctitle,pid）这两张表，其中pid对应着provices表的id。通过比较发现，cities表比provinces表多一个列pid，其它列的类型都是一样的，存储的都是地区信息，而且每种信息的数据量有限，因此没必要增加一个新表，或者将来还要存储区、乡镇信息，都增加新表的开销太大。我们可以重新设计一个地区(areas)信息的结构（id,atitle,pid），因为省没有所属的省份，所以pid可以填写null，城市所属的省份pid可以填写省所对应的id。在这个表中，结构不变，还可以添加区县、乡镇街道、村社区等信息。
+	或者是公司的部门表等。
+	拥有一定的丛属关系深度的。
+
+查询山西省有哪些市
+`select city.atitle from areas as province inner join areas as city on province.id = city.pid where province.atitle = '山西省';`
+
+
+[3天入门MySQL](https://www.shouce.ren/api/view/a/13994)
