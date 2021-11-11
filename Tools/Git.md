@@ -1,7 +1,4 @@
 # Git 的使用 并传送文件至github
-## 注册github帐号
-github.com 去注册一个自己的帐号
-
 ## 安装Git
 ```
 yay -S git
@@ -37,7 +34,7 @@ Git add -A
 ```
 git commit -m ‘增加README.md说明文档’
 ```
-![](git_tip.png)
+![](images/git_tip.png)
 
 ### 连接到远程仓库
 ```
@@ -52,34 +49,31 @@ ssh-keygen -t rsa -C "aiyoyo20@gmail.com@github.com"
 生成.ssh 文件夹
 进入打开其 id_rsa.pub 复制其送有内容，github 打开设置找到 'Add SSH Key' 添加即可
 
-## Git
 
+git永久保存账号密码，免去git重复输入账号密码操作
+方法一：
+.gitconfig配置文件。用文档编辑工具打开该文件
+添加：
 ```
-git config --global user.name "Michael728"
-git config --global user.email "649168982@qq.com"
-ssh-keygen -t rsa -C "649168982@qq.com"
-复制代码
-```
+[user]
+	name = wb-ly409739  //你的用户名
+	email = wb-ly409739@alibaba-inc.com  //你的git邮箱账号
 
-[fish@fish-pc** **etc****]$** ssh-keygen -t rsa -C "aiyoyo2729@gmail.com"  
-Generating public/private rsa key pair. 
-Enter file in which to save the key (/home/fish/.ssh/id_rsa):  
-Created directory '/home/fish/.ssh'. 
-Enter passphrase (empty for no passphrase):  
-Enter same passphrase again:  
-Your identification has been saved in /home/fish/.ssh/id_rsa 
-Your public key has been saved in /home/fish/.ssh/id_rsa.pub 
-The key fingerprint is: 
-SHA256:lspSTHzElY/EvDXaxmGHw7je12DCQI4cGu6S/Cx4H68 aiyoyo2729@gmail.com 
-The key's randomart image is: 
-+---[RSA 3072]----+ 
-|    ..o=o+ .  | 
-|   o =.+B O .  | 
-|    = +..& =  | 
-|  . = . .= B o  | 
-|   + + S. o o o | 
-|  . * o  . . . .| 
-|  . + *    .  | 
-|  . + o     | 
-|    E..     | 
-+----[SHA256]-----+
+[credential]
+	helper = store
+```
+然后保存就可以了。
+
+方法二：
+
+直接在git bash 中执行命令：git config --global credential.helper store
+
+在输入一次账号密码就可以保存了
+
+方法三：只能单个项目
+编辑项目下的 .git/config 文件 ,增加
+```
+[credential]
+	helper = store
+```
+在使用一次用户名密码后即可保存。
