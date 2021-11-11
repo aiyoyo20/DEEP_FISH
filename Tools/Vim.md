@@ -215,3 +215,4 @@ map <F5> :w<cr>:r!python3 %<cr>
 	运行完之后，依然可以在VIM的正常模式下按u，撤回这个输出操作，这样输出结果就撤回了，我们就可以继续编写自己的代码了。
 
 
+[使用vim打造python-ide](https://www.cnblogs.com/always-fight/p/11987174.html)
