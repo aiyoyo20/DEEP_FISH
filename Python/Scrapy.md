@@ -254,3 +254,65 @@ runspider
 version
 查看版本信息，并查看依赖库的信息
 
+# 下载中间件
+请求前 useragent 的配置，代理的配置
+或者对响应的初步过滤等等
+发生异常的处理等等
+
+## process_request(request,spider)
+
+当每个request通过下载中间件时，该方法被调用，这里有一个要求，该方法必须返回以下三种中的任意一种：None,返回一个Response对象，返回一个Request对象或raise IgnoreRequest。三种返回值的作用是不同的。
+
+None:Scrapy将继续处理该request，执行其他的中间件的相应方法，直到合适的下载器处理函数(download handler)被调用,该request被执行(其response被下载)。
+
+Response对象：Scrapy将不会调用任何其他的process_request()或process_exception() 方法，或相应地下载函数；其将返回该response。 已安装的中间件的 process_response() 方法则会在每个response返回时被调用。
+
+Request对象：Scrapy则停止调用 process_request方法并重新调度返回的request。当新返回的request被执行后， 相应地中间件链将会根据下载的response被调用。
+
+raise一个IgnoreRequest异常：则安装的下载中间件的 process_exception() 方法会被调用。如果没有任何一个方法处理该异常， 则request的errback(Request.errback)方法会被调用。如果没有代码处理抛出的异常， 则该异常被忽略且不记录。
+
+## process_response(request, response, spider)
+
+process_response的返回值也是有三种：response对象，request对象，或者raise一个IgnoreRequest异常
+
+如果其返回一个Response(可以与传入的response相同，也可以是全新的对象)， 该response会被在链中的其他中间件的 process_response() 方法处理。
+
+如果其返回一个 Request 对象，则中间件链停止， 返回的request会被重新调度下载。处理类似于 process_request() 返回request所做的那样。
+
+如果其抛出一个 IgnoreRequest 异常，则调用request的errback(Request.errback)。 如果没有代码处理抛出的异常，则该异常被忽略且不记录(不同于其他异常那样)。
+
+## process_exception(request, exception, spider)
+
+当下载处理器(download handler)或 process_request() (下载中间件)抛出异常(包括 IgnoreRequest 异常)时，Scrapy调用 process_exception()。
+
+process_exception() 也是返回三者中的一个: 返回 None 、 一个 Response 对象、或者一个 Request 对象。
+
+如果其返回 None ，Scrapy将会继续处理该异常，接着调用已安装的其他中间件的 process_exception() 方法，直到所有中间件都被调用完毕，则调用默认的异常处理。
+
+如果其返回一个 Response 对象，则已安装的中间件链的 process_response() 方法被调用。Scrapy将不会调用任何其他中间件的 process_exception() 方法。
+
+如果其返回一个 Request 对象， 则返回的request将会被重新调用下载。这将停止中间件的 process_exception() 方法执行，就如返回一个response的那样。 这个是非常有用的，就相当于如果我们失败了可以在这里进行一次失败的重试，
+
+
+# 管道中间件
+item pipeline的主要作用：
+
+清理html数据
+验证爬取的数据
+去重并丢弃
+讲爬取的结果保存到数据库中或文件中
+
+process_item(self,item,spider)
+
+每个item piple组件是一个独立的pyhton类，必须实现以process_item(self,item,spider)方法
+每个item pipeline组件都需要调用该方法，这个方法必须返回一个具有数据的dict,或者item对象，或者抛出DropItem异常，被丢弃的item将不会被之后的pipeline组件所处理
+
+下面的方法也可以选择实现
+open_spider(self,spider)
+表示当spider被开启的时候调用这个方法
+
+close_spider(self,spider)
+当spider挂去年比时候这个方法被调用
+
+from_crawler(cls,crawler)
+这个和我们在前面说spider的时候的用法是一样的，可以用于获取settings配置文件中的信息，需要注意的这个是一个类方法
