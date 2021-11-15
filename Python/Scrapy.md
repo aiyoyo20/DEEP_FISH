@@ -54,7 +54,7 @@ spider是Scrapy用户编写的自定义类，用于解析响应和提取 items �
 
 悄悄地放弃一些请求。
 
-### spider中间件
+### spider 中间件
 蜘蛛中间件是位于引擎和蜘蛛之间的特定钩子，能够处理蜘蛛的输入（响应）和输出（项目和请求）。
 
 如果需要，使用蜘蛛中间件
@@ -294,7 +294,59 @@ process_exception() 也是返回三者中的一个: 返回 None 、 一个 Respo
 如果其返回一个 Request 对象， 则返回的request将会被重新调用下载。这将停止中间件的 process_exception() 方法执行，就如返回一个response的那样。 这个是非常有用的，就相当于如果我们失败了可以在这里进行一次失败的重试，
 
 
-# 管道中间件
+实现中间件的流程
+在 middlewares.py 创建中间件类
+实现所需要拦截的函数
+在 settings.py 中配置开启中间件
+在配置中数字越小越优先执行
+下载中间件
+from_crawler 类方法,当创建爬虫时回调，仅调用一次
+spider_opened 爬虫打开时回调，仅调用一次
+process_request
+
+引擎 -> 下载中间件 -> 下载器
+:param request: 请求对象
+:param spider: 请求来自的爬虫
+:return: 
+
+return None         继续处理这个请求
+return Response     直接把响应提交给引擎 -> 爬虫 
+return Request      直接返回引擎
+raise IgnoreRequest 触发 process_exception 回调函数
+process_response
+下载器 -> 下载中间件 -> 引擎    
+:param request: 
+:param response: 
+:param spider: 
+:return: 
+raise IgnoreRequest 把这请求忽略
+process_exception
+
+当下载中间件异常异常时回调     
+:param request: 
+:param exception: 
+:param spider: 
+:return: 
+
+return None 继续处理异常，向下一个中间件传递异常
+
+return a Response   停止异常链，把响应返回给引擎
+return a Request    停止异常链，把请求返回给引擎
+
+
+# 爬虫中间件
+from_crawler 类方法,当创建爬虫时回调，仅调用一次
+spider_opened 爬虫打开时回调，仅调用一次
+process_spider_input 引擎 -> 爬虫中间件 -> 爬虫
+参数
+response 响应对象
+spider 爬虫对象
+process_spider_output 当爬虫提交数据或者请求给引擎时触发
+process_spider_exception 当 process_spider_input 异常异常时触发
+process_start_requests 当引擎向爬虫所要 start_requests 时触发
+
+
+# 管道
 item pipeline的主要作用：
 
 清理html数据
@@ -316,3 +368,105 @@ close_spider(self,spider)
 
 from_crawler(cls,crawler)
 这个和我们在前面说spider的时候的用法是一样的，可以用于获取settings配置文件中的信息，需要注意的这个是一个类方法
+
+# scrapy 处理Cookies
+一、直接通过已登录实现 Cookies 传递
+在请求中携带Cookies
+
+class LoginSpider(scrapy.Spider):
+ name = 'login'
+ allowed_domains = ['github.com']
+ def start_requests(self):
+     # cookies_string = "_ga=GA1.2.1855430798.1461857641; _octo=GH1.1.783519559.1525492869; tz=Asia%2FShanghai; has_recent_activity=1; _gat=1; user_session=6kLvUi9EfjMAdsxTocq1QtHfoyWUFZqs6SIbukKGGj8huCQ_; __Host-user_session_same_site=6kLvUi9EfjMAdsxTocq1QtHfoyWUFZqs6SIbukKGGj8huCQ_; logged_in=yes; dotcom_user=czwspider; _gh_sess=cDhXV0JnMDBDR0lDajc2V05iY1hHUCt0OW81RDIveVhXR1dOWEgwRjhuNE00S3BHK3NVTzhzR3J3b2lZWXJ1VDhFK2o0VUFremtwek4xZXRMdHlzMUVWTkU1Yk1oYlFOL2JTUXVoWTBXM2dNUFc3VzV1TFg3alNvbEo5ZUxMOEJuUmNiNVoyTVZpbk1lT2tUNVJjTjF6d0xpWjlqNmg3Z2VDbFhRcHIzdGlKdjhXVkx6WGZEcnptTUxhaThZY2xmODBFUllVVnhWRytndjdmaDFKeW52QT09LS1uenNWZjJ5ZUh5bkJqbmk2a0huNlh3PT0%3D--b74a83a0de2e3caf8142b812428fd805897b5832"
+     # cookies = dict([cookie_str.split('=') for cookie_str in cookies_string.split('; ')])
+     # 在发送请求时携带cookies
+     yield scrapy.Request(
+         url="https://github.com/settings/profile",
+         # cookies=cookies
+     )
+
+ def parse(self, response):
+     with open('login1.html','w',encoding='utf-8') as f:
+         f.write(response.text)
+     pass
+通过中间件设置 Cookies
+from scrapy import signals
+import requests
+class CookiesDownloadMiddleware(object):
+   def process_request(self, request, spider):
+       # cookies_string = requests.get("url")
+       cookies_string = "_ga=GA1.2.1855430798.1461857641; _octo=GH1.1.783519559.1525492869; tz=Asia%2FShanghai; has_recent_activity=1; _gat=1; user_session=6kLvUi9EfjMAdsxTocq1QtHfoyWUFZqs6SIbukKGGj8huCQ_; __Host-user_session_same_site=6kLvUi9EfjMAdsxTocq1QtHfoyWUFZqs6SIbukKGGj8huCQ_; logged_in=yes; dotcom_user=czwspider; _gh_sess=cDhXV0JnMDBDR0lDajc2V05iY1hHUCt0OW81RDIveVhXR1dOWEgwRjhuNE00S3BHK3NVTzhzR3J3b2lZWXJ1VDhFK2o0VUFremtwek4xZXRMdHlzMUVWTkU1Yk1oYlFOL2JTUXVoWTBXM2dNUFc3VzV1TFg3alNvbEo5ZUxMOEJuUmNiNVoyTVZpbk1lT2tUNVJjTjF6d0xpWjlqNmg3Z2VDbFhRcHIzdGlKdjhXVkx6WGZEcnptTUxhaThZY2xmODBFUllVVnhWRytndjdmaDFKeW52QT09LS1uenNWZjJ5ZUh5bkJqbmk2a0huNlh3PT0%3D--b74a83a0de2e3caf8142b812428fd805897b5832"
+       cookies = dict([cookie_str.split('=') for cookie_str in cookies_string.split('; ')])
+       request.cookies = cookies
+       return None
+二、模拟登录爬取
+通过 scrapy.FormRequest 登录爬取数据
+
+# -*- coding: utf-8 -*-
+import scrapy
+class Login1Spider(scrapy.Spider):
+   name = 'login2'
+   allowed_domains = ['github.com']
+   start_urls = ['https://github.com/login']
+   def parse(self, response):
+       data = {
+           "login":"xxx",
+           "password":"qqq",
+           "commit":response.xpath('//input[@name="commit"]/@value').extract_first(),
+           "utf8":response.xpath('//input[@name="utf8"]/@value').extract_first(),
+           "authenticity_token":response.xpath('//input[@name="authenticity_token"]/@value').extract_first()
+       }
+       # 发送post请求进行登录
+       yield scrapy.FormRequest(
+           url="https://github.com/session",
+           formdata=data,
+           callback=self.parse_login_success
+       )
+
+   def parse_login_success(self,response):
+       yield scrapy.Request(
+           url="https://github.com/settings/profile",
+           callback=self.parse_success
+       )
+       pass
+
+   def parse_success(self, response):
+       with open('login2.html','w',encoding='utf-8') as f:
+           f.write(response.text)
+       pass
+通过scrapy.FormRequest.from_response 构建请求
+
+# -*- coding: utf-8 -*-
+import scrapy
+class Login1Spider(scrapy.Spider):
+   name = 'login3'
+   allowed_domains = ['github.com']
+   start_urls = ['https://github.com/login']
+   def parse(self, response):
+       data = {
+           "login":"xxx",
+           "password":"qqq"
+       }
+
+       '''
+       用户定义请求参数和页面中隐藏表单字段合并
+       '''
+       yield scrapy.FormRequest.from_response(
+           url="https://github.com/session",
+           response=response,
+           formxpath='//form[@action="/session"]',
+           callback = self.parse_login_success,
+           formdata=data
+       )
+
+   def parse_login_success(self,response):
+       yield scrapy.Request(
+           url="https://github.com/settings/profile",
+           callback=self.parse_success
+       )
+       pass
+
+   def parse_success(self, response):
+       with open('login3.html','w',encoding='utf-8') as f:
+           f.write(response.text)
+       pass
