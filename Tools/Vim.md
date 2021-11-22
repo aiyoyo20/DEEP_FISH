@@ -2,7 +2,7 @@
 # Vim
 ## 安装
 win：gvim
-没有去window下折腾的想法，比较麻烦，但还是放一个介绍安装的[网址](https://zhuanlan.zhihu.com/p/64856646)吧，如果挂了网上找找，很多的
+没有去 window 下折腾的想法，比较麻烦，但还是放一个介绍安装的[网址](https://zhuanlan.zhihu.com/p/64856646)吧，如果挂了网上找找，很多的
 
 linux：  
 manjaro下安装`yay -S vim` or `sudo pacman -S vim`
@@ -11,136 +11,176 @@ mac：
  自带了，升级`brew install vim --with-lua --with-override-system-vi`
  方法也挺多样的，从源码编译，覆盖安装，保留版本安装都有，自行搜索
 
-## 配置
-二、插件
+## 插件
+### 1、插件管理器vim-plug
+`curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim` 
 
-　标签导航（tagbar和ctags）、语法检测（syntastic）、文件搜索（ctrlp）、目录树导航（nerdtree）、状态栏美化（vim-powerline）、主题风格（solarized）、
-
-　python相关（jedi-vim和python-mode）、括号匹配高亮（rainbow_parentheses）、可视化缩进（vim-indent-guides），还有一个最重要的就是插件管理工具vundle。
-
-1、安装vundle
-`git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle` 
-
-　2、.vimrc配置文件
-
-　　~/.vimrc是VIM的配置文件，如果这个配置文件不存在，我们可以自行创建。安装好了vundle，需要在~/.vimrc配置文件中添加vundle支持。所以，在~/.vimrc中添加代码如下：
+### 2、插件地址
 ```
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-  
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
-```
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+" 可以快速对齐的插件
+Plug 'junegunn/vim-easy-align'
 
-为了防止配置文件太乱，我们可以通过~/.vimrc.bundles管理我们安装的插件。
+" 用来提供一个导航目录的侧边栏
+Plug 'scrooloose/nerdtree'
+" 可以使 nerdtree Tab 标签的名称更友好些
+Plug 'jistr/vim-nerdtree-tabs'
 
- 
+" 可以在导航目录中看到 git 版本信息
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
-3、.vimrc.bundles配置文件
-首先创建文件~/.vimrc.bundles，然后添加代码如下：
-```
-if &compatible
-  set nocompatible
-end
-  
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-  
-" Let Vundle manage Vundle
-Bundle 'gmarik/vundle'
-  
-" Define bundles via Github repos
-" 标签导航
-Bundle 'majutsushi/tagbar'
-Bundle 'vim-scripts/ctags.vim'
-" 静态代码分析
-Bundle 'scrooloose/syntastic'
-" 文件搜索
-Bundle 'kien/ctrlp.vim'
-" 目录树导航
-Bundle "scrooloose/nerdtree"
-" 美化状态栏
-Bundle "Lokaltog/vim-powerline"
-" 主题风格
-Bundle "altercation/vim-colors-solarized"
-" python自动补全
-Bundle 'davidhalter/jedi-vim'
-Bundle "klen/python-mode"
+" 查看当前代码文件中的变量和函数列表的插件，
+" 可以切换和跳转到代码中对应的变量和函数的位置
+" 大纲式导航, Go 需要 https://github.com/jstemmer/gotags 支持
+Plug 'majutsushi/tagbar'
+
+" Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
+Plug 'vim-airline/vim-airline'
+
+" 有道词典在线翻译
+Plug 'ianva/vim-youdao-translater'
+
+" 可以在文档中显示 git 信息
+Plug 'airblade/vim-gitgutter'
+
 " 括号匹配高亮
-Bundle 'kien/rainbow_parentheses.vim'
+Plug 'kien/rainbow_parentheses.vim'
+" 自动补全括号的插件，包括小括号，中括号，以及花括号
+Plug 'jiangmiao/auto-pairs'
+
+"文件搜索
+Plug 'kien/ctrlp.vim'
+
 " 可视化缩进
-Bundle 'nathanaelkane/vim-indent-guides'
-if filereadable(expand("~/.vimrc.bundles.local"))
-  source ~/.vimrc.bundles.local
-endif
-  
-filetype on
-```
+Plug 'nathanaelkane/vim-indent-guides'
 
-如上述代码所示，我们通过Bundle指定各个插件在Github的地址，填写规则是"用户名/仓库名"。书写规则有三种，这里使用的是最常见的一种
+" 代码自动完成，安装完插件还需要额外配置才可以使用
+Plug 'Valloric/YouCompleteMe'
 
- 
+" python自动补全
+Plug 'davidhalter/jedi-vim'
+Plug "klen/python-mode"
 
-4、安装插件
-我们已经指定好了各个插件的路径，接下里就是安装各个插件了。在shell中输入vim，进入命令行模式输入：BundleInstall，然后回车
+" go 主要插件
+Plug 'fatih/vim-go', { 'tag': '*' }
+" go 中的代码追踪，输入 gd 就可以自动跳转
+Plug 'dgryski/vim-godef'
 
+" markdown 插件
+Plug 'iamcco/mathjax-support-for-mkdp'
+Plug 'iamcco/markdown-preview.vim'
 
-
- 
-
- 
-
-运行这个命令就开始自行安装我们之前指定的各个插件了。这个过程需要连网，下载并安装好各个插件之后会提示 Done！
-
-注意：由于tagbar依赖于ctags，所以我们还需要用指令安装ctags：`sudo apt-get`（或者yum，不同的Linux系统） install ctags
-
-如果某个插件下载失败，可以去~/.vim/bundle路径下将相应的插件删除，重新执行上面的BundleInstall即可
-
- 
-
-三、插件配置
-1、基础配置
-
-已经安装好了各个插件，接下里就可以直接用了吗？答案是否定的，我们还需要继续对自己安装的插件进行配置。配置这里也很简单，下面是我的配置，编写~/.vimrc：
-（如果粘贴下面的内容到vimrc中出现格式混乱，可以选择新建任意名字的文件，粘贴，然后采用mv重命名为.vimrc）
-```
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-  
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
-
-  
-" tagbar标签导航
-nmap <Leader>tb :TagbarToggle<CR>
-let g:tagbar_ctags_bin='/usr/bin/ctags'
-let g:tagbar_width=30
-autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
-let g:jedi#auto_initialization = 1
-  
-" 主题 solarized
-let g:solarized_termtrans=1
-let g:solarized_contrast="normal"
-let g:solarized_visibility="normal"
 " 配色方案
-set background=dark
-set t_Co=256
-colorscheme solarized
-  
-" 目录文件导航NERD-Tree
-" \nt 打开nerdree窗口，在左侧栏显示
+" colorscheme neodark
+Plug 'KeitaNakamura/neodark.vim'
+" colorscheme monokai
+Plug 'crusoexia/vim-monokai'
+" colorscheme github 
+Plug 'acarapetis/vim-colors-github'
+" colorscheme one 
+Plug 'rakr/vim-one'
+```
+
+### 插件配置
+```
+"==============================================================================
+" vim-go 插件
+"==============================================================================
+let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+
+let g:go_version_warning = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_generate_tags = 1
+
+let g:godef_split=2
+
+
+"==============================================================================
+" NERDTree 插件
+"==============================================================================
+
+" 打开和关闭NERDTree快捷键
+" map <F10> :NERDTreeToggle<CR>
 nmap <leader>nt :NERDTree<CR>
-let NERDTreeHighlightCursorline=1
-let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
-let g:netrw_home='~/bak'
-"close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
-  
+" 显示行号
+let NERDTreeShowLineNumbers=1
+" 打开文件时是否显示目录
+let NERDTreeAutoCenter=1
+" 是否显示隐藏文件
+let NERDTreeShowHidden=0
+" 设置宽度
+" let NERDTreeWinSize=31
+" 忽略一下文件的显示
+let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+" 打开 vim 文件及显示书签列表
+let NERDTreeShowBookmarks=2
+
+" 在终端启动vim时，共享NERDTree
+let g:nerdtree_tabs_open_on_console_startup=1
+
+
+"==============================================================================
+"  majutsushi/tagbar 插件
+"==============================================================================
+
+" majutsushi/tagbar 插件打开关闭快捷键
+nmap <leader>tt :TagbarToggle<CR>
+
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+
+
+"==============================================================================
+"  nerdtree-git-plugin 插件
+"==============================================================================
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+
+let g:NERDTreeGitStatusShowIgnored = 1
+
 " ctrlp文件搜索
 " 打开ctrlp搜索
 let g:ctrlp_map = '<leader>ff'
@@ -160,47 +200,135 @@ let g:ctrlp_match_window_reversed=0
 let g:ctrlp_mruf_max=500
 let g:ctrlp_follow_symlinks=1
   
-" vim-powerline美化状态
-" let g:Powerline_symbols = 'fancy'
-let g:Powerline_symbols = 'unicode'
-  
-" 括号匹配高亮
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-let g:rbpt_max = 40
-let g:rbpt_loadcmd_toggle = 0
-  
+
 " 可视化缩进
-let g:indent_guides_enable_on_vim_startup = 0  " 默认关闭
+let g:indent_guides_enable_on_vim_startup = 1  " 默认关闭
 let g:indent_guides_guide_size            = 1  " 指定对齐线的尺寸
 let g:indent_guides_start_level           = 2  " 从第二层开始可视化显示缩进
+
+"==============================================================================
+"  Valloric/YouCompleteMe 插件
+"==============================================================================
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<space>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+
+"==============================================================================
+"  其他插件配置
+"==============================================================================
+
+" markdwon 的快捷键
+map <silent> <F5> <Plug>MarkdownPreview
+map <silent> <F6> <Plug>StopMarkdownPreview
+
+" tab 标签页切换快捷键
+:nn <Leader>1 1gt
+:nn <Leader>2 2gt
+:nn <Leader>3 3gt
+:nn <Leader>4 4gt
+:nn <Leader>5 5gt
+:nn <Leader>6 6gt
+:nn <Leader>7 7gt
+:nn <Leader>8 8gt
+:nn <Leader>9 8gt
+:nn <Leader>0 :tablast<CR>
 ```
 
-你可以根据自己的喜好设置快捷键，<leader>是按键\，根据我的配置。在VIM的正常模式下：
+## 快捷键设置
+使用`h key-notation`命令查看帮助信息,查看键盘符号的详细说明
+|notation  | meaning         |equivalent| decimal |value(s)    ~|
+|----------|-----------------|----------|---------|--------------|
+|<Nul>     | zero            |CTRL-@    |0        |  (stored as 10) *<Nul>*|
+|<BS>      | backspace       |CTRL-H    |8        |  *backspace*|
+|<Tab>     | tab             |CTRL-I    |9        |  *tab* *Tab*|
+|          |                 |*linefeed*|         |  |
+|<NL>      | linefeed        |CTRL-J    |10       |  (used for <Nul>)|
+|<CR>      | carriage return |CTRL-M    |13       |  *carriage-return*|
+|<Return>  | same as <CR>    |          |         |  *<Return>*|
+|<Enter>   | same as <CR>    |          |         |  *<Enter>*|
+|<Esc>     | escape          |CTRL-[    |27       |   *escape* *<Esc>*|
+|<Space>   | space           |          |32       |   *space*|
+|<lt>      | less-than       |<         |60       |   *<lt>*|
+|<Bslash>  | backslash       |\         |92       |   *backslash* *<Bslash>*|
+|<Bar>     | vertical bar    |    |     |124      |   *<Bar>*|
+|<Del>     | delete          |          |127      |  |
 
-依次按键\tb，就会调出标签导航；
-依次按键\ff，就会调出文件搜索；
-依次按键\nt，就会调出目录导航。
+使用例子：
+`nmap <leader>tt :TagbarToggle<CR>` 使用 `\tt`替换原来的输入命令`agbarToggle`后回车。
 
- 
+使用 :map 命令，可以列出所有键盘映射
+使用:map!命令，则只列出插入和命令行模式的映射。而:imap，:vmap，:omap，:nmap命令则只是列出相应模式下的映射
+## 其他配置
+```
+"==============================================================================
+" vim 内置配置 
+"==============================================================================
 
-2、运行配置
+" 设置 vimrc 修改保存后立刻生效，不用在重新打开
+" 建议配置完成后将这个关闭，否则配置多了之后会很卡
+" autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
+" 关闭兼容模式
+set nocompatible
+
+set nu " 设置行号
+set cursorline "突出显示当前行
+" set cursorcolumn " 突出显示当前列
+set showmatch " 显示括号匹配
+
+" tab 缩进
+set tabstop=4 " 设置Tab长度为4空格
+set shiftwidth=4 " 设置自动缩进长度为4空格
+set autoindent " 继承前一行的缩进方式，适用于多行注释
+
+" 定义快捷键的前缀，即<Leader>
+" let mapleader=";"  默认为\
+
+" ==== 系统剪切板复制粘贴 ====
+" v 模式下复制内容到系统剪切板
+vmap <Leader>c "+yy
+" n 模式下复制一行到系统剪切板
+nmap <Leader>c "+yy
+" n 模式下粘贴系统剪切板的内容
+nmap <Leader>v "+p
+
+" 开启实时搜索
+set incsearch
+" 搜索时大小写不敏感
+set ignorecase
+syntax enable
+syntax on                    " 开启文件类型侦测
+filetype plugin indent on    " 启用自动补全
+
+" 退出插入模式指定类型的文件自动保存
+au InsertLeave *.go,*.sh,*.php,*.py,*.md write
+
+"==============================================================================
+" 主题配色 
+"==============================================================================
+
+" 开启24bit的颜色，开启这个颜色会更漂亮一些
+set termguicolors
+" 配色方案, 可以从上面插件安装中的选择一个使用 
+colorscheme one " 主题
+set background=dark " 主题背景 dark-深色; light-浅色
+```
+
+## NERDTree 快捷键
+切换工作台和目录 
+
+ctr+w+h  光标focus左侧树形目录，ctrl+w+l 光标focus右侧文件显示窗口。 
+ctrl+w+w，光标自动在左右侧窗口切换 
+
+## python 一键运行配置
 这些基础配置已经完成，但是我想在VIM下像在IDE中一样，按一个键就运行当前编辑的python文件，并查看运行结果，这可以做到吗？没问题！
 
 在~/.vimrc最后一行追击代码如下：
