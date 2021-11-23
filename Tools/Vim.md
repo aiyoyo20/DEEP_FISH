@@ -329,6 +329,19 @@ set background=dark " 主题背景 dark-深色; light-浅色
 ctr+w+h  光标focus左侧树形目录，ctrl+w+l 光标focus右侧文件显示窗口。 
 ctrl+w+w，光标自动在左右侧窗口切换 
 
+## YouCompleteMe 配置
+安装 YouCompleteMe 插件后打开报错。
+`The ycmd server SHUT DOWN (restart with ':YcmRestartServer'). YCM...YCM before using it. Follow the instructions in the documentation.
+`
+执行`cd ~/.vim/plugged/YouCompleteMe/ & ./install.py` 全部显示 ok 再重启即可
+
+## vim-one 主题
+```
+mkdir ~/.vim/colors
+cp ~/.vim/plugged/vim-one/colors/one.vim ~/.vim/colors
+```
+在`.vimrc`文件中添加 `colorscheme one`即可
+
 ## python 一键运行配置
 这些基础配置已经完成，但是我想在VIM下像在IDE中一样，按一个键就运行当前编辑的python文件，并查看运行结果，这可以做到吗？没问题！
 
