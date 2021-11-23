@@ -243,6 +243,7 @@ map <silent> <F6> <Plug>StopMarkdownPreview
 ```
 
 ## 快捷键设置
+[模式映射](images/vim_mapping.png)
 使用`h key-notation`命令查看帮助信息,查看键盘符号的详细说明
 |notation  | meaning         |equivalent| decimal |value(s)    ~|
 |----------|-----------------|----------|---------|--------------|
