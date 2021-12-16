@@ -743,8 +743,6 @@ source ～/.zshrc
 ```
 
 效果展示：
-![zsh_jonathan_show](vx_imagess/5355834158896.png)
-
 <img src="images/manjaro_oh_my_zsh.gif" alt="pic_14  zsh_candy"  width=900px />
 
 关闭自动更新
@@ -871,17 +869,17 @@ sudo ./install.sh
 
 ## 1、改快捷方式
 
-去system setting 里面修改move to trash的快捷方式时，一直报错：
+去 system setting 里面修改 move to trash 的快捷方式时，一直报错：
 [ The key sequence Ctrl+D is ambiguous. Use 'Configure Shortcuts' from the 'Settings' menu to solve the ambiguity.  ]
 解决方法：系统里面设置的和在文件管理器里面的不是同一个快捷键，可用于桌面，文件管理器里面的在文件管理器里面设置这样就不冲突了。
 
 ## 2、Yakuake
 
-下拉命令行的快捷键原来是f12,和浏览器的有冲突，记得修改。
+下拉命令行的快捷键原来是 f12,和浏览器的有冲突，记得修改。
 
 ## 3、kde-connect
 
-中间在使用 kde-connect 传东西的时候传的不完整，会缺少文件，想着换一个类似的，在搜索后下载了一个sendanywhere，然后自动给浏览器也添加了一个插件，然后系统就变得很卡很卡，其实也不确定是不是，明天测试一下。结果证明不是。详细原因看下面。
+中间在使用 kde-connect 传东西的时候传的不完整，会缺少文件，想着换一个类似的，在搜索后下载了一个 sendanywhere，然后自动给浏览器也添加了一个插件，然后系统就变得很卡很卡，其实也不确定是不是，明天测试一下。结果证明不是。详细原因看下面。
 
 ## 4、系统卡顿原因
 
@@ -1093,8 +1091,8 @@ sudo pacman -S noto-fonts-cjk adobe-source-han-sans-cn-fonts adobe-source-han-se
 ```
 
 创建文件~/.config/fontconfig/fonts.conf，加入下面的配置：
-
-```<?xml
+```
+<?xml
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 
 <fontconfig>
