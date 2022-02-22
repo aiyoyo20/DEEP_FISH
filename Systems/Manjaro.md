@@ -1,5 +1,5 @@
 <style>
-.ind {
+.ibunsind {
 text-indent: 2em;
 }
 .col {
@@ -94,7 +94,8 @@ sudo pacman -S yay
 
 ## 3.安装软件
 
-### (1)输入法( googlepinyin )
+### (1)输入法
+#### [1]( googlepinyin )
 
 <p class='ind'>可自行安装搜狗输入法，manjaro 软件管理软件中也可以直接安装谷歌输入法。（目前用 googlepinyin，之前用搜狗有乱码，不知道为什么）</p>
 
@@ -112,6 +113,13 @@ sudo echo -e "export GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMOD
 
 <p class='ind'>
 重启后在状态栏找到键盘右键 --> config --> input method --> 添加后确认应用生效，默认的切换输入法快捷键为ctrl + 空格</p>
+
+#### [2]( rime )
+rime 在 ibus 中有无法正常将待选字由纵向选择改为横向，改底层配置解决后重新部署会恢复原来的
+
+`yay -S fictx-rime` 安装即可，在 fcitx 中选择配置即可
+默认的为繁体字，需要简体的`F4`后选择合适的即可优先简体
+
 
 ### (2)梯子，爬墙必备
 
