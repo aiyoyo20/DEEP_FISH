@@ -13,16 +13,16 @@
 ----
 
 # 国外和国内性价比比较高的云服务器对比：
-![](server_compare.png)
+![](images/server_compare.png)
 ## 一、国外性价比较高的云服务器的厂商
 ### 1、google云
 官网：https://cloud.google.com/
 优势：注册即送300美元的免费试用赠金，有效期是1年
-![](server_google.png)
+![](images/server_google.png)
 
 创建一个最低配的实例【1 vCPU；0.6GB内存；10GB硬盘】（我注册下来后，从来没用过，每个月大约花费1.14美元），
 使用1年绝对是绰绰有余的。谷歌在这块还是挺良心的。
-![](server_google_price.png)
+![](images/server_google_price.png)
 有两点需要注意一下：
 1、注册的时候，需要填写一个美国地址。在这个http://www.shenfendaquan.com/网站可随机生成一个地址
 2、需要持有一张双币信用卡去注册，有网友说visa不能注册，但是我的就是招商银行的visa信用卡，也是能正常注册的。
@@ -34,9 +34,9 @@
 官网：https://amazonaws-china.com/cn/
 
 首页上的大Banner就挺吸引人的。
-![](server_aws.png)
+![](images/server_aws.png)
 对性能没有什么要求的同学，可以看
-![](server_aws_price.png)
+![](images/server_aws_price.png)
 申请EC2，12个月内，每个月可以免费使用750个小时（31天），如果不追求服务器的性能，这个性价比还是很高的。
 
 ### 3、Vultr
@@ -44,7 +44,7 @@
 官网：https://www.vultr.com/
 使用的Vultr的人还是挺多的，稳定性也还行，关键还可以支持支付宝支付。
 以前注册时好像还有优惠码，但是现在好久没有用Vultr了，也不知道还有没有优惠。
-![](server_vultr.png)
+![](images/server_vultr.png)
 
 
 
@@ -52,7 +52,7 @@
 
 官网：https://www.bwh88.net/
 配置和价格大概是这样婶的。
-![412e_720w](server_bwh.jpg)
+![412e_720w](images/server_bwh.jpg)
 
 总结：
 
@@ -62,7 +62,7 @@
 虽然国外有限时免费的云服务器，但是我还是不推荐买国外的厂商，有点经济实力的，还是用国内的云服务器厂商比较靠谱。
 
 优势在于：
-![](server_home.png)
+![](images/server_home.png)
 
 ### 1、腾讯云
 
@@ -82,7 +82,7 @@
 
 目前阿里云也是有活动的。
 
-![v2-82f7ce8147a](server_ali.jpg)
+![v2-82f7ce8147a](images/server_ali.jpg)
 
 总结：如果是学习和工作的话，还是建议买国内的服务器，毕竟稳定、好用、售后服务更好。
 
