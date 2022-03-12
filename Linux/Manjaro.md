@@ -120,6 +120,13 @@ rime 在 ibus 中有无法正常将待选字由纵向选择改为横向，改底
 `yay -S fictx-rime` 安装即可，在 fcitx 中选择配置即可
 默认的为繁体字，需要简体的`F4`后选择合适的即可优先简体
 
+默认情况下，Rime 只会列出 5 个候选项，可以通过修改 "menu/page_size" 的值来手动更改列出候选项的个数
+```cd ~/.config/fcitx/rime && rm default.yaml && touch default.custom.yaml && vim default.custom.yaml```
+后写入
+```
+patch:
+     "menu/page_size": 9
+```
 
 ### (2)梯子，爬墙必备
 
