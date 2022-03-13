@@ -1,3 +1,4 @@
+## grep、egrep、fgrep、zgrep
 grep （global search regular expression(RE) and print out the line,全面搜索正则表达式并把行打印出来）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。Unix的grep家族包括grep、egrep和fgrep。egrep和fgrep的命令只跟grep有很小不同。egrep是grep的扩展，支持更多的re元字符， fgrep就是fixed grep或fast grep，它们把所有的字母都看作单词，也就是说，正则表达式中的元字符表示回其自身的字面意义，不再特殊。Linux使用GNU版本的grep。它功能更强，可以通过-G、-E、-F命令行选项来使用egrep和fgrep的功能。
 
 grep的工作方式是这样的，它在一个或多个文件中搜索字符串模板。如果模板包括空格，则必须被引用，模板后的所有字符串被看作文件名。搜索的结果被送到屏幕，不影响原文件内容。
@@ -35,7 +36,7 @@ grep --help
  -o, --only-matching       只显示一行中匹配PATTERN 的部分
  -q, --quiet, --silent      不显示任何东西
  --binary-files=TYPE   假定二进制文件的TYPE 类型；
-                                      TYPE 可以是`binary', `text', 或`without-match'
+    TYPE 可以是`binary', `text', 或`without-match'
  -a, --text                匹配二进制的东西
  -I                        不匹配二进制的东西
  -d, --directories=ACTION  目录操作，读取，递归，跳过
@@ -59,3 +60,8 @@ grep --help
  
  -U, --binary               使用标志高亮匹配字串；
  -u, --unix-byte-offsets   当CR 字符不存在，报告字节偏移(MSDOS 模式)
+
+>‘egrep’ is the same as ‘grep -E’.  ‘fgrep’ is the same as ‘grep -F’.
+Direct invocation as either ‘egrep’ or ‘fgrep’ is deprecated, but is
+   Traditional ‘egrep’ did not support interval expressions and some
+‘egrep’ implementations use ‘\{’ and ‘\}’ instead, so portable scripts
