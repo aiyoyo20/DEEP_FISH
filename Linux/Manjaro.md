@@ -128,6 +128,23 @@ patch:
      "menu/page_size": 9
 ```
 
+默认情况下，如果输入\，默认选择三个选项，不利于效率,希望的时输入\，可以直接上屏中文的顿号、。
+```
+cd ~/.config/fcitx/rime && touch luna_pinyin.custom.yaml && vim luna_pinyin.custom.yaml
+```
+后写入
+```
+patch:
+  punctuator/full_shape:
+    '\' : '、'
+    '/' : '/'
+    # "`": {commit: "·"}
+  punctuator/half_shape:
+    '\' : '、'
+    '/' : '/'
+    # "`": {commit: "·"}
+```
+
 ### (2)梯子，爬墙必备
 
 方案较多，另外起个文章写，详情看 [manjaro_proxy](Tools/manjaro_proxy.md)
