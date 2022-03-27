@@ -700,4 +700,190 @@ man 3 sleep
 
 参数：-a 　删除全部的别名。
 
+## sort 、uniq、wc
+`sort`： 命令用于将文本文件内容加以排序。
 
+语法：
+```
+sort [OPTION]... [FILE]...
+sort [OPTION]... --files0-from=F
+```
+
+主要用途：
+可针对文本文件的内容，以行为单位来排序。
+将所有输入文件的内容排序后并输出。
+当没有文件或文件为-时，读取标准输入。
+
+
+|排序选项|意义|
+|---|---|
+|-b, --ignore-leading-blanks    |忽略开头的空白。
+|-d, --dictionary-order         |仅考虑空白、字母、数字。
+|-f, --ignore-case              |将小写字母作为大写字母考虑。
+|-g, --general-numeric-sort     |根据数字排序。
+|-i, --ignore-nonprinting       |排除不可打印字符。
+|-M, --month-sort               |按照非月份、一月、十二月的顺序排序。
+|-h, --human-numeric-sort       |根据存储容量排序(注意使用大写字母，例如：2K 1G)。
+|-n, --numeric-sort             |根据数字排序。
+|-R, --random-sort              |随机排序，但分组相同的行。
+|--random-source=FILE           |从FILE中获取随机长度的字节。
+|-r, --reverse                  |将结果倒序排列。
+|--sort=WORD                    |根据WORD排序。
+|-V, --version-sort             |文本中(版本)数字的自然排序。
+
+|其他选项|意义|
+|---|---|
+|--batch-size=NMERGE                    |一次合并最多NMERGE个输入；超过部分使用临时文件。|
+|-c, --check, --check=diagnose-first    |检查输入是否已排序，该操作不会执行排序。|
+|-C, --check=quiet, --check=silent      |类似于 -c 选项，但不输出第一个未排序的行。|
+|--compress-program=PROG                |使用PROG压缩临时文件；使用PROG -d解压缩。|
+|--debug                                |注释用于排序的行，发送可疑用法的警报到stderr。|
+|--files0-from=F                        |从文件F中读取以NUL结尾的所有文件名称；如果F是 - ，那么从标准输入中读取名字。|
+|-k, --key=位置1[,位置2]                        |通过一个key排序；KEYDEF给出位置和类型。 在位置1 开始一个key，在位置2 终止(默认为行尾) 参看POS 语法。|
+|-m, --merge                            |合并已排序文件，之后不再排序。|
+|-o, --output=FILE                      |将结果写入FILE而不是标准输出。|
+|-s, --stable                           |通过禁用最后的比较来稳定排序。|
+|-S, --buffer-size=SIZE                 |使用SIZE作为内存缓存大小。|
+|-t, --field-separator=SEP              |使用SEP作为列的分隔符。|
+|-T, --temporary-directory=DIR          |使用DIR作为临时目录，而不是 $TMPDIR 或 /tmp；多次使用该选项指定多个临时目录。|
+|--parallel=N                           |将并发运行的排序数更改为N。|
+|-u, --unique                           |同时使用-c，严格检查排序；不同时使用-c，输出排序后去重的结果。|
+|-z, --zero-terminated                  |设置行终止符为NUL（空），而不是换行符。|
+|--help                                 |显示帮助信息并退出。|
+|--version                              |显示版本信息并退出。|
+
+POS 是F[.C][OPTS]，F 代表域编号，C 是域中字母的位置，F 和C 均从1开始计数。如果没有有效的-t 或-b 选项存在，则从前导空格后开始计数字符。OPTS 是一个或多个由单个字母表示的顺序选项，以此覆盖此key 的全局顺序设置。如果没有指定key， 则将其整个行。
+
+指定的大小可以使用以下单位之一：
+内存使用率% 1%，b 1、K 1024 (默认)，M、G、T、P、E、Z、Y 等依此类推。
+
+如果不指定文件，或者文件为"-"，则从标准输入读取数据。
+
+参数：FILE（可选）：要处理的文件，可以为任意数量。
+
+返回值：返回0表示成功，返回非0值表示失败。
+
+例子：
+```
+cat sort.txt
+AAA:BB:CC
+aaa:30:1.6
+ccc:50:3.3
+ddd:20:4.2
+bbb:10:2.5
+eee:40:5.4
+eee:60:5.1
+
+# 将BB列按照数字从小到大顺序排列：
+sort -nk 2 -t: sort.txt
+AAA:BB:CC
+bbb:10:2.5
+ddd:20:4.2
+aaa:30:1.6
+eee:40:5.4
+ccc:50:3.3
+eee:60:5.1
+
+
+# 将CC列数字从大到小顺序排列：
+# -n是按照数字大小排序，-r是以相反顺序，-k是指定需要排序的栏位，-t指定栏位分隔符为冒号
+sort -nrk 3 -t: sort.txt
+eee:40:5.4
+eee:60:5.1
+ddd:20:4.2
+ccc:50:3.3
+bbb:10:2.5
+aaa:30:1.6
+AAA:BB:CC
+
+```
+
+关于-k选项的解读和例子：
+
+-k选项深度解读：
+
+FStart.CStart Modifier,FEnd.CEnd Modifier
+-------Start--------,-------End--------
+ FStart.CStart 选项  ,  FEnd.CEnd 选项
+这个语法格式可以被其中的逗号,分为两大部分，Start 部分和 End 部分。 Start部分由三部分组成，其中的Modifier部分就是我们之前说过的选项部分； 我们重点说说Start部分的FStart和C.Start；C.Start是可以省略的，省略的话就表示从本域的开头部分开始。FStart.CStart，其中FStart就是表示使用的域，而CStart则表示在FStart域中从第几个字符开始算排序首字符。 同理，在End部分中，你可以设定FEnd.CEnd，如果你省略.CEnd或将它设定为0，则表示结尾到本域的最后一个字符。
+
+```
+例子：从公司英文名称的第二个字母开始排序：
+
+$ sort -t ' ' -k 1.2 facebook.txt
+baidu 100 5000
+sohu 100 4500
+google 110 5000
+guge 50 3000
+解读：使用了-k 1.2，表示对第一个域的第二个字符开始到本域的最后一个字符为止的字符串进行排序。你会发现baidu因为第二个字母是a而名列榜首。sohu和google第二个字符都是o，但sohu的h在google的o前面，所以两者分别排在第二和第三。guge只能屈居第四了。
+
+例子：只针对公司英文名称的第二个字母进行排序，如果相同的按照员工工资进行降序排序：
+
+$ sort -t ' ' -k 1.2,1.2 -nrk 3,3 facebook.txt
+baidu 100 5000
+google 110 5000
+sohu 100 4500
+guge 50 3000
+解读：由于只对第二个字母进行排序，所以我们使用了-k 1.2,1.2的表示方式，表示我们只对第二个字母进行排序（如果你问我使用-k 1.2怎么不行？当然不行，因为你省略了End部分，这就意味着你将对从第二个字母起到本域最后一个字符为止的字符串进行排序）。 对员工工资进行排序，我们也使用了-k 3,3，这是最准确的表述，表示我们只对本域进行排序，因为如果你省略了后面的3，就变成了我们对第3个域开始到最后一个域位置的内容进行排序了。
+
+```
+
+`uniq`：显示或忽略重复的行。
+
+语法：`uniq [OPTION]... [INPUT [OUTPUT]]`
+
+主要用途：将输入文件（或标准输入）中邻近的重复行写入到输出文件（或标准输出）中。当没有选项时，邻近的重复行将合并为一个。
+
+|选项|意义|
+|---|---|
+|-c, --count                |在每行开头增加重复次数。|
+|-d, --repeated             |所有邻近的重复行只被打印一次。|
+|-D                         |所有邻近的重复行将全部打印。|
+|--all-repeated[=METHOD]    |类似于 -D，但允许每组之间以空行分割。METHOD取值范围{none(默认)，prepend，separate}。|
+|-f, --skip-fields=N        |跳过对前N个列的比较。|
+|--group[=METHOD]           |显示所有行，允许每组之间以空行分割。METHOD取值范围：{separate(默认)，prepend，append，both}。|
+|-i, --ignore-case          |忽略大小写的差异。|
+|-s, --skip-chars=N         |跳过对前N个字符的比较。|
+|-u, --unique               |只打印非邻近的重复行。|
+|-z, --zero-terminated      |设置行终止符为NUL（空），而不是换行符。|
+|-w, --check-chars=N        |只对每行前N个字符进行比较。|
+|--help                     |显示帮助信息并退出。|
+|--version                  |显示版本信息并退出。|
+
+
+参数:
+INPUT（可选）：输入文件，不提供时为标准输入。
+OUTPUT（可选）：输出文件，不提供时为标准输出。
+
+返回值:
+返回0表示成功，返回非0值表示失败。
+
+例子：
+```
+uniq -i -c uniqtest     #检查的时候，不区分大小写
+uniq -s 4 -c uniqtest    #检查的时候，不考虑前4个字符，这样whom have a try 就和 you have a try 就一样了。
+uniq -w 2 -c uniqtest  #对每行第2个字符以后的内容不作检查，所以i am tank 根 i love tank就一样了。
+```
+
+`wc`：统计文件的字节数、字数（英文单词数）、行数。
+
+统计指定文件中的字节数、字数、行数，并将统计结果显示输出。利用wc指令我们可以计算文件的Byte数、字数或是列数，若不指定文件名称，或是所给予的文件名为“-”，则wc指令会从标准输入设备读取数据。wc同时也给出所指定文件的总统计数。
+
+语法：
+```
+wc(选项)(参数)
+wc [选项]... [文件]...
+wc [选项]... --files0-from=F
+```
+
+|选项|意义|
+|---|---|
+|-c |# 统计字节数，或--bytes：显示Bytes数。|
+|-l |# 统计行数，或--lines：显示列数。|
+|-m |# 统计字符数，或--chars：显示字符数。|
+|-w |# 统计字数，或--words：显示字数。一个字被定义为由空白、跳格或换行字符分隔的字符串。|
+|-L |# 打印最长行的长度，或--max-line-length。|
+|-help     |显示帮助信息。|
+|--version |显示版本信息。|
+
+参数:文件,需要统计的文件列表。
