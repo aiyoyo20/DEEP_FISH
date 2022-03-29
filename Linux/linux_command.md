@@ -1047,3 +1047,80 @@ COMMAND:所执行的指令
 |-u|显示用户名称；|
 |-U|使用UTF-8列绘图字符；|
 |-V|显示版本信息。|
+
+## kill、killall、pkill
+`kill`:发送信号到进程(可以为多个)。
+
+语法：
+```
+kill [-s sigspec | -n signum | -sigspec] pid | jobspec ...
+kill -l [sigspec]
+```
+
+|选项|意义|
+|---|---|
+|-s sig   |信号名称。|
+|-n sig   |信号名称对应的数字。|
+|-l       |列出信号名称。如果在该选项后提供了数字那么假设它是信号名称对应的数字。|
+|-L       |等价于-l选项。|
+
+参数:
+pid：进程ID;
+jobspec：作业标识符
+
+```
+# 列出所有信号名称：
+[user2@pc] kill -l
+ 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL
+ 5) SIGTRAP      6) SIGABRT      7) SIGBUS       8) SIGFPE
+ 9) SIGKILL     10) SIGUSR1     11) SIGSEGV     12) SIGUSR2
+13) SIGPIPE     14) SIGALRM     15) SIGTERM     16) SIGSTKFLT
+17) SIGCHLD     18) SIGCONT     19) SIGSTOP     20) SIGTSTP
+21) SIGTTIN     22) SIGTTOU     23) SIGURG      24) SIGXCPU
+25) SIGXFSZ     26) SIGVTALRM   27) SIGPROF     28) SIGWINCH
+29) SIGIO       30) SIGPWR      31) SIGSYS      34) SIGRTMIN
+35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3  38) SIGRTMIN+4
+39) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8
+43) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12
+47) SIGRTMIN+13 48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14
+51) SIGRTMAX-13 52) SIGRTMAX-12 53) SIGRTMAX-11 54) SIGRTMAX-10
+55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7  58) SIGRTMAX-6
+59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2
+63) SIGRTMAX-1  64) SIGRTMAX
+
+# 下面是常用的信号。
+# 只有第9种信号(SIGKILL)才可以无条件终止进程，其他信号进程都有权利忽略。
+
+HUP     1    终端挂断
+INT     2    中断（同 Ctrl + C）
+QUIT    3    退出（同 Ctrl + \）
+KILL    9    强制终止
+TERM   15    终止
+CONT   18    继续（与STOP相反，fg/bg命令）
+STOP   19    暂停（同 Ctrl + Z）
+```
+
+`killall`:用于杀死一个进程，与 kill 不同的是它会杀死指定名字的所有进程。
+
+语法：`  killall [选项]  name`
+
+|选项|意义|
+|---|---|
+|-e  --exact | 进程需要和名字完全相符|
+|-I  --ignore-case |忽略大小写|
+|-g  --process-group |结束进程组|
+|-i  --interactive |结束之前询问|
+|-l  --list |列出所有的信号名称|
+|-q  --quite |进程没有结束时，不输出任何信息|
+|-r  --regexp |将进程名模式解释为扩展的正则表达式。|
+|-s  --signal |发送指定信号|
+|-u  --user |结束指定用户的进程|
+|-v  --verbose |显示详细执行过程|
+|-w  --wait |等待所有的进程都结束|
+|-V  --version |显示版本信息|
+|--help |显示帮助信息|
+
+name:进程名称。
+
+`pkill`:用于杀死一个进程，与 kill 不同的是它会杀死指定名字的所有进程，类似于 killall 命令。kill 命令杀死指定进程 PID，需要配合 ps 使用，而 pkill 直接对进程对名字进行操作，更加方便。
+
