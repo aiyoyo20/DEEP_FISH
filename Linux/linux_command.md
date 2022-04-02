@@ -1246,3 +1246,66 @@ name:进程名称。
 |--version     | 输入版本信息。|
 |--help        | 打印使用帮助信息。|
 |--            | Options processing terminator.|
+
+
+## du 、df
+`du`:（英文全拼：disk usage）命令用于显示目录或文件的大小。du 会显示指定的目录或文件所占用的磁盘空间。
+
+语法:`du [-abcDhHklmsSx][-L <符号连接>][-X <文件>][--block-size][--exclude=<目录或文件>][--max-depth=<目录层数>][--help][--version][目录或文件]`
+
+```
+-a, --all                              显示目录中个别文件的大小。
+-B, --block-size=大小                  使用指定字节数的块
+-b, --bytes                            显示目录或文件大小时，以byte为单位。
+-c, --total                            除了显示个别目录或文件的大小外，同时也显示所有目录或文件的总和。
+-D, --dereference-args                 显示指定符号链接的源文件大小。
+-H, --si                               与-h参数相同，但是K，M，G是以1000为换算单位。
+-h, --human-readable                   以K，M，G为单位，提高信息的可读性。
+-k, --kilobytes                        以KB(1024bytes)为单位输出。
+-l, --count-links                      重复计算硬件链接的文件。
+-m, --megabytes                        以MB为单位输出。
+-L<符号链接>, --dereference<符号链接>  显示选项中所指定符号链接的源文件大小。
+-P, --no-dereference                   不跟随任何符号链接(默认)
+-0, --null                             将每个空行视作0 字节而非换行符
+-S, --separate-dirs                    显示个别目录的大小时，并不含其子目录的大小。
+-s, --summarize                        仅显示总计，只列出最后加总的值。
+-x, --one-file-xystem                  以一开始处理时的文件系统为准，若遇上其它不同的文件系统目录则略过。
+-X<文件>, --exclude-from=<文件>        在<文件>指定目录或文件。
+--apparent-size                        显示表面用量，而并非是磁盘用量；虽然表面用量通常会小一些，但有时它会因为稀疏文件间的"洞"、内部碎片、非直接引用的块等原因而变大。
+--files0-from=F                        计算文件F中以NUL结尾的文件名对应占用的磁盘空间如果F的值是"-"，则从标准输入读入文件名
+--exclude=<目录或文件>                 略过指定的目录或文件。
+--max-depth=N                          显示目录总计(与--all 一起使用计算文件)当N为指定数值时计算深度为N，等于0时等同--summarize
+--si                                   类似-h，但在计算时使用1000 为基底而非1024
+--time                                 显示目录或该目录子目录下所有文件的最后修改时间
+--time=WORD                            显示WORD时间，而非修改时间：atime，access，use，ctime 或status
+--time-style=样式                      按照指定样式显示时间(样式解释规则同"date"命令)：full-iso，long-iso，iso，+FORMAT
+--help                                 显示此帮助信息并退出
+--version                              显示版本信息并退出
+
+```
+
+`df`:（英文全拼：disk free） 命令用于显示目前在 Linux 系统上的文件系统磁盘使用情况统计.默认显示单位为KB。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。
+
+语法:`df [选项]... [FILE]...`
+
+```
+-a或--all：包含全部的文件系统；
+--block-size=<区块大小>：以指定的区块大小来显示区块数目；
+-h或--human-readable：以可读性较高的方式来显示信息；
+-H或--si：与-h参数相同，但在计算时是以1000 Bytes为换算单位而非1024 Bytes；
+-i或--inodes：显示inode的信息；
+-k或--kilobytes：指定区块大小为1024字节；
+-l或--local：仅显示本地端的文件系统；
+-m或--megabytes：指定区块大小为1048576字节；
+--no-sync：在取得磁盘使用信息前，不要执行sync指令，此为预设值；
+-P或--portability：使用POSIX的输出格式；
+--sync：在取得磁盘使用信息前，先执行sync指令；
+-t<文件系统类型>或--type=<文件系统类型>：仅显示指定文件系统类型的磁盘信息；
+-T或--print-type：显示文件系统的类型；
+-x<文件系统类型>或--exclude-type=<文件系统类型>：不要显示指定文件系统类型的磁盘信息；
+--help：显示帮助；
+--version：显示版本信息。
+
+```
+
+
