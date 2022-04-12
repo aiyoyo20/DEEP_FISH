@@ -358,3 +358,51 @@ map <F5> :w<cr>:r!python3 %<cr>
 
 
 [使用vim打造python-ide](https://www.cnblogs.com/always-fight/p/11987174.html)
+
+
+# 问题
+## vim 打开文件有时内容排序混乱，行内容中部有横穿的直线，可视化目录及标题栏异常等问题可以先尝试退出重新载入，有时候时插件未加载完全或者配置内容加载错误导致的。
+
+## vim退出插入模式时自动将输入法切换为英文的
+原来一直为这个问题苦恼，通常是使用来写markdown笔记，也就是内容偏中文多，在进入命令模式的时候一直忘记切换输入法，导致全角的冒号无法奇效，虽然说养成习惯就好了，但是总是很别扭，一直在找一些方法去解决。
+
+也不要求如能够记忆前一次输入法这类的，单纯的实现退出插入模式能英文就可以。
+
+现在的解决方案：
+1、输入法框架必须为fcitx5，fcitx应该也可以，毕竟fcitx5是基于fcitx的，命令的使用也大致相同。
+2、输入法里面必须要选择两个（一个英文的，一个中文的），有的习惯只有中文的，然后左shift切，不符合这个的要求。
+3、如果要照搬配置的话，配置里面英文的输入法在中文的前面。
+4、配置：在~/.vimrc最后插入即可
+```
+let w:input_toggle = 0
+function Fcitx2en()
+let s:input_status = system("fcitx5-remote")
+if s:input_status == 2
+let w:input_toggle = 1
+let l:a = system("fcitx5-remote -c")
+endif
+endfunction
+
+function Fcitx2zh()
+let s:input_status = system("fcitx5-remote")
+if s:input_status != 2 && w:input_toggle == 1
+let l:a = system("fcitx5-remote -o")
+let w:input_toggle = 0
+endif
+endfunction
+
+set timeoutlen=150
+autocmd! InsertLeave * call Fcitx2en()
+autocmd! InsertEnter * call Fcitx2zh()
+```
+
+5、简单说下吧，如果有需要修改的给点思路。
+定义切换至英文的函数Fcitx2en()，切换至中文的函数Fcitx2zh()，system("fcitx5-remote")会得到当前fcitx5输入法的一个状态信息，0表示为启用，这时需要先启用，1是第一个输入法，2表示第二个输入法，`fcitx5-remote -h`可以查看`fcitx-remote`命令的使用方法。`fcitx5-remote -c`会停用输入法，就会使用英文的，原来的是英文的使用这个命令不影响，`fcitx5-remote -o`则是激活输入法，原来的为中文再使用也不影响。
+做个大胆猜测啊，懒得去深究了，英文的输入法为自带的，在fcitx5中导入的也是系统的，因为只有拼音是需要额外安装的，所以即使在正常使用去切换输入法的时候实际也是开启、关闭fcitx5去实现中英文的切换。
+最后的autocmd! 告诉vim当InsertLeave、InsertEnter为退出、进入插入模式的时候自动去执行相关的函数。
+
+6、额外注意的是进入插入模式只能是标准的`i`插入才能唤醒，`a`插入等本机测试无效。
+
+7、英文的话建议ENGLISH(US).
+
+8、如果安装的是fcitx而不是fcitx5，将文件中所有fcitx5改为fcitx即可。
