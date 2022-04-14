@@ -1919,3 +1919,21 @@ dirname /opt/go/bin/  # /opt/go
 dirname /opt/go/bin  # /opt/go
 dirname go  # .
 ```
+
+## hostname、hostnamectl
+`hostname`：命令 用于显示和设置系统的主机名称。
+在使用 hostname 命令设置主机名后，系统并不会永久保存新的主机名，重启之后还是原来的主机名。如果需要永久修改主机名，需要修改 /etc/hosts 和 /etc/sysconfig/network 的相关内容并进行重启；也可以使用 hostnamectl 命令进行永久修改。
+
+`hostnamectl`：可用于查询和更改系统主机名和相关设置。
+
+语法：`hostnamectl [选项...] 指令 ...`
+
+指令：
+status                 显示当前主机名设置
+set-hostname NAME      设置系统主机名
+set-icon-name NAME     设置主机的图标名称
+set-chassis NAME       设置主机的机箱类型
+set-deployment NAME    设置主机的部署环境
+set-location NAME      设置主机位置
+
+
