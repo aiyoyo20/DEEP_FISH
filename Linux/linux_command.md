@@ -103,7 +103,7 @@ Direct invocation as either ‘egrep’ or ‘fgrep’ is deprecated, but is
 |-q, --quiet, --silent| 从不输出给出文件名的首部|
 |-s, --sleep-interval=S| 与-f合用,表示在每次反复的间隔休眠S秒|
 
-## cat、tac
+## cat、tac、rev
 cat（英文全拼：concatenate）命令用于连接文件并打印到标准输出设备上,可输出多个文件
 
 语法格式
@@ -131,6 +131,8 @@ cat [-AbeEnstTuv] [--help] [--version] fileName1 fileName2
 |-s, --separator=STRING |  使用STRING作为分隔符代替默认的换行符。|
 |--help                 |  显示帮助信息并退出。|
 |--version              |  显示版本信息并退出。|
+
+`rev`:命令 将文件中的每行内容以字符为单位反序输出，即第一个字符最后输出，最后一个字符最先输出，依次类推。
 
 ## less、more
 less 可以随意浏览文件，支持翻页和搜索，支持向上翻页和向下翻页。
@@ -2132,3 +2134,13 @@ hwclock(选项)
 --test：仅测试程序，而不会实际更改硬件时钟；
 --utc：若要使用格林威治时间，请加入此参数，hwclock会执行转换的工作；
 --version：显示版本信息。
+
+## split
+`split`：可以将一个大文件分割成很多个小文件，有时需要将文件分割成更小的片段，比如为提高可读性，生成日志等。
+
+选项
+-b：值为每一输出档案的大小，单位为 byte。
+-C：每一输出档中，单行的最大 byte 数。
+-d：使用数字作为后缀。
+-l：值为每一输出档的行数大小。
+-a：指定后缀长度(默认为2)。
