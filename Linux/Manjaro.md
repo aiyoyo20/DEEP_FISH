@@ -1075,6 +1075,9 @@ KDE 暂时不清楚，在 XFCE 下无论是通过在 /etc/fstab 里写入挂载�
 地址栏输入：`chrome://flags/#read-later`
 把 default 改为 disabled     后 relaunch 后即可
 
+## 20、libcrypt.so.1 问题
+进行了一次大更新，原来能使用的软件不同使用了，libcrypt.so.1 包也找不着，通过安装libcrypt.so.1可以了，多加一次，如果有libcrypt.so.1 libcrypt.so.1.1.0文件，可直接制作一个软连接即可，sudo  ln  -s  libcrypt.so.1 libcrypt.so.1.1.0
+
 ----
 
 # 贰、Manjaro-XFCE
