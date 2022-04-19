@@ -1078,6 +1078,12 @@ KDE 暂时不清楚，在 XFCE 下无论是通过在 /etc/fstab 里写入挂载�
 ## 20、libcrypt.so.1 问题
 进行了一次大更新，原来能使用的软件不同使用了，libcrypt.so.1 包也找不着，通过安装libcrypt.so.1可以了，多加一次，如果有libcrypt.so.1 libcrypt.so.1.1.0文件，可直接制作一个软连接即可，sudo  ln  -s  libcrypt.so.1 libcrypt.so.1.1.0
 
+## zsh-autosuggestion 颜色变为白色
+同样是更新后的问题，应该是更新到了zsh
+问题是配置了zsh-autosuggestion插件，根据历史命令自动提示出要补全的命令，要补全的为灰色。但是现在全为白色，完全失去了效果。查了下本地的颜色配置没有问题，去修改zsh-autosuggestion插件底层的文件无效，在.zshrc中写入OZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=yellow'也无效。
+
+最后看到是zsh-syntax-highlighting and zsh-autosuggestions.叠加使用产生的bug，都更新到最新版本可解除这个问题
+
 ----
 
 # 贰、Manjaro-XFCE
