@@ -67,6 +67,9 @@ Bash shell 提示符可以包含的要素
 [17:27:34][mozhiyan]$
 新的 Shell 提示符现在可以显示当前的时间和用户名。不过这个新定义的 PS1 变量只在当前 Shell 会话期间有效，再次启动 Shell 时将重新使用默认的提示符格式。
 
+## 注释
+shell的单行、多行注释均以 # 开头。
+
 ## 变量
 shell 在定义变量时通常不需要指明类型，直接赋值就可以
 
@@ -161,6 +164,216 @@ echo $myUrl
 |$?	|上个命令的退出状态，或函数的返回值，我们将在《Shell $?》一节中详细讲解。|
 |$$	|当前 Shell 进程 ID。对于 Shell 脚本，就是这些脚本所在的进程 ID。|
 
+
+### 环境变量
+[Linux 环境变量](https://www.cjavapy.com/article/2250/)
+```
+简介：Linux的一个重要概念是环境变量，环境变量需要进行定义。有些是由系统设置的，有些是由用户自定义的，还有一些是由shell或加载执行程序时，由程序设置的。环境变量是一个赋值给它的字符串。分配的值可以是数字、文本、文件名、设备或任何其他类型的数据。
+
+1、环境变量介绍
+Linux中环境变量包括系统级和用户级，系统级的环境变量是每个登录到系统的用户都要读取的系统变量，而用户级的环境变量则是该用户使用系统时加载的环境变量。所以管理环境变量的文件也分为系统级和用户级的.
+
+1）系统级
+
+/etc/environment：系统在登录时读取的第一个文件，用于为所有进程设置环境变量。系统使用此文件时并不是执行此文件中的命令，而是根据KEY=VALUE模式的代码，对KEY赋值以VALUE，因此文件中如果要定义PATH环境变量，只需加入类似如PATH=$PATH:/xxx/bin的代码即可。
+
+/etc/profile：是系统登录时执行的第二个文件，可以用于设定针对全系统所有用户的环境变量。该文件一般是调用/etc/bash.bashrc文件。
+
+/etc/bash.bashrc：系统级的bashrc文件，为每一个运行bash shell的用户执行此文件。此文件会在用户每次打开shell时执行一次。
+
+注意：/etc/environment是设置整个系统的环境，而/etc/profile是设置所有用户的环境，前者与登录用户无关，后者与登录用户有关。 这两个文件修改后一般都要重启系统才能生效。
+
+2）用户级
+
+~/.profile: 是对应当前登录用户的profile文件，用于定制当前用户的个人工作环境。
+
+每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次。默认情况下，会设置一些环境变量，执行用户的.bashrc文件。
+
+~/.bashrc: 是对应当前登录用户的bash初始化文件，当用户每次打开shell时，系统都会执行此文件一次。通常设置环境变量修改这个文件。
+
+上述配置文件执行先后顺序如下：
+
+/etc/enviroment –> /etc/profile –> ~/.profile –> /etc/bash.bashrc –> ~/.bashrc
+
+2、环境变量的作用
+环境变量相当于给系统或用户应用程序设置的一些参数，具体起什么作用这当然和具体的环境变量相关。比如PATH，是告诉系统，当要求系统运行一个程序而没有告诉它程序所在的完整路径时，系统除了在当前目录下面寻找此程序外，还应到哪些目录下去寻找；再如tc或vc++中，set include=path1;path2; 是告诉编译程序到哪里去找.h类型的文件；当然不仅仅是指定什么路径，还有其它的作用的，如set dircmd=/4 设置一个环境变量的作用是在使用dir命令时会把/4作为缺省的参数添加到你的dir命令之后，就像你的每个命令都加了/4参数，它实际上是给命令解释程序command设置的一个环境变量，并且是给dir这个内部命令。
+
+3、配置环境变量的方法
+1）临时环境变量
+
+linux下设定环境变量时，如果只是临时用一下，可以直接在shell下用set或export命令设定环境变量。但是只能在当前shell环境下可以用，切换或关闭重新进入就会失效。具体配置方法，如下，
+
+#终端输入：
+export MYSQLPATH=/home/mysql  #MYSQLPATH设置为该路径
+#终端查看一个特定环境变量包含的内容，比如，MYSQLPATH，PATH
+echo $PATH
+echo $MYSQLPATH
+2）永久环境变量
+
+设置的环境变量，需要经常使用的，而不是临时使用，把上面的设置环境变量命令写到上面提到的相应配置文件中即可，则可以每次开机或打开shell时自动设置，
+
+例如，
+
+只需要当前用户生效的环境变量：
+
+终端中输入：sudo vi ~/.bashrc，编辑这个文件，在其末尾添加：
+
+export MYSQLPATH=/home/mysql:$MYSQLPATH
+# path采用:来分隔,冒号左右不需要空格.
+# :$MYSQLPATH在后面新添加的优先搜索，$MYSQLPATH:在前面说明新添加的最后搜索，不加代表新路径设置为MYSQLPATH路径。
+注意：在终端执行，source ~/.bashrc ，使其立即生效，或者重启电脑即可。
+
+设置所有用户生效的环境变更：
+
+终端中输入：sudo vi /etc/profile，编辑这个文件，在其末尾添加：
+
+export MYSQLPATH=/home/mysql:$MYSQLPATH
+# path采用:来分隔,冒号左右不需要空格.
+# :$MYSQLPATH在后面新添加的优先搜索，$MYSQLPATH:在前面说明新添加的最后搜索，不加代表新路径设置为MYSQLPATH路径。
+注意：在终端执行，source /etc/profile ，使其立即生效，或者重启电脑即可。
+
+4、PATH环境变量
+Linux命令其实是一个个的命令行程序，这些程序是分布在不同的众多目录中的。当命令行中输入一个命令的时，Linux需要到指定目录去查找命令对应的程序，而在PATH环境变量就记录这些目录。所以PATH环境变量的作用就是记录命令的查找路径，多个路径之间用英文冒号分割的（和Windows系统的PATH变量不同，Windows的PATH变量的路径是用英文分号分割的），有需要时也可以加入自己的路径。具体配置方法，如下，
+
+#比如添加搜索路径/home/cjavapy/python和/home/cjavapy/java 路径到PATH中,采用:来分隔,冒号左右不需要空格
+export PATH=$PATH:/home/cjavapy/python:/home/cjavapy/java
+#若需要将路径放在优先搜索位置，将$PATH放在后面
+export PATH=/home/cjavapy/python:/home/cjavapy/java:$PATH
+注意：配置PATH环境变量可以永久生效，也可以临时生效，具体可以参考上面介绍的配置环境变量的方法。
+
+5、常用环境变量
+Linux系统有一些重要常用的环境变量，具体如下，
+
+$HOME：用户家目录。
+
+$SHELL：用户在使用的Shell解释器名称。
+
+$HISTSIZE：输出的历史命令记录条数。
+
+$HISTFILESIZE：保存的历史命令记录条数。
+
+$MAIL：邮件保存路径。
+
+$LANG：系统语言、语系名称。
+
+$RANDOM：生成一个随机数字。
+
+$PS1 ：Bash解释器的提示符。
+
+$PATH：定义解释器搜索用户执行命令的路径。
+
+$EDITOR：用户默认的文本编辑器。
+
+$TERM：表示显示类型。
+
+$RANDOM：每次引用时生成一个0到32,767之间的随机整数。
+
+$PWD：指示由cd命令设置的当前工作目录。
+
+$TZ：指时区。它可以使用GMT、AST等值。
+
+$UID：显示当前用户的数字用户 ID，在shell 启动时初始化。
+
+可以使用echo查看变量信息，
+
+例如，
+
+$ echo $HOME
+/root
+$ echo $TERM
+xterm
+$ echo $PATH
+/usr/local/bin:/bin:/usr/bin:/home/amrood/bin:/usr/local/bin
+6、PS环境变量
+PS即是Prompt String,命令提示符的意思。在bash中一共有四个。分为表示为PS1,PS2,PS3,PS4。
+
+1）PS1
+
+PS1是用来控制默认提示符显示格式。下面方括号中的内容便是PS1。
+
+例如，
+
+$ echo $PS1
+\h:\W \u\$
+PS1的常用参数以及含义:
+
+\d 代表日期，格式为weekday month date，例如：”Mon Aug 1″
+
+\H 完整的主机名称
+
+\h 仅取主机名中的第一个名字
+
+\t 显示时间为24小时格式，如HHMMSS
+
+\T 显示时间为12小时格式
+
+\A 显示时间为24小时格式HHMM
+
+\@显示时间，为12小时格式am/pm
+
+\u 当前用户的账号名称
+
+\v BASH的版本信息
+
+\w 完整的工作目录名称
+
+\W 利用basename取得工作目录名称，只显示最后一个目录名
+
+\# 下达的第几个命令
+
+\$ 提示字符，如果是root用户，提示符为 # ，普通用户则为 $
+
+2）PS2
+
+一个非常长的命令可以通过在末尾加\使其分行显示。多行命令的默认提示符是>。 我们可以通过修改PS2 ，将提示符修改为->。
+
+例如，
+
+$ PS2='->'
+$ ls \
+->/etc \
+->/boot
+3）PS3
+
+shell脚本中使用select循环时的提示符。
+
+例如，
+
+#!/usr/bin/bash
+PS3="Select a program to exectue: "
+select program in 'ls -F' pwd date
+do
+  $program
+done
+
+(The Command Line)
+Select a program to exectue: 2
+1) ls -F
+2) pwd
+3) date
+# /home/yang
+# 在执行脚本的时候，PS3里面的字符串会显示在菜单的底部
+4）PS4
+
+PS4 是Prompt String 4的缩写，它是Linux/Unix下的一个用于控制脚本调试显示信息的环境变量。
+
+用来修改set -x跟踪输出的前缀 。
+
+例如，
+
+$ export PS4="+Debug Info: "
+$ set -x test_syntax.sh
++Debug Info: GREETINGS=
+++Debug Info: pwd
++Debug Info: CURRENT_DIR=/Users/liumiao
++Debug Info: '[' _HELLO = _ ']'
+
+```
+
+
+PATH 环境变量导入的优先级，`echo $PATH` 查看`/home/fiki/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl`，自己安装的python在`/home/fiki/.local/bin`中，所以覆盖掉了系统自身的`python3`，`.bashrc`时最后加载的，所以如果在里面定义的路径的内容会覆盖掉之前的，换言之拥有最高优先级
+
+
 #### Shell $*和$@的区别
 当 $* 和 $@ 不被双引号" "包围时，它们之间没有任何区别，都是将接收到的每个参数看做一份数据，彼此之间以空格来分隔。
 
@@ -188,6 +401,75 @@ echo "$Fir_File_Lines"
 ```
 
 要注意的是，$() 仅在 Bash Shell 中有效，而反引号可在多种 Shell 中使用。
+
+### declare和typeset命令：设置变量属性
+declare 命令的用法如下所示：
+declare [+/-] [aAfFgilprtux] [变量名=变量值]
+
+其中，-表示设置属性，+表示取消属性，aAfFgilprtux都是具体的选项，它们的含义如下表所示：
+
+选项	含义
+-f [name]	列出之前由用户在脚本中定义的函数名称和函数体。
+-F [name]	仅列出自定义函数名称。
+-g name	在 Shell 函数内部创建全局变量。
+-p [name]	显示指定变量的属性和值。
+-a name	声明变量为普通数组。
+-A name	声明变量为关联数组（支持索引下标为字符串）。
+-i name 	将变量定义为整数型。
+-r name[=value] 	将变量定义为只读（不可修改和删除），等价于 readonly name。
+-x name[=value]	将变量设置为环境变量，等价于 export name[=value]。
+
+### 变量高级
+指定方式	说明
+${parameter-default}	如果变量 parameter 没被声明，那么就使用默认值。
+${parameter:-default}	如果变量 parameter 没被设置，那么就使用默认值。
+${parameter=default}	如果变量parameter没声明，那么就把它的值设为default。
+${parameter:=default}	如果变量parameter没设置，那么就把它的值设为default。
+${parameter+alt_value}	如果变量parameter被声明了，那么就使用alt_value，否则就使用null字符串。
+${parameter:+alt_value}	如果变量parameter被设置了，那么就使用alt_value，否则就使用null字符串。
+${parameter?err_msg}	如果parameter已经被声明，那么就使用设置的值，否则打印err_msg错误消息。
+${parameter:?err_msg}	如果parameter已经被设置，那么就使用设置的值，否则打印err_msg错误消息。
+
+${var#Pattern}, ${var##Pattern} 从变量$var的开头删除最短或最长匹配$Pattern的子串。
+“#”表示匹配最短，“##”表示匹配最长。
+
+${var%Pattern}, ${var%%Pattern} 从变量$var的结尾删除最短或最长匹配$Pattern的子串。
+“%”表示匹配最短，“%%”表示匹配最长。
+
+${var:pos} 变量var从位置pos开始扩展， 也就是pos之前的字符都丢弃。
+${var:pos:len} 变量var从位置pos开始，并扩展len个字符。
+${var/Pattern/Replacement} 使用Replacement来替换变量var中第一个匹配Pattern的字符串。
+${var//Pattern/Replacement} 全局替换。所有在变量var匹配Pattern的字符串，都会被替换为Replacement。
+${var/#Pattern/Replacement} 如果变量var的前缀匹配Pattern，那么就使用Replacement来替换匹配到Pattern的字符串。
+${var/%Pattern/Replacement} 如果变量var的后缀匹配Pattern，那么就使用Replacement来替换匹配到Pattern的字符串。
+
+### 变量的间接引用
+假设一个变量的值是第二个变量的名字。如果a=letter_of_alphabet并且letter_of_alphabet=z，
+
+它被称为间接引用。我们能够通过引用变量a来获得z，它使用eval var1=\$$var2这种不平常的形式。
+
+```
+t=table_cell_3
+table_cell_3=24
+echo "\"table_cell_3\" = $table_cell_3"            # "table_cell_3" = 24
+echo -n "dereferenced \"t\" = ${t}"     # dereferenced "t" = table_cell_3%
+
+echo '------------'
+
+echo -n "dereferenced \"t\" = "; eval echo \$$t    # dereferenced "t" = 24
+echo '------------'
+# eval echo \$$t  可以理解为下面的 eval t=\$$t; echo "\"t\" = $t" 的简化
+echo -n "dereferenced " ;eval t=\$$t; echo "\"t\" = $t"
+```
+
+
+## 输入、输出
+read:用来从标准输入中读取数据并赋值给变量。如果没有进行重定向，默认就是从键盘读取用户输入的数据；如果进行了重定向，那么可以从文件中读取数据。
+`$REPLY`:当没有参数变量提供给 read 命令的时候，这个变量会作为默认变量提供给 read 命令。
+
+echo:用来在终端输出字符串，并在最后默认加上换行符。
+
+printf:用来在终端输出。
 
 ## 字符串
 字符串可以由单引号' '包围，也可以由双引号" "包围，也可以不用引号。它们之间是有区别的
@@ -742,9 +1024,302 @@ Shell 函数返回值只能是整数，一般用来表示函数执行成功与�
 2）用$?来接收函数的执行状态，但是$?要紧跟在函数调用处的后面。
 
 ## 重定向
-## 使用exec命令操作文件描述符
-## Shell代码块重定向
+### 输出重定向
+|类 型|符 号|作 用|
+|标准输出重定向|command >file|以覆盖的方式，把 command 的正确输出结果输出到 file 文件中。|
+|command >>file|以追加的方式，把 command 的正确输出结果输出到 file 文件中。|
+|标准错误输出重定向|command 2>file|以覆盖的方式，把 command 的错误信息输出到 file 文件中。|
+|command 2>>file|以追加的方式，把 command 的错误信息输出到 file 文件中。|
+|正确输出和错误信息同时保存|command >file 2>&1|以覆盖的方式，把正确输出和错误信息同时保存到同一个文件（file）中。|
+|command >>file 2>&1|以追加的方式，把正确输出和错误信息同时保存到同一个文件（file）中。|
+|command >file1 2>file2|以覆盖的方式，把正确的输出结果输出到 file1 文件中，把错误信息输出到 file2 文件中。|
+|command >>file1  2>>file2|以追加的方式，把正确的输出结果输出到 file1 文件中，把错误信息输出到 file2 文件中。|
+|command >file 2>file|【不推荐】这两种写法会导致 file 被打开两次，引起资源竞争，所以 stdout 和 stderr 会互相覆盖，|
+
+
+### 输入重定向
+|符号|说明|
+|command <file|将 file 文件中的内容作为 command 的输入。|
+|command <<END|从标准输入（键盘）中读取数据，直到遇见分界符 END 才停止（分界符可以是任意的字符串，用户自己定义）。|
+|command <file1 >file2|将 file1 作为 command 的输入，并将 command 的处理结果输出到 file2。|
+
+
+### 文件描述符
+<tbody>
+		<tr>
+			<th>
+				分类</th>
+			<th>
+				用法</th>
+			<th>
+				说明</th>
+		</tr>
+		<tr>
+			<td colspan="1" rowspan="4">
+				输出</td>
+			<td>
+				n&gt;filename</td>
+			<td>
+				以输出的方式打开文件 filename，并绑定到文件描述符 n。n 可以不写，默认为 1，也即标准输出文件。</td>
+		</tr>
+		<tr>
+			<td>
+				n&gt;&amp;m</td>
+			<td>
+				用文件描述符 m 修改文件描述符 n，或者说用文件描述符 m 的内容覆盖文件描述符 n，结果就是 n 和 m 都代表了同一个文件，因为 n 和 m 的文件指针都指向了同一个文件。<br>
+				<br>
+				因为使用的是<code>&gt;</code>，所以 n 和 m 只能用作命令的输出文件。n 可以不写，默认为 1。</td>
+		</tr>
+		<tr>
+			<td>
+				n&gt;&amp;-</td>
+			<td>
+				关闭文件描述符 n 及其代表的文件。n 可以不写，默认为 1。</td>
+		</tr>
+		<tr>
+			<td>
+				&amp;&gt;filename</td>
+			<td>
+				将正确输出结果和错误信息全部重定向到 filename。</td>
+		</tr>
+		<tr>
+			<td colspan="1" rowspan="3">
+				输入</td>
+			<td>
+				n&lt;filename</td>
+			<td>
+				以输入的方式打开文件 filename，并绑定到文件描述符 n。n 可以不写，默认为 0，也即标准输入文件。</td>
+		</tr>
+		<tr>
+			<td>
+				n&lt;&amp;m</td>
+			<td>
+				类似于 n&gt;&amp;m，但是因为使用的是<code>&lt;</code>，所以 n 和 m 只能用作命令的输入文件。n 可以不写，默认为 0。</td>
+		</tr>
+		<tr>
+			<td>
+				n&lt;&amp;-</td>
+			<td>
+				关闭文件描述符 n 及其代表的文件。n 可以不写，默认为 0。</td>
+		</tr>
+		<tr>
+			<td>
+				输入和输出</td>
+			<td>
+				n&lt;&gt;filename</td>
+			<td>
+				同时以输入和输出的方式打开文件 filename，并绑定到文件描述符 n，相当于&nbsp;n&gt;filename 和&nbsp;n&lt;filename 的总和。。n 可以不写，默认为 0。</td>
+		</tr>
+	</tbody>
+**还有点疑惑，留个链接http://c.biancheng.net/view/3075.html**
+
+### 使用exec命令操作文件描述符
+exec 是 Shell 内置命令，它有两种用法，一种是执行 Shell 命令，一种是操作文件描述符。本节只讲解后面一种，前面一种请大家自行学习。
+
+使用 exec 命令可以永久性地重定向，后续命令的输入输出方向也被确定了，直到再次遇到 exec 命令才会改变重定向的方向；换句话说，一次重定向，永久有效。
+
+请看下面的例子：
+```
+[mozhiyan@localhost ~]$ echo "c.biancheng.net" > log.txt
+[mozhiyan@localhost ~]$ echo "C语言中文网"
+C语言中文网
+[mozhiyan@localhost ~]$ cat log.txt
+c.biancheng.net
+```
+第一个 echo 命令使用了重定向，将内容输出到 log.txt 文件；第二个 echo 命令没有再次使用重定向，内容就直接输出到显示器上了。很明显，重定向只对第一个 echo 有效，对第二个 echo 无效。
+
+有些脚本文件的输出内容很多，我们不希望直接输出到显示器上，或者我们需要把输出内容备份到文件中，方便以后检索，按照以前的思路，必须在每个命令后面都使用一次重定向，写起来非常麻烦。如果以后想修改重定向的方向，那工作量也是不小的。
+
+exec 命令就是为解决这种困境而生的，它可以让重定向对当前 Shell 进程中的所有命令有效，它的用法为：`exec 文件描述符操作`
+
+在《结合Linux文件描述符谈重定向，彻底理解重定向的本质》一节讲到的所有对文件描述符的操作方式 exec 都支持，请看下面的例子：
+```
+[mozhiyan@localhost ~]$ echo "重定向未发生"
+重定向未发生
+[mozhiyan@localhost ~]$ exec >log.txt
+[mozhiyan@localhost ~]$ echo "c.biancheng.net"
+[mozhiyan@localhost ~]$ echo "C语言中文网"
+[mozhiyan@localhost ~]$ exec >&2
+[mozhiyan@localhost ~]$ echo "重定向已恢复"
+重定向已恢复
+[mozhiyan@localhost ~]$ cat log.txt
+c.biancheng.net
+C语言中文网
+```
+对代码的说明：
+exec >log.txt将当前 Shell 进程的所有标准输出重定向到 log.txt 文件，它等价于exec 1>log.txt。
+后面的两个 echo 命令都没有在显示器上输出，而是输出到了 log.txt 文件。
+exec >&2用来恢复重定向，让标准输出重新回到显示器，它等价于exec 1>&2。2 是标准错误输出的文件描述符，它也是输出到显示器，并且没有遭到破坏，我们用 2 来覆盖 1，就能修复 1，让 1 重新指向显示器。
+接下来的 echo 命令将结果输出到显示器上，证明exec >&2奏效了。
+最后我们用 cat 命令来查看 log.txt 文件的内容，发现就是中间两个 echo 命令的输出。
+重定向的恢复
+类似echo "1234" >log.txt这样的重定向只是临时的，当前命名执行完毕后会自动恢复到显示器，我们不用担心。但是诸如exec >log.txt这种使用 exec 命令的重定向都是持久的，如果我们想再次回到显示器，就必须手动恢复。
+
+以输出重定向为例，手动恢复的方法有两种：
+/dev/tty 文件代表的就是显示器，将标准输出重定向到 /dev/tty 即可，也就是 exec >/dev/tty。
+如果还有别的文件描述符指向了显示器，那么也可以别的文件描述符来恢复标号为 1 的文件描述符，例如 exec >&2。注意，如果文件描述符 2 也被重定向了，那么这种方式就无效了。
+
+
+
+### Shell代码块重定向
+所谓代码块，就是由多条语句组成的一个整体；for、while、until 循环，或者 if...else、case...in 选择结构，或者由{ }包围的命令都可以称为代码块。
+
+```
+#!/bin/bash
+sum=0
+while read n; do
+    ((sum += n))
+    echo "this number: $n"
+done <nums.txt >log.txt  #同时使用输入输出重定向
+echo "sum=$sum"
+```
+```
+#!/bin/bash
+{
+    echo "C语言中文网";
+    echo "http://c.biancheng.net";
+    echo "7"
+} >log.txt  #输出重定向
+{
+    read name;
+    read url;
+    read age
+} <log.txt  #输入重定向
+echo "$name已经$age岁了，它的网址是 $url"
+```
+
 ## 组命令
+所谓组命令，就是将多个命令划分为一组，或者看成一个整体。
+
+Shell 组命令的写法有两种：
+```
+{ command1; command2; command3; . . .  }
+(command1; command2; command3;. . . )
+```
+两种写法的区别在于：由花括号{}包围起来的组命名在当前 Shell 进程中执行，而由小括号()包围起来的组命令会创建一个子 Shell，所有命令都在子 Shell 中执行。
+
+对于第一种写法，花括号和命令之间必须有一个空格，并且最后一个命令必须用一个分号或者一个换行符结束。
+
+子 Shell 就是一个子进程，是通过当前 Shell 进程创建的一个新进程。
+
+
+例如，下面的代码将多个命令的输出重定向到 out.txt：
+```
+ls -l > out.txt  #>表示覆盖
+echo "http://c.biancheng.net/shell/" >> out.txt  #>>表示追加
+cat readme.txt >> out.txt
+```
+本段代码共使用了三次重定向。
+
+借助组命令，我们可以将以上三条命令合并在一起，简化成一次重定向：
+```
+{ ls -l; echo "http://c.biancheng.net/shell/"; cat readme.txt; } > out.txt
+```
+或者写作：
+```
+(ls -l; echo "http://c.biancheng.net/shell/"; cat readme.txt) > out.txt
+```
+使用组命令技术，我们节省了一些打字时间。
+
+类似的道理，我们也可以将组命令和管道结合起来：
+{ ls -l; echo "http://c.biancheng.net/shell/"; cat readme.txt; } | lpr
+
+这里我们把三个命令的输出结果合并在一起，并把它们用管道输送给命令 lpr 的输入，以便产生一个打印报告。
+两种组命令形式的对比
+虽然两种 Shell 组命令形式看起来相似，它们都能用在重定向中合并输出结果，但两者之间有一个很重要的不同：由{}包围的组命令在当前 Shell 进程中执行，由()包围的组命令会创建一个子Shell，所有命令都会在这个子 Shell 中执行。
+
+在子 Shell 中执行意味着，运行环境被复制给了一个新的 shell 进程，当这个子 Shell 退出时，新的进程也会被销毁，环境副本也会消失，所以在子 Shell 环境中的任何更改都会消失（包括给变量赋值）。因此，在大多数情况下，除非脚本要求一个子 Shell，否则使用{}比使用()更受欢迎，并且{}的进行速度更快，占用的内存更少。
+
 ## 进程替换
+http://c.biancheng.net/view/3025.html
+
 ## 管道
+Shell 还有一种功能，就是可以将两个或者多个命令（程序或者进程）连接到一起，把一个命令的输出作为下一个命令的输入，以这种方式连接的两个或者多个命令就形成了管道（pipe）。
+
+Linux 管道使用竖线|连接多个命令，这被称为管道符。Linux 管道的具体语法格式如下：
+```
+command1 | command2
+command1 | command2 [ | commandN... ]
+```
+
+当在两个命令之间设置管道时，管道符|左边命令的输出就变成了右边命令的输入。只要第一个命令向标准输出写入，而第二个命令是从标准输入读取，那么这两个命令就可以形成一个管道。大部分的 Linux 命令都可以用来形成管道。
+这里需要注意，command1 必须有正确输出，而 command2 必须可以处理 command2 的输出结果；而且 command2 只能处理 command1 的正确输出结果，不能处理 command1 的错误信息。
+
 ## 过滤器
+我们己经知道，将几个命令通过管道符组合在一起就形成一个管道。通常，通过这种方式使用的命令就被称为过滤器。过滤器会获取输入，通过某种方式修改其内容，然后将其输出。
+
+简单地说，过滤器可以概括为以下两点：
+如果一个 Linux 命令是从标准输入接收它的输入数据，并在标准输出上产生它的输出数据（结果），那么这个命令就被称为过滤器。
+过滤器通常与 Linux 管道一起使用。
+
+常用的被作为过滤器使用的命令如下所示：
+|命令|说明|
+|awk|用于文本处理的解释性程序设计语言，通常被作为数据提取和报告的工具。|
+|cut|用于将每个输入文件（如果没有指定文件则为标准输入）的每行的指定部分输出到标准输出。|
+|grep|用于搜索一个或多个文件中匹配指定模式的行。|
+|tar|用于归档文件的应用程序。|
+|head|用于读取文件的开头部分（默认是 10 行）。如果没有指定文件，则从标准输入读取。|
+|paste|用于合并文件的行。|
+|sed|用于过滤和转换文本的流编辑器。|
+|sort|用于对文本文件的行进行排序。|
+|split|用于将文件分割成块。|
+|strings|用于打印文件中可打印的字符串。|
+|tac|与 cat 命令的功能相反，用于倒序地显示文件或连接文件。|
+|tail|用于显示文件的结尾部分。|
+|tee|用于从标准输入读取内容并写入到标准输出和文件。|
+|tr|用于转换或删除字符。|
+|uniq|用于报告或忽略重复的行。|
+|wc|用于打印文件中的总行数、单词数或字节数。|
+
+## shell 模块化
+所谓模块化，就是把代码分散到多个文件或者文件夹。对于大中型项目，模块化是必须的，否则会在一个文件中堆积成千上万行代码，这简直是一种灾难。
+
+source 命令的用法为：`source filename`
+
+也可以简写为：`. filename`
+
+两种写法的效果相同。对于第二种写法，注意点号.和文件名中间有一个空格。
+
+source 是 Shell 内置命令的一种，它会读取 filename 文件中的代码，并依次执行所有语句。你也可以理解为，source 命令会强制执行脚本文件中的全部命令，而忽略脚本文件的权限。
+
+source 后边可以使用相对路径，也可以使用绝对路径，这里我们使用的是相对路径。
+
+### 避免重复引入
+熟悉 C/C++ 的读者都知道，C/C++ 中的头文件可以避免被重复引入；换句话说，即使被多次引入，效果也相当于一次引入。这并不是 #include 的功劳，而是我们在头文件中进行了特殊处理。
+
+Shell source 命令和 C/C++ 中的 #include 类似，都没有避免重复引入的功能，只要你使用一次 source，它就引入一次脚本文件中的代码。
+
+那么，在 Shell 中究竟该如何避免重复引入呢？
+
+我们可以在模块中额外设置一个变量，使用 if 语句来检测这个变量是否存在，如果发现这个变量存在，就 return 出去。
+
+这里需要强调一下 return 关键字。return 在 C++、C#、Java 等大部分编程语言中只能退出函数，除此以外再无他用；但是在 Shell 中，return 除了可以退出函数，还能退出由 source 命令引入的脚本文件。
+
+所谓退出脚本文件，就是在被 source 引入的脚本文件（子文件）中，一旦遇到 return 关键字，后面的代码都不会再执行了，而是回到父脚本文件中继续执行 source 命令后面的代码。
+
+return 只能退出由 source 命令引入的脚本文件，对其它引入脚本的方式无效。
+
+下面我们通过一个实例来演示如何避免脚本文件被重复引入。本例会涉及到两个脚本文件，分别是主文件 main.sh 和 模块文件 module.sh。
+
+模块文件 module.sh：
+if [ -n "$__MODULE_SH__" ]; then
+    return
+fi
+__MODULE_SH__='module.sh'
+echo "http://c.biancheng.net/shell/"
+注意第一行代码，一定要是使用双引号把$__MODULE_SH__包围起来，具体原因已经在《Shell test》一节中讲到。
+
+主文件 main.sh：
+#!/bin/bash
+source module.sh
+source module.sh
+echo "here executed"
+./表示当前文件，你也可以直接写作source module.sh。
+
+运行 main.sh，输出结果为：
+http://c.biancheng.net/shell/
+here executed
+
+我们在 main.sh 中两次引入 module.sh，但是只执行了一次，说明第二次引入是无效的。
+
+main.sh 中的最后一条 echo 语句产生了输出结果，说明 return 只是退出了子文件，对父文件没有影响。
