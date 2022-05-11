@@ -2249,5 +2249,26 @@ MD5算法常常被用来验证网络文件传输的完整性，防止文件被�
 `uptime`:查看Linux系统负载信息
 
 
+## echo、printf
+`echo`:用于在shell中打印shell变量的值，或者直接输出指定的字符串。
+
+`printf`:格式化并输出结果。
+
+语法：`printf [-v var] format [arguments]`
+
+选项
+-v var：将结果输出到变量var中而不是输出到标准输出。
+参数
+format：输出格式。
+
+arguments：一到多个参数。
+
+转义序列：除了支持printf(1)和printf(3)的转义序列，内建printf还支持以下转义序列：
+
+%b       展开参数中的反斜杠转义字符。
+%q       将参数扩起以用作shell输入。
+%(fmt)T  根据strftime(3)中的转义字符来输出日期时间字符串。
+返回值
+返回状态为成功除非给出了非法选项、写错误、赋值错误。
 ## chgrp、chmod、chown
 
