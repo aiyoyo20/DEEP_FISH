@@ -2270,5 +2270,51 @@ arguments：一到多个参数。
 %(fmt)T  根据strftime(3)中的转义字符来输出日期时间字符串。
 返回值
 返回状态为成功除非给出了非法选项、写错误、赋值错误。
+
+## read
+`read`:从键盘读取变量的值，通常用在shell脚本中与用户进行交互的场合。该命令可以一次读取多个变量的值，变量和输入的值都需要使用空格隔开。在read命令后面，如果没有指定变量名，读取的数据将被自动赋值给特定的变量REPLY
+
+-p：指定读取值时的提示符；
+-t：指定读取值时等待的时间（秒）。
+
+```
+read first last
+从标准输入读取输入到第一个空格或者回车，将输入的第一个单词放到变量first中，并将该行其他的输入放在变量last中。
+
+read first last
+从标准输入读取输入到第一个空格或者回车，将输入的第一个单词放到变量first中，并将该行其他的输入放在变量last中。
+
+read
+从标准输入读取一行并赋值给特定变量REPLY。
+
+read -a arrayname
+把单词清单读入arrayname的数组里。
+
+read -p "text"
+打印提示（text），等待输入，并将输入存储在REPLY中。
+
+read -r line
+允许输入包含反斜杠。
+```
+
+```
+补充一个终端输入密码时候，不让密码显示出来的例子。
+
+方法1：
+
+#!/bin/bash
+read -p "输入密码：" -s pwd
+echo
+echo password read, is "$pwd"
+方法2：
+
+#!/bin/bash
+stty -echo
+read -p "输入密码：" pwd
+stty echo
+echo
+echo 输入完毕。
+其中，选项-echo禁止将输出发送到终端，而选项echo则允许发送输出。
+```
 ## chgrp、chmod、chown
 
