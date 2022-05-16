@@ -1233,6 +1233,16 @@ cat readme.txt >> out.txt
 ## 进程替换
 http://c.biancheng.net/view/3025.html
 
+## 子Shell和子进程
+[](https://www.csdn.net/tags/MtzaEgzsNjc4ODctYmxvZwO0O0OO0O0O.html)
+
+[](http://c.biancheng.net/view/3015.html)
+对于 Shell 来说，以新进程的方式运行脚本文件，比如bash ./test.sh、chmod +x ./test.sh; ./test.sh，或者在当前 Shell 中使用 bash 命令启动新的 Shell，它们都属于第二种创建子进程的方式，所以子进程除了能继承父进程的环境变量外，基本上也不能使用父进程的什么东西了，比如，父进程的全局变量、局部变量、文件描述符、别名等在子进程中都无效。
+
+但是，组命令、命令替换、管道这几种语法都使用第一种方式创建进程，所以子进程可以使用父进程的一切，包括全局变量、局部变量、别名等。我们将这种子进程称为子 Shell（sub shell）。
+
+子 Shell 虽然能使用父 Shell 的的一切，但是如果子 Shell 对数据做了修改，比如修改了全局变量，那么这种修改只能停留在子 Shell，无法传递给父 Shell。不管是子进程还是子 Shell，都是“传子不传父”。
+
 ## 管道
 Shell 还有一种功能，就是可以将两个或者多个命令（程序或者进程）连接到一起，把一个命令的输出作为下一个命令的输入，以这种方式连接的两个或者多个命令就形成了管道（pipe）。
 
@@ -1302,24 +1312,29 @@ return 只能退出由 source 命令引入的脚本文件，对其它引入脚�
 下面我们通过一个实例来演示如何避免脚本文件被重复引入。本例会涉及到两个脚本文件，分别是主文件 main.sh 和 模块文件 module.sh。
 
 模块文件 module.sh：
+```
 if [ -n "$__MODULE_SH__" ]; then
     return
 fi
 __MODULE_SH__='module.sh'
 echo "http://c.biancheng.net/shell/"
+```
 注意第一行代码，一定要是使用双引号把$__MODULE_SH__包围起来，具体原因已经在《Shell test》一节中讲到。
 
 主文件 main.sh：
+```
 #!/bin/bash
 source module.sh
 source module.sh
 echo "here executed"
+```
 ./表示当前文件，你也可以直接写作source module.sh。
 
 运行 main.sh，输出结果为：
+```
 http://c.biancheng.net/shell/
 here executed
-
+```
 我们在 main.sh 中两次引入 module.sh，但是只执行了一次，说明第二次引入是无效的。
 
 main.sh 中的最后一条 echo 语句产生了输出结果，说明 return 只是退出了子文件，对父文件没有影响。

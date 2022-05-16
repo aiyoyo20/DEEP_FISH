@@ -223,7 +223,7 @@ def after_request(response):
 在 flask 中，路由是通过装饰器给每个视 vcb图函数提供的，而且根据请求方式的不同可以一个 url 用于不同的作用。
 
 #### 14. 跨站请求伪造和跨站请求保护的实现？
-> ![](https://img.alicdn.com/imgextra/i3/296192965/O1CN01LKxyUG1Xm0yEFEkhU_!!296192965.png "null")
+> (https://img.alicdn.com/imgextra/i3/296192965/O1CN01LKxyUG1Xm0yEFEkhU_!!296192965.png "null")
 
 图中 Browse 是浏览器，WebServerA 是受信任网站 / 被攻击网站 A，WebServerB 是恶意网站 / 点击网站 B。
 （1） 一开始用户打开浏览器，访问受信任网站 A，输入用户名和密码登陆请求登陆网站 A。
@@ -279,7 +279,7 @@ python manage.py startapp 应用 app 名
 V：View，视图，负责产生 Html 页面  
 C：Controller，控制器，接收请求，进行处理，与 M 和 V 进行交互，返回应答。
 
-> ![](https://img.alicdn.com/imgextra/i3/296192965/O1CN01F6qPRL1Xm0yBz09zW_!!296192965.png "null")
+> (https://img.alicdn.com/imgextra/i3/296192965/O1CN01F6qPRL1Xm0yBz09zW_!!296192965.png "null")
 
 > 1、用户点击注按钮，将要注册的信息发送给网站服务器。  
 2、Controller 控制器接收到用户的注册信息，Controller 会告诉 Model 层将用户的注册信息保存到数据库  
@@ -293,7 +293,7 @@ C：Controller，控制器，接收请求，进行处理，与 M 和 V 进行交
 M：Model，模型，和 MVC 中的 M 功能相同，和数据库进行交互。  
 V：view，视图，和 MVC 中的 C 功能相同，接收请求，进行处理，与 M 和 T 进行交互，返回应答。  
 T：Template，模板，和 MVC 中的 V 功能相同，产生 Html 页面  
-![](https://img.alicdn.com/imgextra/i4/296192965/O1CN01Tt6wBa1Xm0yDyZc9u_!!296192965.png "null")
+(https://img.alicdn.com/imgextra/i4/296192965/O1CN01Tt6wBa1Xm0yDyZc9u_!!296192965.png "null")
 
 > 1、用户点击注册按钮，将要注册的内容发送给网站的服务器。  
 2、View 视图，接收到用户发来的注册数据，View 告诉 Model 将用户的注册信息保存进数据库。  
@@ -462,7 +462,7 @@ uWSGI 是实现了 uwsgi 和 WSGI 两种协议的 Web 服务器。
 > 首先浏览器发起 http 请求到 nginx 服务器，Nginx 根据接收到请求包，进行 url 分析，判断访问的资源类型，如果是静态资源，直接读取静态资源返回给浏览器，如果请求的是动态资源就转交给 uwsgi 服务器，uwsgi 服务器根据自身的 uwsgi 和 WSGI 协议，找到对应的 Django 框架，Django 框架下的应用进行逻辑处理后，将返回值发送到 uwsgi 服务器，然后 uwsgi 服务器再返回给 nginx，最后 nginx 将返回值返回给浏览器进行渲染显示给用户。  
 
 如果可以，画图讲解效果更佳，可以将下面的图画给面试官。  
-![](https://img.alicdn.com/imgextra/i3/296192965/O1CN019iRedm1Xm0yBPGvMe_!!296192965.png "null")
+(https://img.alicdn.com/imgextra/i3/296192965/O1CN019iRedm1Xm0yBPGvMe_!!296192965.png "null")
 
 #### 8. django 开发中数据库做过什么优化？
 > 1. 设计表时，尽量少使用外键，因为外键约束会影响插入和删除性能；  
@@ -607,7 +607,7 @@ DELETE http://www.example.com/goods  # 返回一个空文档
 十、其他：  服务器返回的数据格式，应该尽量使用 JSON，避免使用 XML。
 
 #### 13. 什么 csrf 攻击原理？如何解决？
-> ![](https://img.alicdn.com/imgextra/i1/296192965/O1CN01x5vuEX1Xm0yFqvPuh_!!296192965.png "null")
+> (https://img.alicdn.com/imgextra/i1/296192965/O1CN01x5vuEX1Xm0yFqvPuh_!!296192965.png "null")
 
 > 简单来说就是：你访问了信任网站 A，然后 A 会用保存你的个人信息并返回给你的浏览器一个cookie，然后呢，在 cookie 的过期时间之内，你去访问了恶意网站 B，它给你返回一些恶意请求代码，要求你去访问网站 A，而你的浏览器在收到这个恶意请求之后，在你不知情的情况下，会带上保存在本地浏览器的 cookie 信息去访问网站 A，然后网站 A 误以为是用户本身的操作，导致来自恶意网站 C 的攻击代码会被执：发邮件，发消息，修改你的密码，购物，转账，偷窥你的个人信息，导致私人信息泄漏和账  户财产安全收到威胁
 
@@ -771,7 +771,7 @@ Web browsable API 对开发者有极大的好处
 将多个耗时的任务添加到队列 queue 中，也就是用 redis 实现 broker 中间人，然后用多个 worker 去监听队列  
 里的任务去执行。
 
-> ![](https://img.alicdn.com/imgextra/i4/296192965/O1CN01GdfgAg1Xm0yBQJZZX_!!296192965.png "null")
+> (https://img.alicdn.com/imgextra/i4/296192965/O1CN01GdfgAg1Xm0yBQJZZX_!!296192965.png "null")
 
 任务 task：就是一个 Python 函数。
 队列 queue：将需要执行的任务加入到队列中。
@@ -839,7 +839,7 @@ Django 自带了一个健壮的缓存系统来保存动态页面这样避免对�
 5.  处理 Response  
     Django 返回 Response 给 flup，flup 就取出 Response 的内容返回给 Web 服务器，由后者返回给浏览器。总之，Django 在 fastcgi 中主要做了两件事：处理 Request 和创建 Response，而它们对应的核心就是 “urls 分析”、“模板技术” 和 “ORM 技术”。
 
-> ![](https://img.alicdn.com/imgextra/i2/296192965/O1CN01M8T4ev1Xm0yC0qYUi_!!296192965.png "null")
+> (https://img.alicdn.com/imgextra/i2/296192965/O1CN01M8T4ev1Xm0yC0qYUi_!!296192965.png "null")
 
 > 如图所示，一个 HTTP 请求，首先被转化成一个 HttpRequest 对象，然后该对象被传递给Request 中间件处理，如果该中间件返回了 Response，则直接传递给 Response 中间件做收尾处理。否则的话 Request 中间件将访问 URL 配置，确定哪个 view 来处理，在确定了哪个 view 要执行，但是还没有执行该 view 的时候，系统会把 request 传递给 view 中间件处理器进行处理，如果该中间件返回了 Response，那么该 Response 直接被传递给 Response 中间件进行后续处理，否则将执行确定的 view 函数处理并返回 Response，在这个过程中如果引发了异常并抛出，会被 Exception 中间件处理器进行处理。
 

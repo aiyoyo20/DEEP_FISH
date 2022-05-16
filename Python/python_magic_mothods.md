@@ -719,4 +719,4 @@ __coerce__ 被取消了，因为和其他魔法方法有功能上的重复，以
 __cmp__ 被取消了，因为和其他魔法方法有功能上的重复。
 __nonzero__ 被重命名成 __bool__ 。
 
-![](https://pyzh.readthedocs.io/en/latest/python-magic-methods-guide.html#id12)
+[](https://pyzh.readthedocs.io/en/latest/python-magic-methods-guide.html#id12)

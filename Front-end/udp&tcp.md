@@ -9,7 +9,7 @@ TCP/IP模型是互联网的基础，它是一系列网络协议的总称。这�
 网络层：负责路由以及把分组报文发送给目标网络或主机。
 传输层：负责对报文进行分组和重组，并以TCP或UDP协议格式封装报文。
 应用层：负责向用户提供应用程序，比如HTTP、FTP、Telnet、DNS、SMTP等。
-![tcp/ip模型](tcp&ip模型.png)
+![tcp/ip模型](images/tcp&ip模型.png)
 
 在网络体系结构中网络通信的建立必须是在通信双方的对等层进行，不能交错。 在整个数据传输过程中，数据在发送端时经过各层时都要附加上相应层的协议头和协议尾（仅数据链路层需要封装协议尾）部分，也就是要对数据进行协议封装，以标识对应层所用的通信协议。接下去介绍TCP/IP 中有两个具有代表性的传输层协议----TCP 和 UDP。
 
@@ -139,7 +139,7 @@ TCP向上层提供面向连接的可靠服务 ，UDP向上层提供无连接不�
 对数据准确性要求高，速度可以相对较慢的，可以选用TCP
 
 [一文搞懂TCP与UDP的区别](https://www.cnblogs.com/fundebug/p/differences-of-tcp-and-udp.html)
-![Python自动化测试面试题-接口篇](https://www.cnblogs.com/superhin/p/12616452.html)
+[Python自动化测试面试题-接口篇](https://www.cnblogs.com/superhin/p/12616452.html)
 
 
 
