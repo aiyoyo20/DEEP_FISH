@@ -1,4 +1,4 @@
-## grep、egrep、fgrep
+## grep
 grep （global search regular expression(RE) and print out the line,全面搜索正则表达式并把行打印出来）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。Unix的grep家族包括grep、egrep和fgrep。egrep和fgrep的命令只跟grep有很小不同。egrep是grep的扩展，支持更多的re元字符， fgrep就是fixed grep或fast grep，它们把所有的字母都看作单词，也就是说，正则表达式中的元字符表示回其自身的字面意义，不再特殊。Linux使用GNU版本的grep。它功能更强，可以通过-G、-E、-F命令行选项来使用egrep和fgrep的功能。
 
 grep的工作方式是这样的，它在一个或多个文件中搜索字符串模板。如果模板包括空格，则必须被引用，模板后的所有字符串被看作文件名。搜索的结果被送到屏幕，不影响原文件内容。
@@ -70,13 +70,13 @@ grep可用于shell脚本，因为grep通过返回一个状态值来说明搜索�
 |-U, --binary 				|使用标志高亮匹配字串；|
 |-u, --unix-byte-offsets 	|当CR 字符不存在，报告字节偏移(MSDOS 模式)|
 
->‘egrep’ is the same as ‘grep -E’.  ‘fgrep’ is the same as ‘grep -F’.
-Direct invocation as either ‘egrep’ or ‘fgrep’ is deprecated, but is
-   Traditional ‘egrep’ did not support interval expressions and some
+## egrep、fgrep
+>‘egrep’ is the same as ‘grep -E’.  
+‘fgrep’ is the same as ‘grep -F’.Direct invocation as either ‘egrep’ or ‘fgrep’ is deprecated, but is Traditional ‘egrep’ did not support interval expressions and some
 ‘egrep’ implementations use ‘\{’ and ‘\}’ instead, so portable scripts
 
 
-## head、tail
+## head
 `head` 命令可用于查看文件的开头部分的内容，有一个常用的参数 -n 用于显示行数，默认为 10，即显示 10 行的内容。
 
 命令格式：`head [参数] [文件]`
@@ -88,6 +88,7 @@ Direct invocation as either ‘egrep’ or ‘fgrep’ is deprecated, but is
 |-c<数目>| 显示的字节数。|
 |-n<行数>| 显示的行数。|
 
+## tail
 `tail` 命令和`head`类似，但用于查看文件的末尾部分的内容
 
 命令格式`tail [参数] [文件] `
@@ -103,7 +104,7 @@ Direct invocation as either ‘egrep’ or ‘fgrep’ is deprecated, but is
 |-q, --quiet, --silent| 从不输出给出文件名的首部|
 |-s, --sleep-interval=S| 与-f合用,表示在每次反复的间隔休眠S秒|
 
-## cat、tac、rev
+## cat
 cat（英文全拼：concatenate）命令用于连接文件并打印到标准输出设备上,可输出多个文件
 
 语法格式
@@ -121,6 +122,7 @@ cat [-AbeEnstTuv] [--help] [--version] fileName1 fileName2
 |-A, --show-all			|等价于 -vET。|
 |-e						|等价于"-vE"选项；|
 
+## tac
 `tac`按行为单位反向显示文件内容，如果没有文件或文件为-则读取标准输入。
 处理多个文件时，依次将每个文件反向显示，而不是将所有文件连在一起再反向显示。
 
@@ -132,9 +134,11 @@ cat [-AbeEnstTuv] [--help] [--version] fileName1 fileName2
 |--help                 |  显示帮助信息并退出。|
 |--version              |  显示版本信息并退出。|
 
+
+## rev
 `rev`:命令 将文件中的每行内容以字符为单位反序输出，即第一个字符最后输出，最后一个字符最先输出，依次类推。
 
-## less、more
+## less
 less 可以随意浏览文件，支持翻页和搜索，支持向上翻页和向下翻页。
 
 |参数| 意义|
@@ -179,6 +183,8 @@ less 可以随意浏览文件，支持翻页和搜索，支持向上翻页和向
 
 输入 `：p` 后，切换到log1.log
 
+
+## more
 more 命令类似 cat ，不过会以一页一页的形式显示，更方便使用者逐页阅读
 
 语法：`more [-dlfpcsu] [-num] [+/pattern] [+linenum] [fileNames..]`
@@ -355,7 +361,7 @@ locate 的速度比 find 快，它并不是真的查找，而是查数据库，�
 |-U、 --database-root PATH|仅存储扫描以生成的数据库路径为根的文件系统子树的结果。默认情况下，会扫描整个文件系统。|
 |-o、 --output FILE|将数据库写入文件，而不是使用默认数据库。|
 
-## touch、mkdir
+## touch
 `touch`命令用于修改文件或者目录的时间属性，包括存取时间和更改时间。若文件不存在，系统会建立一个新的文件。
 
 |参数|意义|
@@ -372,6 +378,7 @@ locate 的速度比 find 快，它并不是真的查找，而是查数据库，�
 |--version 	|	列出版本讯息。|
 
 
+## mkdir
 `mkdir`:英文全拼,make directory,命令用于创建目录
 
 |参数|意义|
@@ -424,7 +431,7 @@ dirName：要删除的空目录列表。当删除多个空目录时，目录名�
 |--help |显示帮助信息并退出。|
 |--version |显示版本信息并退出。|
 
-## ls、dir、stat
+## ls
 `ls`（英文全拼：list files）命令用于显示指定工作目录下之内容（列出目前工作目录所含之文件及子目录)。
 
 语法:
@@ -589,6 +596,7 @@ none # 不使用颜色，这是缺省项。
        # 不能恰当地生成文件时，这个选项会提供帮助。
 ```
 
+## dir
 `dir`:和`ls` 类似，会显示目录内容列表。
 
 ```
@@ -696,6 +704,7 @@ KB 1000，K 1024，MB 1000*1000，M 1024*1024，还有 G、T、P、E、Z、Y。
 LS_COLORS 环境变量可改变此设置，可使用 dircolors 命令来设置。
 ```
 
+## stat
 `stat`:用于显示文件的状态信息。stat命令的输出信息比ls命令的输出信息要更详细。
 >命令用于显示 inode 内容。
 stat 以文字的格式来显示 inode 的内容。
@@ -719,7 +728,7 @@ inode 包含文件的元信息，具体来说有以下内容：
 链接数，即有多少文件名指向这个 inode
 文件数据 block 的位置
 
-## man 、info
+## man
 `man`用于查看 Linux 中的指令帮助
 
 语法：`man(选项)(参数)`
@@ -757,6 +766,7 @@ man 3 sleep
 
 就内容来说，info页面比man page编写得要更好、更容易理解，也更友好，但man page使用起来确实要更容易得多。一个man page只有一页，而info页面几乎总是将它们的内容组织成多个区段（称为节点），每个区段也可能包含子区段（称为子节点）。理解这个命令的窍门就是不仅要学习如何在单独的Info页面中浏览导航，还要学习如何在节点和子节点之间切换。可能刚开始会一时很难在info页面的节点之间移动和找到你要的东西，真是具有讽刺意味：原本以为对于新手来说，某个东西比man命令会更好些，但实际上学习和使用起来更困难。
 
+## info
 语法：`info(选项)(参数)`
 
 |选项|意义|
@@ -783,7 +793,7 @@ man 3 sleep
 
 参数,文件：要确定类型的文件列表，多个文件之间使用空格分开，可以使用shell通配符匹配多个文件。
 
-## cp、mv
+## cp
 `cp`:（英文全拼：copy file）命令主要用于复制文件或目录。
 
 语法：`cp [options] source dest`
@@ -805,6 +815,7 @@ man 3 sleep
 注意：用户使用该指令复制目录时，必须使用参数 -r 或者 -R 。
 
 
+## mv
 `mv`：（英文全拼：move file）命令用来为文件或目录改名、或将文件或目录移入其它位置。
 
 语法：`mv [options] source dest`
@@ -832,7 +843,7 @@ man 3 sleep
 
 参数：-a 　删除全部的别名。
 
-## sort 、uniq、wc
+## sort
 `sort`： 命令用于将文本文件内容加以排序。
 
 语法：
@@ -960,6 +971,7 @@ guge 50 3000
 
 ```
 
+## uniq
 `uniq`：显示或忽略重复的行。
 
 语法：`uniq [OPTION]... [INPUT [OUTPUT]]`
@@ -997,6 +1009,7 @@ uniq -s 4 -c uniqtest    #检查的时候，不考虑前4个字符，这样whom 
 uniq -w 2 -c uniqtest  #对每行第2个字符以后的内容不作检查，所以i am tank 根 i love tank就一样了。
 ```
 
+## wc
 `wc`：统计文件的字节数、字数（英文单词数）、行数。
 
 统计指定文件中的字节数、字数、行数，并将统计结果显示输出。利用wc指令我们可以计算文件的Byte数、字数或是列数，若不指定文件名称，或是所给予的文件名为“-”，则wc指令会从标准输入设备读取数据。wc同时也给出所指定文件的总统计数。
@@ -1257,7 +1270,7 @@ name:进程名称。
 `pkill`:用于杀死一个进程，与 kill 不同的是它会杀死指定名字的所有进程，类似于 killall 命令。kill 命令杀死指定进程 PID，需要配合 ps 使用，而 pkill 直接对进程对名字进行操作，更加方便。
 
 
-## jobs、fg、bg
+## jobs
 `jobs`:显示作业的状态。
 
 主要用途:显示作业的状态。列出活动的作业。列出停止的作业。
@@ -1284,8 +1297,10 @@ name:进程名称。
 [2]  - 100665 running    sleep 120
 ```
 
+## bg
 `bg`：将前台终端作业移动到后台运行,后跟指定要移动到后台执行的作业标识符，可以是一到多个。若后台任务中只有一个，则使用该命令时可以省略任务号。
 
+## fg
 `fg`：将后台作业移动到前台终端运行，后跟指定要移动到后台执行的作业标识符，可以是一到多个。若后台任务中只有一个，则使用该命令时可以省略任务号。
 
 
@@ -1312,11 +1327,12 @@ name:进程名称。
 
 ```
 
-## cd 、tree
+## cd
 `cd`:（英文全拼：change directory）命令用于切换当前工作目录。其中 dirName 表示法可为绝对路径或相对路径。若目录名称省略，则变换至使用者的 home 目录 (也就是刚 login 时所在的目录)。另外，~ 也表示为 home 目录 的意思， . 则是表示目前所在的目录， .. 则表示目前目录位置的上一层目录。
 
 语法:`cd [dirName] `,dirName：要切换的目标目录。
 
+## tree
 `tree`:命令用于以树状图列出目录的内容。执行tree指令，它会列出指定目录下的所有文件，包括子目录里的文件。
 
 语法：`tree [-aACdDfFgilnNpqstux][-I <范本样式>][-P <范本样式>][目录...]`
@@ -1380,7 +1396,7 @@ name:进程名称。
 |--            | Options processing terminator.|
 
 
-## du 、df
+## du
 `du`:（英文全拼：disk usage）命令用于显示目录或文件的大小。du 会显示指定的目录或文件所占用的磁盘空间。
 
 语法:`du [-abcDhHklmsSx][-L <符号连接>][-X <文件>][--block-size][--exclude=<目录或文件>][--max-depth=<目录层数>][--help][--version][目录或文件]`
@@ -1416,6 +1432,7 @@ name:进程名称。
 
 ```
 
+## df
 `df`:（英文全拼：disk free） 命令用于显示目前在 Linux 系统上的文件系统磁盘使用情况统计.默认显示单位为KB。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。
 
 语法:`df [选项]... [FILE]...`
@@ -1440,7 +1457,7 @@ name:进程名称。
 
 ```
 
-## diff 、diff3、cmp、comm
+## diff 、diff3
 `diff`:命令用于比较文件的差异。diff 以逐行的方式，比较文本文件的异同处。如果指定要比较目录，则 diff 会比较目录中相同文件名的文件，但不会比较其中子目录。
 
 语法：`diff [-abBcdefHilnNpPqrstTuvwy][-<行数>][-C <行数>][-D <巨集名称>][-I <字符或字符串>][-S <文件>][-W <宽度>][-x <文件或目录>][-X <文件>][--help][--left-column][--suppress-common-line][文件或目录1][文件或目录2]`
@@ -1494,6 +1511,7 @@ name:进程名称。
 |-i|为了和system V系统兼容，在“ed”脚本的最后生成“w”和“q”命令。此选项必须和选项“-AeExX3”连用，但是不能和“-m”连用；|
 |--initial-tab|在正常格式的行的文本前，输出一个TAB字符而非两个空白字符。此选项将导致在行中TAB字符的对齐方式看上去规范。|
 
+## cmp
 `cmp`：Linux cmp命令用于比较两个文件是否有差异。
 
 当相互比较的两个文件完全一样时，则该指令不会显示任何信息。若发现有所差异，预设会标示出第一个不同之处的字符和列数编号。若不指定任何文件名称或是所给予的文件名为"-"，则cmp指令会从标准输入设备读取数据。
@@ -1507,6 +1525,7 @@ name:进程名称。
 --help：在线帮助。
 
 
+## comm
 `comm`:Linux comm 命令用于比较两个已排过序的文件。
 
 这项指令会一列列地比较两个已排序文件的差异，并将其结果显示出来，如果没有指定任何参数，则会把结果分成 3 列显示：第 1 列仅是在第 1 个文件中出现过的列，第 2 列是仅在第 2 个文件中出现过的列，第 3 列则是在第 1 与第 2 个文件里都出现过的列。若给予的文件名称为 - ，则 comm 指令会从标准输入设备读取数据。
@@ -1614,7 +1633,7 @@ export -p
 --：在它之后的选项无效
 ```
 
-## free、clear
+## free
 `free`:可以显示当前系统未使用的和已使用的内存数目，还可以显示被内核使用的内存缓冲区。
 
 |选项|说明|
@@ -1628,6 +1647,7 @@ export -p
 |-t | 显示内存总和列；|
 |-V | 显示版本信息。|
 
+## clear
 `clear`:清除当前屏幕终端上的任何信息
 
 ## halt 、poweroff、shutdown、reboot、init
@@ -1711,7 +1731,7 @@ export -p
 而在现在的系统中，一些其他的命令（如 reboot）也会正确地中止进程及服务，但我们仍建议使用 shutdown 命令来进行关机和重启。
 在现在的系统中，reboot 命令也是安全的，而且不需要加入过多的选项。
 
-## tr、col、join、cut
+## tr
 `tr`:命令 可以对来自标准输入的字符进行替换、压缩和删除。它可以将一组字符变成另一组字符，经常用来编写优美的单行命令，作用很强大。
 
 |选项|说明|
@@ -1747,6 +1767,7 @@ tr可以使用的字符类：
 ```
 使用方式：tr '[:lower:]' '[:upper:]'
 
+## col
 `col`:命令 是一个标准输入文本过滤器，它从标注输入设备读取文本内容，并把内容显示到标注输出设备。在许多UNIX说明文件里，都有RLF控制字符。当我们运用shell特殊字符>和>>，把说明文件的内容输出成纯文本文件时，控制字符会变成乱码，col命令则能有效滤除这些控制字符。
 
 RLF 字符(reverse line feed)是反向换行符，HRLF字符（half-reverse line feed）是半反向换行符。
@@ -1769,6 +1790,7 @@ echo -e "123    456" | col -h  # 将空格替换为 Tab，一般 4 个 空格转
 man col | col -b > newFile  # 将帮助文档内的控制符删除。以 col 命令的 manual 为例。
 ```
 
+## join
 `join`:用来将两个文件中，制定栏位内容相同的行连接起来。找出两个文件中，指定栏位内容相同的行，并加以合并，再输出到标准输出设备。
 
 语法：`join(选项)(参数)`
@@ -1812,6 +1834,7 @@ join: input is not in sorted order
 join -1 2 -2 3 file1.txt file2.txt  #  以第一个文件的第二列和第二个文件的第三列做匹配字
 ```
 
+## cut
 `cut`:用来显示行中的指定部分，删除文件中指定字段。cut 经常用来显示文件的内容，类似于 type 命令。
 
 语法：`cut（选项）（参数）`
@@ -1846,9 +1869,10 @@ dd
 如果文件的分隔符为tab则可以省略-d
 ```
 
-## exit 、type
+## exit 
 `exit`:执行exit可使shell以指定的状态值退出。若不设置参数，则以最后一条命令的返回值作为exit的返回值退出。
 
+## type
 `type`:显示指定命令的类型。
 
 语法：`type [-afptP] name [name ...]`
@@ -1966,7 +1990,7 @@ dirname go  # .
 |set-deployment NAME    |设置主机的部署环境|
 |set-location NAME      |设置主机位置|
 
-## lsattr 、chattr
+## lsattr
 `lsattr`:命令 用于查看文件的第二扩展文件系统属性。
 
 语法：`lsattr(选项)(参数)`
@@ -1983,6 +2007,7 @@ lsattr经常使用的几个选项-D，-E，-R这三个选项不可以一起使�
 
 参数:文件：指定显示文件系统属性的文件名。
 
+## chattr
 `chattr`:命令 用来改变文件属性。这项指令可改变存放在ext2文件系统上的文件或目录属性，这些属性共有以下8种模式：
 
 语法:`chattr(选项)`
@@ -2167,7 +2192,7 @@ Commands:
 |--utc|若要使用格林威治时间，请加入此参数，hwclock会执行转换的工作；|
 |--version|显示版本信息。|
 
-## split、csplit
+## split
 `split`：可以将一个大文件按大小分割成很多个小文件，有时需要将文件分割成更小的片段，比如为提高可读性，生成日志等。
 
 |选项|说明|
@@ -2178,6 +2203,7 @@ Commands:
 |-l|值为每一输出档的行数大小。|
 |-a|指定后缀长度(默认为2)。|
 
+## csplit
 `csplit`:命令 用于将一个大文件以模式分割成小的碎片（例如时间段），并且将分割后的每个碎片保存成一个文件。碎片文件的命名类似“xx00”，“xx01”。csplit命令是split的一个变体，split只能够根据文件大小或行数来分割，但csplit能够根据文件本身特点来分割文件。
 
 语法:`csplit(选项)(参数)`
@@ -2316,5 +2342,17 @@ echo
 echo 输入完毕。
 其中，选项-echo禁止将输出发送到终端，而选项echo则允许发送输出。
 ```
+
+## let
+let 命令是 BASH 中用于计算的工具，用于执行一个或多个表达式，变量计算中不需要加上 $ 来表示变量。如果表达式中包含了空格或其他特殊字符，则必须引起来。
+
+let 命令和双小括号 (( )) 的用法是类似的，它们都是用来对整数进行运算，
+
+## expr
+
+## mount、umount
+
+
+
 ## chgrp、chmod、chown
 
