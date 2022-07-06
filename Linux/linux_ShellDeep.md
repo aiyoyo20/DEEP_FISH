@@ -1,22 +1,25 @@
 ## shebang 符号
-`#!`:即为shebang符号
->在Shebang之后，可以有一个或数个空白字符，后接解释器的绝对路径，用于指明执行这个脚本文件的解释器。在直接调用脚本时，系统的程序载入器会分析 Shebang 后的内容，将这些内容作为解释器指令，并调用该指令，将载有 Shebang 的文件路径作为该解释器的参数，执行脚本，从而使得脚本文件的调用方式与普通的可执行文件类似。例如，以指令#!/bin/sh开头的文件，在执行时会实际调用 /bin/sh 程序（通常是 Bourne shell 或兼容的 shell，例如 bash、dash 等）来执行。
+
+`#!`:即为 shebang 符号
+
+> 在 Shebang 之后，可以有一个或数个空白字符，后接解释器的绝对路径，用于指明执行这个脚本文件的解释器。在直接调用脚本时，系统的程序载入器会分析 Shebang 后的内容，将这些内容作为解释器指令，并调用该指令，将载有 Shebang 的文件路径作为该解释器的参数，执行脚本，从而使得脚本文件的调用方式与普通的可执行文件类似。例如，以指令#!/bin/sh 开头的文件，在执行时会实际调用 /bin/sh 程序（通常是 Bourne shell 或兼容的 shell，例如 bash、dash 等）来执行。
 
 ## shell 提示符
->启动 Linux 桌面环境自带的终端模拟包，或者从 Linux 控制台登录后，便可以看到 Shell 命令提示符。看见命令提示符就意味着可以输入命令了。命令提示符不是命令的一部分，它只是起到一个提示作用。
->`[mozhiyan@localhost ~]$`
-各个部分的含义如下：
-[]是提示符的分隔符号，没有特殊含义。
-mozhiyan表示当前登录的用户，我现在使用的是 mozhiyan 用户登录。
-@是分隔符号，没有特殊含义。
-localhost表示当前系统的简写主机名（完整主机名是 localhost.localdomain）。
-~代表用户当前所在的目录为主目录（home 目录）。如果用户当前位于主目录下的 bin 目录中，那么这里显示的就是bin。
-$是命令提示符。Linux 用这个符号标识登录的用户权限等级：如果是超级用户（root 用户），提示符就是#；如果是普通用户，提示符就是$。
-第二层命令提示符
-有些命令不能在一行内输入完成，需要换行，这个时候就会看到第二层命令提示符。第二层命令提示符默认为>，请看下面的例子：
-[mozhiyan@localhost ~]$ echo "Shell教程"
-Shell教程
-[mozhiyan@localhost ~]$ echo "
+
+> 启动 Linux 桌面环境自带的终端模拟包，或者从 Linux 控制台登录后，便可以看到 Shell 命令提示符。看见命令提示符就意味着可以输入命令了。命令提示符不是命令的一部分，它只是起到一个提示作用。
+> `[mozhiyan@localhost ~]$`
+> 各个部分的含义如下：
+> []是提示符的分隔符号，没有特殊含义。
+> mozhiyan 表示当前登录的用户，我现在使用的是 mozhiyan 用户登录。
+> @是分隔符号，没有特殊含义。
+> localhost 表示当前系统的简写主机名（完整主机名是 localhost.localdomain）。
+> ~代表用户当前所在的目录为主目录（home 目录）。如果用户当前位于主目录下的 bin 目录中，那么这里显示的就是 bin。
+> $是命令提示符。Linux 用这个符号标识登录的用户权限等级：如果是超级用户（root 用户），提示符就是#；如果是普通用户，提示符就是$。
+> 第二层命令提示符
+> 有些命令不能在一行内输入完成，需要换行，这个时候就会看到第二层命令提示符。第二层命令提示符默认为>，请看下面的例子：
+> [mozhiyan@localhost ~]$ echo "Shell 教程"
+> Shell 教程
+> [mozhiyan@localhost ~]$ echo "
 > http://
 > c.biancheng.net
 > "
@@ -28,38 +31,38 @@ c.biancheng.net
 
 echo 命令用来输出一个字符串。字符串是一组由" "包围起来的字符序列，echo 将第一个"作为字符串的开端，将第二个"作为字符串的结尾。对于第二个 echo 命令，我们将字符串分成多行，echo 遇到第一个"认为是不完整的字符串，所以会继续等待用户输入，直到遇见第二个"。
 
-Shell 通过PS1和PS2两个环境变量来控制提示符格式：
+Shell 通过 PS1 和 PS2 两个环境变量来控制提示符格式：
 PS1 控制最外层命令行的提示符格式。
 PS2 控制第二层命令行的提示符格式。
 
 Shell 使用以\为前导的特殊字符来表示命令提示符中包含的要素，这使得 PS1 和 PS2 的格式看起来可能有点奇怪。下表展示了可以在 PS1 和 PS2 中使用的特殊字符。
 Bash shell 提示符可以包含的要素
-|字符|	描述|
-|\a	|铃声字符|
-|\d	|格式为“日 月 年”的日期|
-|\e	|ASCII转义字符|
-|\h	|本地主机名|
-|\H	|完全合格的限定域主机名|
-|\j	|shell当前管理的作业数|
-|\1	|shell终端设备名的基本名称|
-|\n	|ASCII换行字符|
-|\r	|ASCII回车|
-|\s	|shell的名称|
-|\t	|格式为“小时:分钟:秒”的24小时制的当前时间|
-|\T	|格式为“小时:分钟:秒”的12小时制的当前时间|
-|\@	|格式为am/pm的12小时制的当前时间|
-|\u	|当前用户的用户名|
-|\v	|bash shell的版本|
-|\V	|bash shell的发布级别|
-|\w	|当前工作目录|
-|\W	|当前工作目录的基本名称|
-|\!	|该命令的bash shell历史数|
-|\#	|该命令的命令数量|
-|\$	|如果是普通用户，则为美元符号$；如果超级用户（root 用户），则为井号#。|
-|\nnn|	对应于八进制值 nnn 的字符|
-|\\	|斜杠|
-|\[	|控制码序列的开头|
-|\]	|控制码序列的结尾|
+|字符| 描述|
+|\a |铃声字符|
+|\d |格式为“日 月 年”的日期|
+|\e |ASCII 转义字符|
+|\h |本地主机名|
+|\H |完全合格的限定域主机名|
+|\j |shell 当前管理的作业数|
+|\1 |shell 终端设备名的基本名称|
+|\n |ASCII 换行字符|
+|\r |ASCII 回车|
+|\s |shell 的名称|
+|\t |格式为“小时:分钟:秒”的 24 小时制的当前时间|
+|\T |格式为“小时:分钟:秒”的 12 小时制的当前时间|
+|\@ |格式为 am/pm 的 12 小时制的当前时间|
+|\u |当前用户的用户名|
+|\v |bash shell 的版本|
+|\V |bash shell 的发布级别|
+|\w |当前工作目录|
+|\W |当前工作目录的基本名称|
+|\! |该命令的 bash shell 历史数|
+|\# |该命令的命令数量|
+|\$ |如果是普通用户，则为美元符号$；如果超级用户（root 用户），则为井号#。|
+|\nnn| 对应于八进制值 nnn 的字符|
+|\\ |斜杠|
+|\[ |控制码序列的开头|
+|\] |控制码序列的结尾|
 注意，所有的特殊字符均以反斜杠\开头，目的是与普通字符区分开来。您可以在命令提示符中使用以上任何特殊字符的组合。
 
 我们可以通过修改 PS1 变量来修改提示符格式，例如：
@@ -68,18 +71,21 @@ Bash shell 提示符可以包含的要素
 新的 Shell 提示符现在可以显示当前的时间和用户名。不过这个新定义的 PS1 变量只在当前 Shell 会话期间有效，再次启动 Shell 时将重新使用默认的提示符格式。
 
 ## 注释
-shell的单行、多行注释均以 # 开头。
+
+shell 的单行、多行注释均以 # 开头。
 
 ## 变量
+
 shell 在定义变量时通常不需要指明类型，直接赋值就可以
 
 在 Bash shell 中，每一个变量的值都是字符串，无论你给变量赋值时有没有使用引号，值都会以字符串的形式存储。
 
-这意味着，Bash shell 在默认情况下不会区分变量类型，即使你将整数和小数赋值给变量，它们也会被视为字符串，这一点和大部分的编程语言不同。例如在C语言或者 C++ 中，变量分为整数、小数、字符串、布尔等多种类型。
+这意味着，Bash shell 在默认情况下不会区分变量类型，即使你将整数和小数赋值给变量，它们也会被视为字符串，这一点和大部分的编程语言不同。例如在 C 语言或者 C++ 中，变量分为整数、小数、字符串、布尔等多种类型。
 
 当然，如果有必要，你也可以使用 Shell declare 关键字显式定义变量的类型，但在一般情况下没有这个需求，Shell 开发者在编写代码时自行注意值的类型即可。
 
 #### 定义变量
+
 Shell 支持以下三种定义变量的方式：
 variable=value
 variable='value'
@@ -95,22 +101,28 @@ Shell 变量的命名规范和大部分编程语言都一样：
 不能使用 Shell 里的关键字（通过 help 命令可以查看保留关键字）
 
 ### 使用变量
+
 使用一个定义过的变量，只要在变量名前面加美元符号$即可，如：
+
 ```
 author="严长生"
 echo $author
 echo ${author}
 ```
+
 变量名外面的花括号{ }是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：
+
 ```
 skill="Java"
 echo "I am good at ${skill}Script"
 ```
-如果不给 skill 变量加花括号，写成echo "I am good at $skillScript"，解释器就会把 $skillScript 当成一个变量（其值为空），代码执行结果就不是我们期望的样子了。
+
+如果不给 skill 变量加花括号，写成 echo "I am good at $skillScript"，解释器就会把 $skillScript 当成一个变量（其值为空），代码执行结果就不是我们期望的样子了。
 
 推荐给所有变量加上花括号{ }，这是个良好的编程习惯。
 
 ### 单引号和双引号的区别
+
 以单引号' '包围变量的值时，单引号里面是什么就输出什么，即使内容中有变量和命令（命令需要反引起来）也会把它们原样输出。这种方式比较适合定义显示纯字符串的情况，即不希望解析变量、命令等的场景。
 
 以双引号" "包围变量的值时，输出时会先解析里面的变量和命令，而不是把双引号中的变量名和命令原样输出。这种方式比较适合字符串中附带有变量和命令并且想将其解析后再输出的变量定义。
@@ -118,7 +130,9 @@ echo "I am good at ${skill}Script"
 我的建议：如果变量的内容是数字，那么可以不加引号；如果真的需要原样输出就加单引号；其他没有特别要求的字符串等最好都加上双引号，定义变量时加双引号是最常见的使用场景。
 
 ### 将命令的结果赋值给变量
+
 Shell 也支持将命令的执行结果赋值给变量，常见的有以下两种方式：
+
 ```
 variable=`command`
 variable=$(command)
@@ -127,46 +141,54 @@ variable=$(command)
 第一种方式把命令用反引号` `（位于 Esc 键的下方）包围起来，反引号和单引号非常相似，容易产生混淆，所以不推荐使用这种方式；第二种方式把命令用$()包围起来，区分更加明显，所以推荐使用这种方式。
 
 ### 只读变量
+
 使用 readonly 命令可以将变量定义为只读变量，只读变量的值不能被改变。
 
 下面的例子尝试更改只读变量，结果报错：
+
 ```
 #!/bin/bash
 myUrl="http://c.biancheng.net/shell/"
 readonly myUrl
 myUrl="http://c.biancheng.net/shell/"
 ```
+
 运行脚本，结果如下：
 bash: myUrl: This variable is read only.
 
 ### 删除变量
+
 使用 unset 命令可以删除变量。语法：
 `unset variable_name`
 变量被删除后不能再次使用；unset 命令不能删除只读变量。
 
 举个例子：
+
 ```
 #!/bin/sh
 myUrl="http://c.biancheng.net/shell/"
 unset myUrl
 echo $myUrl
 ```
+
 上面的脚本没有任何输出。
 
 ### 特殊变量
-|Shell 特殊变量及其含义|
-|变量	|含义|
-|$0	|当前脚本的文件名。|
-|$n|（n≥1）	传递给脚本或函数的参数。n 是一个数字，表示第几个参数。例如，第一个参数是 $1，第二个参数是 $2。|
-|$#	|传递给脚本或函数的参数个数。|
-|$*	|传递给脚本或函数的所有参数。|
-|$@	|传递给脚本或函数的所有参数。当被双引号" "包含时，$@ 与 $* 稍有不同，我们将在《Shell $*和$@的区别》一节中详细讲解。|
-|$?	|上个命令的退出状态，或函数的返回值，我们将在《Shell $?》一节中详细讲解。|
-|$$	|当前 Shell 进程 ID。对于 Shell 脚本，就是这些脚本所在的进程 ID。|
 
+|Shell 特殊变量及其含义|
+|变量 |含义|
+|$0	|当前脚本的文件名。|
+|$n|（n≥1） 传递给脚本或函数的参数。n 是一个数字，表示第几个参数。例如，第一个参数是 $1，第二个参数是 $2。|
+|$# |传递给脚本或函数的参数个数。|
+|$*	|传递给脚本或函数的所有参数。|
+|$@ |传递给脚本或函数的所有参数。当被双引号" "包含时，$@ 与 $* 稍有不同，我们将在《Shell $*和$@的区别》一节中详细讲解。|
+|$?	|上个命令的退出状态，或函数的返回值，我们将在《Shell $?》一节中详细讲解。|
+|$$ |当前 Shell 进程 ID。对于 Shell 脚本，就是这些脚本所在的进程 ID。|
 
 ### 环境变量
+
 [Linux 环境变量](https://www.cjavapy.com/article/2250/)
+
 ```
 简介：Linux的一个重要概念是环境变量，环境变量需要进行定义。有些是由系统设置的，有些是由用户自定义的，还有一些是由shell或加载执行程序时，由程序设置的。环境变量是一个赋值给它的字符串。分配的值可以是数字、文本、文件名、设备或任何其他类型的数据。
 
@@ -370,12 +392,11 @@ $ set -x test_syntax.sh
 
 ```
 
-
-PATH 环境变量导入的优先级，`echo $PATH` 查看`/home/fiki/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl`，自己安装的python在`/home/fiki/.local/bin`中，所以覆盖掉了系统自身的`python3`，`.bashrc`时最后加载的，所以如果在里面定义的路径的内容会覆盖掉之前的，换言之拥有最高优先级
-
+PATH 环境变量导入的优先级，`echo $PATH` 查看`/home/fiki/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl`，自己安装的 python 在`/home/fiki/.local/bin`中，所以覆盖掉了系统自身的`python3`，`.bashrc`时最后加载的，所以如果在里面定义的路径的内容会覆盖掉之前的，换言之拥有最高优先级
 
 #### Shell $*和$@的区别
-当 $* 和 $@ 不被双引号" "包围时，它们之间没有任何区别，都是将接收到的每个参数看做一份数据，彼此之间以空格来分隔。
+
+当 $\* 和 $@ 不被双引号" "包围时，它们之间没有任何区别，都是将接收到的每个参数看做一份数据，彼此之间以空格来分隔。
 
 但是当它们被双引号" "包含时，就会有区别了：
 "$*"会将所有的参数从整体上看做一份数据，而不是把每个参数都看做一份数据。
@@ -384,9 +405,11 @@ PATH 环境变量导入的优先级，`echo $PATH` 查看`/home/fiki/.local/bin:
 比如传递了 5 个参数，那么对于"$*"来说，这 5 个参数会合并到一起形成一份数据，它们之间是无法分割的；而对于"$@"来说，这 5 个参数是相互独立的，它们是 5 份数据。
 
 ### shell 命令替换
+
 Shell 命令替换是指将命令的输出结果赋值给某个变量。比如，在某个目录中输入 ls 命令可查看当前目录中所有的文件，但如何将输出内容存入某个变量中呢？这就需要使用命令替换了，这也是 Shell 编程中使用非常频繁的功能。
 
 Shell 中有两种方式可以完成命令替换，一种是反引号` `，一种是$()，使用方法如下：
+
 ```
 variable=`commands`
 variable=$(commands)
@@ -395,6 +418,7 @@ variable=$(commands)
 其中，variable 是变量名，commands 是要执行的命令。commands 可以只有一个命令，也可以有多个命令，多个命令之间以分号;分隔。
 
 原则上讲，上面提到的两种变量替换的形式是等价的，可以随意使用；但是，反引号毕竟看起来像单引号，有时候会对查看代码造成困扰，而使用 $() 就相对清晰，能有效避免这种混乱。而且有些情况必须使用 $()：$() 支持嵌套，反引号不行。
+
 ```
 Fir_File_Lines=$(wc -l $(ls | sed -n '1p'))
 echo "$Fir_File_Lines"
@@ -402,51 +426,54 @@ echo "$Fir_File_Lines"
 
 要注意的是，$() 仅在 Bash Shell 中有效，而反引号可在多种 Shell 中使用。
 
-### declare和typeset命令：设置变量属性
+### declare 和 typeset 命令：设置变量属性
+
 declare 命令的用法如下所示：
 declare [+/-] [aAfFgilprtux] [变量名=变量值]
 
-其中，-表示设置属性，+表示取消属性，aAfFgilprtux都是具体的选项，它们的含义如下表所示：
+其中，-表示设置属性，+表示取消属性，aAfFgilprtux 都是具体的选项，它们的含义如下表所示：
 
-选项	含义
--f [name]	列出之前由用户在脚本中定义的函数名称和函数体。
--F [name]	仅列出自定义函数名称。
--g name	在 Shell 函数内部创建全局变量。
--p [name]	显示指定变量的属性和值。
--a name	声明变量为普通数组。
--A name	声明变量为关联数组（支持索引下标为字符串）。
--i name 	将变量定义为整数型。
--r name[=value] 	将变量定义为只读（不可修改和删除），等价于 readonly name。
--x name[=value]	将变量设置为环境变量，等价于 export name[=value]。
+选项 含义
+-f [name] 列出之前由用户在脚本中定义的函数名称和函数体。
+-F [name] 仅列出自定义函数名称。
+-g name 在 Shell 函数内部创建全局变量。
+-p [name] 显示指定变量的属性和值。
+-a name 声明变量为普通数组。
+-A name 声明变量为关联数组（支持索引下标为字符串）。
+-i name 将变量定义为整数型。
+-r name[=value] 将变量定义为只读（不可修改和删除），等价于 readonly name。
+-x name[=value] 将变量设置为环境变量，等价于 export name[=value]。
 
 ### 变量高级
-指定方式	说明
-${parameter-default}	如果变量 parameter 没被声明，那么就使用默认值。
-${parameter:-default}	如果变量 parameter 没被设置，那么就使用默认值。
-${parameter=default}	如果变量parameter没声明，那么就把它的值设为default。
-${parameter:=default}	如果变量parameter没设置，那么就把它的值设为default。
-${parameter+alt_value}	如果变量parameter被声明了，那么就使用alt_value，否则就使用null字符串。
-${parameter:+alt_value}	如果变量parameter被设置了，那么就使用alt_value，否则就使用null字符串。
-${parameter?err_msg}	如果parameter已经被声明，那么就使用设置的值，否则打印err_msg错误消息。
-${parameter:?err_msg}	如果parameter已经被设置，那么就使用设置的值，否则打印err_msg错误消息。
 
-${var#Pattern}, ${var##Pattern} 从变量$var的开头删除最短或最长匹配$Pattern的子串。
+指定方式 说明
+${parameter-default}	如果变量 parameter 没被声明，那么就使用默认值。
+${parameter:-default} 如果变量 parameter 没被设置，那么就使用默认值。
+${parameter=default}	如果变量parameter没声明，那么就把它的值设为default。
+${parameter:=default} 如果变量 parameter 没设置，那么就把它的值设为 default。
+${parameter+alt_value}	如果变量parameter被声明了，那么就使用alt_value，否则就使用null字符串。
+${parameter:+alt_value} 如果变量 parameter 被设置了，那么就使用 alt_value，否则就使用 null 字符串。
+${parameter?err_msg}	如果parameter已经被声明，那么就使用设置的值，否则打印err_msg错误消息。
+${parameter:?err_msg} 如果 parameter 已经被设置，那么就使用设置的值，否则打印 err_msg 错误消息。
+
+${var#Pattern}, ${var##Pattern} 从变量$var 的开头删除最短或最长匹配$Pattern 的子串。
 “#”表示匹配最短，“##”表示匹配最长。
 
-${var%Pattern}, ${var%%Pattern} 从变量$var的结尾删除最短或最长匹配$Pattern的子串。
+${var%Pattern}, ${var%%Pattern} 从变量$var 的结尾删除最短或最长匹配$Pattern 的子串。
 “%”表示匹配最短，“%%”表示匹配最长。
 
 ${var:pos} 变量var从位置pos开始扩展， 也就是pos之前的字符都丢弃。
-${var:pos:len} 变量var从位置pos开始，并扩展len个字符。
+${var:pos:len} 变量 var 从位置 pos 开始，并扩展 len 个字符。
 ${var/Pattern/Replacement} 使用Replacement来替换变量var中第一个匹配Pattern的字符串。
-${var//Pattern/Replacement} 全局替换。所有在变量var匹配Pattern的字符串，都会被替换为Replacement。
+${var//Pattern/Replacement} 全局替换。所有在变量 var 匹配 Pattern 的字符串，都会被替换为 Replacement。
 ${var/#Pattern/Replacement} 如果变量var的前缀匹配Pattern，那么就使用Replacement来替换匹配到Pattern的字符串。
-${var/%Pattern/Replacement} 如果变量var的后缀匹配Pattern，那么就使用Replacement来替换匹配到Pattern的字符串。
+${var/%Pattern/Replacement} 如果变量 var 的后缀匹配 Pattern，那么就使用 Replacement 来替换匹配到 Pattern 的字符串。
 
 ### 变量的间接引用
-假设一个变量的值是第二个变量的名字。如果a=letter_of_alphabet并且letter_of_alphabet=z，
 
-它被称为间接引用。我们能够通过引用变量a来获得z，它使用eval var1=\$$var2这种不平常的形式。
+假设一个变量的值是第二个变量的名字。如果 a=letter_of_alphabet 并且 letter_of_alphabet=z，
+
+它被称为间接引用。我们能够通过引用变量 a 来获得 z，它使用 eval var1=\$$var2 这种不平常的形式。
 
 ```
 t=table_cell_3
@@ -462,10 +489,108 @@ echo '------------'
 echo -n "dereferenced " ;eval t=\$$t; echo "\"t\" = $t"
 ```
 
-
 ## 输入、输出
+
 read:用来从标准输入中读取数据并赋值给变量。如果没有进行重定向，默认就是从键盘读取用户输入的数据；如果进行了重定向，那么可以从文件中读取数据。
 `$REPLY`:当没有参数变量提供给 read 命令的时候，这个变量会作为默认变量提供给 read 命令。
+
+```
+read 命令用于从标准输入读取数值。
+
+read 内部命令被用来从标准输入读取单行数据。这个命令可以用来读取键盘输入，当使用重定向的时候，可以读取文件中的一行数据。
+
+语法
+read [-ers] [-a aname] [-d delim] [-i text] [-n nchars] [-N nchars] [-p prompt] [-t timeout] [-u fd] [name ...]
+参数说明:
+
+-a 后跟一个变量，该变量会被认为是个数组，然后给其赋值，默认是以空格为分割符。
+-d 后面跟一个标志符，其实只有其后的第一个字符有用，作为结束的标志。
+-p 后面跟提示信息，即在输入前打印提示信息。
+-e 在输入的时候可以使用命令补全功能。
+-n 后跟一个数字，定义输入文本的长度，很实用。
+-r 屏蔽\，如果没有该选项，则\作为一个转义字符，有的话 \就是个正常的字符了。
+-s 安静模式，在输入字符时不再屏幕上显示，例如 login 时输入密码。
+-t 后面跟秒数，定义输入字符的等待时间。
+-u 后面跟 fd，从文件描述符中读入，该文件描述符可以是 exec 新开启的。
+
+### 读取文件的几种方法
+
+```
+
+while read line
+do
+echo $line
+done < filename
+
+```
+
+```
+
+cat filename | while read line
+do
+echo $line
+done
+
+```
+
+#### IFS 分隔符；cat 逐行读取文件
+
+```
+
+for line in `cat filename`
+do
+echo $line
+done
+
+````
+
+使用上面的方法读取文件时，当行内有空白符(空格、tab、换行)时就不会按行输出了。
+
+```test.txt
+a b
+1 2
+3 4
+````
+
+```
+for i in `cat test.txt`
+do
+   echo $i
+done
+```
+
+```
+a
+b
+1
+2
+3
+4
+```
+
+除了更换之前的 while 方法外，还可以通过指定分隔符来实现。
+
+```
+IFS=$'\n' # 定义分割符
+# for i in $(cat file)    # better
+# for i in $(<file)       # in bash
+for i in `cat file`
+do
+    echo "$i"
+done
+```
+
+> IFS="\n" # 将字符 n 作为 IFS 的换行符。
+> IFS=$"\n" # 这里\n确实通过$转化为了换行符，但仅当被解释时（或被执行时）才被转化为换行符;第一个和第二个是等价的
+> IFS=$'\n' # 这才是真正的换行符。
+
+Shell 脚本中有个变量叫 IFS(Internal Field Seprator) ，内部域分隔符。
+Shell 的环境变量分为 set, env 两种，其中 set 变量可以通过 export 工具导入到 env 变量中。
+其中，set 是显示设置 shell 变量，仅在本 shell 中有效；env 是显示设置用户环境变量 ，仅在当前会话中有效。
+
+IFS 是一种 set 变量，当 shell 处理"命令替换"和"参数替换"时，shell 根据 IFS 的值，默认是 space, tab, newline 来拆解读入的变量，然后对特殊字符进行处理，最后重新组合赋值给该变量.
+
+```
 
 echo:用来在终端输出字符串，并在最后默认加上换行符。
 
@@ -476,9 +601,11 @@ printf:用来在终端输出。
 
 字符串举例：
 ```
+
 str1=c.biancheng.net
 str2="shell script"
-str3='C语言中文网'
+str3='C 语言中文网'
+
 ```
 下面我们说一下三种形式的区别：
 
@@ -524,29 +651,37 @@ array_name=(ele1  ele2  ele3 ... elen)
 
 使用@或*可以获取数组中的所有元素:
 ```
+
 ${nums[*]}
 ${nums[@]}
+
 ```
 
 ### 获取数组长度
 ```
+
 ${#array_name[@]}
 ${#array_name[*]}
+
 ```
 其中 array_name 表示数组名。两种形式是等价的，选择其一即可。
 
 ### 数组合并
 ```
+
 array_new=(${array1[@]}  ${array2[@]})
-array_new=(${array1[*]}  ${array2[*]})
+array_new=(${array1[*]} ${array2[*]})
+
 ```
 
 两种方式是等价的，选择其一即可。其中，array1 和 array2 是需要拼接的数组，array_new 是拼接后形成的新数组。
 
 ### 删除数组元素
 ```
-unset array_name[index]  # 删除数组元素
-unset array_name  # 删除数组
+
+unset array_name[index] # 删除数组元素
+unset array_name # 删除数组
+
 ```
 
 ## 关联数组(“键值对（key-value）”数组)
@@ -556,14 +691,18 @@ unset array_name  # 删除数组
 
 例如，我们可以创建一个叫做 color 的关联数组，并用颜色名字作为下标。
 ```
+
 declare -A color
 color["red"]="#ff0000"
 color["green"]="#00ff00"
 color["blue"]="#0000ff"
+
 ```
 也可以在定义的同时赋值：
 ```
+
 declare -A color=(["red"]="#ff0000", ["green"]="#00ff00", ["blue"]="#0000ff")
+
 ```
 不同于普通数组，关联数组必须使用带有-A选项的 declare 命令创建。
 
@@ -573,14 +712,21 @@ declare -A color=(["red"]="#ff0000", ["green"]="#00ff00", ["blue"]="#0000ff")
 
 ### 获取所有元素的下标和值
 ```
+
 # 获得关联数组的所有元素值：
+
 ${array_name[@]}
 ${array_name[*]}
+
 ```
+
 ```
+
 # 获取关联数组的所有下标值：
+
 ${!array_name[@]}
 ${!array_name[*]}
+
 ```
 
 ## 数学计算
@@ -606,7 +752,7 @@ Shell (( )) 的用法
 
 可以使用$获取 (( )) 命令的结果，这和使用$获得变量值是类似的。
 
-### bc 
+### bc
 Bash Shell 内置了对整数运算的支持，但是并不支持浮点运算，而 Linux bc 命令可以很方便的进行浮点运算，当然整数运算也不再话下。
 
 bc 甚至可以称得上是一种编程语言了，它支持变量、数组、输入输出、分支结构、循环结构、函数等基本的编程元素，所以 Linux 手册中是这样来描述 bc 的：
@@ -682,66 +828,76 @@ An arbitrary precision calculator language
 语句中的 condition 用法都是一样的，你可以使用 test 或 [] 命令，也可以使用 (()) 或 [[]]，
 语法格式为：
 ```
-if  condition
+
+if condition
 then
-    statement(s)
+statement(s)
 fi
+
 ```
 condition是判断条件，如果 condition 成立（返回“真”），那么 then 后边的语句将会被执行；如果 condition 不成立（返回“假”），那么不会执行任何语句。
 
 也可以将 then 和 if 写在一行：
 ```
-if  condition;  then
-    statement(s)
+
+if condition; then
+statement(s)
 fi
+
 ```
 请注意 condition 后边的分号;，当 if 和 then 位于同一行的时候，这个分号是必须的，否则会有语法错误。
 
 ### if else
 格式为：
 ```
-if  condition
+
+if condition
 then
-   statement1
+statement1
 else
-   statement2
+statement2
 fi
+
 ```
 ### if elif else
 格式为：
 ```
-if  condition1
+
+if condition1
 then
-   statement1
+statement1
 elif condition2
 then
-    statement2
+statement2
 elif condition3
 then
-    statement3
+statement3
 ……
 else
-   statementn
+statementn
 fi
+
 ```
 
 ### case in
 格式如下：
 ```
+
 case expression in
-    pattern1)
-        statement1
-        ;;
-    pattern2)
-        statement2
-        ;;
-    pattern3)
-        statement3
-        ;;
-    ……
-    *)
-        statementn
+pattern1)
+statement1
+;;
+pattern2)
+statement2
+;;
+pattern3)
+statement3
+;;
+……
+\*)
+statementn
 esac
+
 ```
 case、in 和 esac 都是 Shell 关键字，expression 表示表达式，pattern 表示匹配模式。
 expression 既可以是一个变量、一个数字、一个字符串，还可以是一个数学计算表达式，或者是命令的执行结果，只要能够得到 expression 的值就可以。
@@ -764,10 +920,12 @@ case in 的 pattern 部分支持简单的正则表达式，具体来说，可以
 语句中的 condition 用法都是一样的，你可以使用 test 或 [] 命令，也可以使用 (()) 或 [[]]，
 用法如下：
 ```
+
 while condition
 do
-    statements
+statements
 done
+
 ```
 condition表示判断条件，statements表示要执行的语句（可以只有一条，也可以有多条），do和done都是 Shell 中的关键字。
 
@@ -783,10 +941,12 @@ until 的使用场景很少，一般使用 while 即可。
 
 Shell until 循环的用法如下：
 ```
+
 until condition
 do
-    statements
+statements
 done
+
 ```
 
 condition表示判断条件，statements表示要执行的语句（可以只有一条，也可以有多条），do和done都是 Shell 中的关键字。
@@ -800,10 +960,12 @@ until 循环的执行流程为：
 #### C语言风格的 for 循环
 用法如下：
 ```
+
 for((exp1; exp2; exp3))
 do
-    statements
+statements
 done
+
 ```
 几点说明：
 exp1、exp2、exp3 是三个表达式，其中 exp2 是判断条件，for 循环根据 exp2 的结果来决定是否继续下一次循环；
@@ -829,10 +991,12 @@ for 循环中的 exp1（初始化语句）、exp2（判断条件）和 exp3（�
 #### Python 风格的 for in 循环
 用法如下：
 ```
+
 for variable in value_list
 do
-    statements
+statements
 done
+
 ```
 
 variable 表示变量，value_list 表示取值列表，in 是 Shell 中的关键字。
@@ -884,40 +1048,47 @@ select in 循环用来增强交互性，它可以显示出带编号的菜单，�
 
 用法如下：
 ```
+
 select variable in value_list
 do
-    statements
+statements
 done
+
 ```
 
 例子：
 ```
+
 #!/bin/bash
 echo "What is your favourite OS?"
 select name in "Linux" "Windows" "Mac OS" "UNIX" "Android"
 do
-    echo $name
+echo $name
 done
 echo "You have selected $name"
+
 ```
 
 运行结果：
 ```
+
 What is your favourite OS?
-1) Linux
-2) Windows
-3) Mac OS
-4) UNIX
-5) Android
-#? 4↙
-You have selected UNIX
-#? 1↙
-You have selected Linux
-#? 9↙
-You have selected
-#? 2↙
-You have selected Windows
-#?^D
+
+1. Linux
+2. Windows
+3. Mac OS
+4. UNIX
+5. Android
+   #? 4↙
+   You have selected UNIX
+   #? 1↙
+   You have selected Linux
+   #? 9↙
+   You have selected
+   #? 2↙
+   You have selected Windows
+   #?^D
+
 ```
 >#?用来提示用户输入菜单编号；^D表示按下 Ctrl+D 组合键，它的作用是结束 select in 循环。
 运行到 select 语句后，取值列表 value_list 中的内容会以菜单的形式显示出来，用户输入菜单编号，就表示选中了某个值，这个值就会赋给变量 variable，然后再执行循环体中的 statements（do 和 done 之间的部分）。
@@ -929,36 +1100,38 @@ You have selected Windows
 select in 通常和 case in 一起使用，在用户输入不同的编号时可以做出不同的反应。
 
 ```
+
 #!/bin/bash
 
 echo "What is your favourite OS?"
 select name in "Linux" "Windows" "Mac OS" "UNIX" "Android"
 do
-    case $name in
-        "Linux")
-            echo "Linux是一个类UNIX操作系统，它开源免费，运行在各种服务器设备和嵌入式设备。"
-            break
-            ;;
-        "Windows")
-            echo "Windows是微软开发的个人电脑操作系统，它是闭源收费的。"
-            break
-            ;;
-        "Mac OS")
-            echo "Mac OS是苹果公司基于UNIX开发的一款图形界面操作系统，只能运行与苹果提供的硬件之上。"
-            break
-            ;;
-        "UNIX")
-            echo "UNIX是操作系统的开山鼻祖，现在已经逐渐退出历史舞台，只应用在特殊场合。"
-            break
-            ;;
-        "Android")
-            echo "Android是由Google开发的手机操作系统，目前已经占据了70%的市场份额。"
-            break
-            ;;
-        *)
-            echo "输入错误，请重新输入"
-    esac
+case $name in
+"Linux")
+echo "Linux 是一个类 UNIX 操作系统，它开源免费，运行在各种服务器设备和嵌入式设备。"
+break
+;;
+"Windows")
+echo "Windows 是微软开发的个人电脑操作系统，它是闭源收费的。"
+break
+;;
+"Mac OS")
+echo "Mac OS 是苹果公司基于 UNIX 开发的一款图形界面操作系统，只能运行与苹果提供的硬件之上。"
+break
+;;
+"UNIX")
+echo "UNIX 是操作系统的开山鼻祖，现在已经逐渐退出历史舞台，只应用在特殊场合。"
+break
+;;
+"Android")
+echo "Android 是由 Google 开发的手机操作系统，目前已经占据了 70%的市场份额。"
+break
+;;
+\*)
+echo "输入错误，请重新输入"
+esac
 done
+
 ```
 
 ### break和continue跳出循环详解
@@ -981,16 +1154,18 @@ n 表示循环的层数：
 如果省略 n，则表示 continue 只对当前层次的循环语句有效，遇到 continue 会跳过本次循环，忽略本次循环的剩余代码，直接进入下一次循环。
 如果带上 n，比如 n 的值为 2，那么 continue 对内层和外层循环语句都有效，不但内层会跳过本次循环，外层也会跳过本次循环，其效果相当于内层循环和外层循环同时执行了不带 n 的 continue。这么说可能有点难以理解，稍后我们通过代码来演示。
 
-continue 关键字也通常和 if 语句一起使用，即满足条件时便跳出循环。 
+continue 关键字也通常和 if 语句一起使用，即满足条件时便跳出循环。
 
 ## 函数
 Shell 函数必须先定义后使用
 Shell 函数定义的语法格式如下：
 ```
+
 function name() {
-    statements
-    [return value]
+statements
+[return value]
 }
+
 ```
 
 对各个部分的说明：
@@ -1120,11 +1295,13 @@ exec 是 Shell 内置命令，它有两种用法，一种是执行 Shell 命令�
 
 请看下面的例子：
 ```
+
 [mozhiyan@localhost ~]$ echo "c.biancheng.net" > log.txt
-[mozhiyan@localhost ~]$ echo "C语言中文网"
-C语言中文网
+[mozhiyan@localhost ~]$ echo "C 语言中文网"
+C 语言中文网
 [mozhiyan@localhost ~]$ cat log.txt
 c.biancheng.net
+
 ```
 第一个 echo 命令使用了重定向，将内容输出到 log.txt 文件；第二个 echo 命令没有再次使用重定向，内容就直接输出到显示器上了。很明显，重定向只对第一个 echo 有效，对第二个 echo 无效。
 
@@ -1134,17 +1311,19 @@ exec 命令就是为解决这种困境而生的，它可以让重定向对当前
 
 在《结合Linux文件描述符谈重定向，彻底理解重定向的本质》一节讲到的所有对文件描述符的操作方式 exec 都支持，请看下面的例子：
 ```
+
 [mozhiyan@localhost ~]$ echo "重定向未发生"
 重定向未发生
 [mozhiyan@localhost ~]$ exec >log.txt
 [mozhiyan@localhost ~]$ echo "c.biancheng.net"
-[mozhiyan@localhost ~]$ echo "C语言中文网"
+[mozhiyan@localhost ~]$ echo "C 语言中文网"
 [mozhiyan@localhost ~]$ exec >&2
 [mozhiyan@localhost ~]$ echo "重定向已恢复"
 重定向已恢复
 [mozhiyan@localhost ~]$ cat log.txt
 c.biancheng.net
-C语言中文网
+C 语言中文网
+
 ```
 对代码的说明：
 exec >log.txt将当前 Shell 进程的所有标准输出重定向到 log.txt 文件，它等价于exec 1>log.txt。
@@ -1165,27 +1344,32 @@ exec >&2用来恢复重定向，让标准输出重新回到显示器，它等价
 所谓代码块，就是由多条语句组成的一个整体；for、while、until 循环，或者 if...else、case...in 选择结构，或者由{ }包围的命令都可以称为代码块。
 
 ```
+
 #!/bin/bash
 sum=0
 while read n; do
-    ((sum += n))
-    echo "this number: $n"
+((sum += n))
+echo "this number: $n"
 done <nums.txt >log.txt  #同时使用输入输出重定向
 echo "sum=$sum"
+
 ```
+
 ```
+
 #!/bin/bash
 {
-    echo "C语言中文网";
-    echo "http://c.biancheng.net";
-    echo "7"
-} >log.txt  #输出重定向
+echo "C 语言中文网";
+echo "http://c.biancheng.net";
+echo "7"
+} >log.txt #输出重定向
 {
-    read name;
-    read url;
-    read age
-} <log.txt  #输入重定向
-echo "$name已经$age岁了，它的网址是 $url"
+read name;
+read url;
+read age
+} <log.txt #输入重定向
+echo "$name已经$age 岁了，它的网址是 $url"
+
 ```
 
 ## 组命令
@@ -1193,8 +1377,10 @@ echo "$name已经$age岁了，它的网址是 $url"
 
 Shell 组命令的写法有两种：
 ```
-{ command1; command2; command3; . . .  }
+
+{ command1; command2; command3; . . . }
 (command1; command2; command3;. . . )
+
 ```
 两种写法的区别在于：由花括号{}包围起来的组命名在当前 Shell 进程中执行，而由小括号()包围起来的组命令会创建一个子 Shell，所有命令都在子 Shell 中执行。
 
@@ -1205,19 +1391,25 @@ Shell 组命令的写法有两种：
 
 例如，下面的代码将多个命令的输出重定向到 out.txt：
 ```
-ls -l > out.txt  #>表示覆盖
-echo "http://c.biancheng.net/shell/" >> out.txt  #>>表示追加
+
+ls -l > out.txt #>表示覆盖
+echo "http://c.biancheng.net/shell/" >> out.txt #>>表示追加
 cat readme.txt >> out.txt
+
 ```
 本段代码共使用了三次重定向。
 
 借助组命令，我们可以将以上三条命令合并在一起，简化成一次重定向：
 ```
+
 { ls -l; echo "http://c.biancheng.net/shell/"; cat readme.txt; } > out.txt
+
 ```
 或者写作：
 ```
+
 (ls -l; echo "http://c.biancheng.net/shell/"; cat readme.txt) > out.txt
+
 ```
 使用组命令技术，我们节省了一些打字时间。
 
@@ -1248,8 +1440,10 @@ Shell 还有一种功能，就是可以将两个或者多个命令（程序或�
 
 Linux 管道使用竖线|连接多个命令，这被称为管道符。Linux 管道的具体语法格式如下：
 ```
+
 command1 | command2
 command1 | command2 [ | commandN... ]
+
 ```
 
 当在两个命令之间设置管道时，管道符|左边命令的输出就变成了右边命令的输入。只要第一个命令向标准输出写入，而第二个命令是从标准输入读取，那么这两个命令就可以形成一个管道。大部分的 Linux 命令都可以用来形成管道。
@@ -1313,28 +1507,35 @@ return 只能退出由 source 命令引入的脚本文件，对其它引入脚�
 
 模块文件 module.sh：
 ```
+
 if [ -n "$__MODULE_SH__" ]; then
-    return
+return
 fi
-__MODULE_SH__='module.sh'
+**MODULE_SH**='module.sh'
 echo "http://c.biancheng.net/shell/"
+
 ```
 注意第一行代码，一定要是使用双引号把$__MODULE_SH__包围起来，具体原因已经在《Shell test》一节中讲到。
 
 主文件 main.sh：
 ```
+
 #!/bin/bash
 source module.sh
 source module.sh
 echo "here executed"
+
 ```
 ./表示当前文件，你也可以直接写作source module.sh。
 
 运行 main.sh，输出结果为：
 ```
+
 http://c.biancheng.net/shell/
 here executed
+
 ```
 我们在 main.sh 中两次引入 module.sh，但是只执行了一次，说明第二次引入是无效的。
 
 main.sh 中的最后一条 echo 语句产生了输出结果，说明 return 只是退出了子文件，对父文件没有影响。
+```
