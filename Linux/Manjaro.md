@@ -95,78 +95,10 @@ sudo pacman -S yay
 ## 3.安装软件
 
 ### (1)输入法
-#### fcitx
-
-安装
-
-```
-sudo pacman -S --noconfirm fcitx-im kcm-fcitx fcitx-googlepinyin  fcitx-configtool
-```
-
-配置 fcitx
-
-```
-sudo echo -e "export GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=@im=fcitx">>~/.xprofile
-```
-
-<p class='ind'>
-重启后在状态栏找到键盘右键 --> config --> input method --> 添加后确认应用生效，默认的切换输入法快捷键为ctrl + 空格</p>
-##### [1]( googlepinyin )
-
-<p class='ind'>可自行安装搜狗输入法，manjaro 软件管理软件中也可以直接安装谷歌输入法。（目前用 googlepinyin，之前用搜狗有乱码，不知道为什么）</p>
-
-
-#### [2]( rime )
-rime 在 ibus 中有无法正常将待选字由纵向选择改为横向，改底层配置解决后重新部署会恢复原来的
-
-`yay -S fictx-rime` 安装即可，在 fcitx 中选择配置即可
-默认的为繁体字，需要简体的`F4`后选择合适的即可优先简体
-
-默认情况下，Rime 只会列出 5 个候选项，可以通过修改 "menu/page_size" 的值来手动更改列出候选项的个数
-```cd ~/.config/fcitx/rime && rm default.yaml && touch default.custom.yaml && vim default.custom.yaml```
-后写入
-```
-patch:
-     "menu/page_size": 9
-```
-
-默认情况下，如果输入\，默认选择三个选项，不利于效率,希望的时输入\，可以直接上屏中文的顿号、。
-```
-cd ~/.config/fcitx/rime && touch luna_pinyin.custom.yaml && vim luna_pinyin.custom.yaml
-```
-后写入
-```
-patch:
-  punctuator/full_shape:
-    '\' : '、'
-    '/' : '/'
-    # "`": {commit: "·"}
-  punctuator/half_shape:
-    '\' : '、'
-    '/' : '/'
-    # "`": {commit: "·"}
-```
-#### fcitx5
-需要卸載之前的fcitx`sudo pacman -Rsc fcitx`
-
-安裝fcitx5-im,包括了fcitx5、fcitx5-configtool、fcitx5-gtk、fcitx5-qt
-```
-sudo pacman -S fcitx5-im 
-yay -S fcitx5-rime
-```
-配置和fcitx的差不多，位置有所不同，在`~/.local/share/fcitx5/rime/`
-主题：
-```
-cd /home/fiki/.local/share/fcitx5/themes && mkdir Material-Color && cd Material-Color
-git clone https://github.com/hosxy/Fcitx5-Material-Color.git ~/.local/share/fcitx5/themes/Material-Color
-ln -sf theme-blue.conf theme.conf
-cd ~/.config/fcitx5/conf && vim classicui.conf # 将最后的theme更改Material-Color即可
-```
-候选的字体太小，在`~/.config/fcitx5/conf/classicui.conf`修改font、menufont的字号即可，建议‘PerScreenDPI=False‘
+[typewriting](../Tools/typewriting.md)
 
 ### (2)梯子，爬墙必备
-
-方案较多，另外起个文章写，详情看 [manjaro_proxy](Tools/manjaro_proxy.md)
+[manjaro_proxy](../Tools/manjaro_proxy.md)
 
 ### (3)命令行利器
 
