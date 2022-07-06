@@ -2789,9 +2789,57 @@ do
 done
 ```
 
+#### IFS 分隔符；cat 逐行读取文件
+
 ```
 for line in `cat filename`
 do
     echo $line
 done
 ```
+
+使用上面的方法读取文件时，当行内有空白符(空格、tab、换行)时就不会按行输出了。
+
+```test.txt
+a b
+1 2
+3 4
+```
+
+```
+for i in `cat test.txt`
+do
+   echo $i
+done
+```
+
+```
+a
+b
+1
+2
+3
+4
+```
+
+除了更换之前的 while 方法外，还可以通过指定分隔符来实现。
+
+```
+IFS=$'\n' # 定义分割符
+# for i in $(cat file)    # better
+# for i in $(<file)       # in bash
+for i in `cat file`
+do
+    echo "$i"
+done
+```
+
+> IFS="\n" # 将字符 n 作为 IFS 的换行符。
+> IFS=$"\n" # 这里\n确实通过$转化为了换行符，但仅当被解释时（或被执行时）才被转化为换行符;第一个和第二个是等价的
+> IFS=$'\n' # 这才是真正的换行符。
+
+Shell 脚本中有个变量叫 IFS(Internal Field Seprator) ，内部域分隔符。
+Shell 的环境变量分为 set, env 两种，其中 set 变量可以通过 export 工具导入到 env 变量中。
+其中，set 是显示设置 shell 变量，仅在本 shell 中有效；env 是显示设置用户环境变量 ，仅在当前会话中有效。
+
+IFS 是一种 set 变量，当 shell 处理"命令替换"和"参数替换"时，shell 根据 IFS 的值，默认是 space, tab, newline 来拆解读入的变量，然后对特殊字符进行处理，最后重新组合赋值给该变量.
