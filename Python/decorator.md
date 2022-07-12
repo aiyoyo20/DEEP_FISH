@@ -62,7 +62,7 @@ print(wrapper.__closure__[1].cell_contents)
 （7）错误重试装饰器
 
 ### 函数装饰器
-#### 装饰器模板/简单装饰器
+#### 函数装饰函数
 ```
 def decorator(function):
     '''
@@ -78,14 +78,86 @@ def decorator(function):
         # 这里就是额外功能代码
         function()   # 执行原函数
         # 这里就是额外功能代码
-            return wrapper
+        return wrapper
 
 @decorator
 def function():
     print("hello, decorator")
 ```
 
-#### 带参数的装饰器
+#### 函数装饰实例方法
+```
+def decorator(function):
+    '''
+    第一层函数为装饰器名称
+    function：参数，即需要装饰的函数
+    return：返回值wrapper，为了保持与原函数参数一致
+    '''
+
+    def wrapper(self, *arg, **args):
+        '''
+        内层函数，这个函数实现“添加额外功能”的任务
+        *arg,**args：参数保持与需要装饰的函数参数一致，这里用*arg和**args代替
+        '''
+        print('---')
+        # 这里就是额外功能代码
+        return function(self)   # 执行原函数
+        # 这里就是额外功能代码
+    return wrapper
+
+
+class out():
+    @decorator
+    def inner(self):
+        print('inner')
+
+
+dec = out()
+dec.inner()
+
+# # ---
+# inner
+```
+与函数装饰函数差别不大，但是由于实例方法的特殊参数`self`，所以需要传递
+
+#### 函数装饰类
+```
+def decorator(function):
+    '''
+    第一层函数为装饰器名称
+    function：参数，即需要装饰的函数
+    return：返回值wrapper，为了保持与原函数参数一致
+    '''
+
+    def wrapper(*arg, **args):
+        '''
+        内层函数，这个函数实现“添加额外功能”的任务
+        *arg,**args：参数保持与需要装饰的函数参数一致，这里用*arg和**args代替
+        '''
+        print('---')
+        # 这里就是额外功能代码
+        return   function()   # 执行原函数
+        # 这里就是额外功能代码
+    return wrapper
+
+
+@decorator
+class out():
+    def __init__(self):
+        print('+++')
+
+    def inner(self):
+        print('inner')
+
+a=out()
+a.inner()
+# ---
+# +++
+# inner
+```
+和函数装饰函数类似
+
+#### 带参数的函数装饰器
 装饰器还有更大的灵活性，例如带参数的装饰器：在上面的装饰器调用中，比如@use_logging，该装饰器唯一的参数就是执行业务的函数。装饰器的语法允许我们在调用时，提供其它参数，比如@decorator(a)。这样，就为装饰器的编写和使用提供了更大的灵活性。
 
 ```
@@ -102,6 +174,7 @@ def use_logging(level):
 def foo(name='foo'):
     print("i am %s" % name)
 ```
+带参数的函数装饰器装饰器与不带参数的大同小异
 
 ### 类装饰器
 #### 类的装饰器（不带参数）
@@ -114,9 +187,9 @@ class Hint(object):
     def __init__(self, func):
         self.func = func
 
-        def __call__(self, *args, **kwargs):
-            print('{} is running'.format(self.func.__name__))
-            return self.func(*args, **kwargs)
+    def __call__(self, *args, **kwargs):
+        print('{} is running'.format(self.func.__name__))
+        return self.func(*args, **kwargs)
 ```
 
 ### 类的装饰器（带参数）
@@ -175,14 +248,140 @@ countdown.__annotations__ #  {'n': <class 'int'>}
 ```
 
 ### 使用偏函数与类实现装饰器
+```
+import time
+import functools
+
+class DelayFunc:
+    def __init__(self, duration, func):
+        self.duration = duration
+        self.func = func
+
+    def __call__(self, *args, **kwargs):
+        print('Wait for {duration} seconds...'.format(duration=self.duration))
+        time.sleep(self.duration)
+        return self.func(*args, **kwargs)
+
+    def eager_call(self, *args, **kwargs):
+        print('Call without delay')
+        return self.func(*args, **kwargs)
+
+def delay(duration):
+    """
+    装饰器：推迟某个函数的执行。
+    同时提供 .eager_call方法立即执行
+    """
+    # 此处为了避免定义额外函数，直接调用functools.partial帮助构造
+    return functools.partial(DelayFunc, duration)
+
+@delay(duration=2)
+def add(a, b):
+    return a + b
+```
+
+### 使用wrapt模块实现装饰器
+```
+import random
+def provide_number(min_num, max_num):
+    """装饰器：随机生成一个在 [min_num, max_num] 范围的整数，追加为函数的第一个位置参数
+    """
+    def wrapper(func):
+        def decorated(*args, **kwargs):
+            num = random.randint(min_num, max_num)
+            # 将 num 作为第一个参数追加后调用函数
+            return func(num, *args, **kwargs)
+        return decorated
+    return wrapper
+@provide_number(1, 100)
+def print_random_number(num):
+    print(num)
+
+print_random_number()
+```
+
+上面的装饰器可以正常运行，但假如使用在类上不增加self参数会怎样呢
+```
+import random
+
+def provide_number(min_num, max_num):
+    """装饰器：随机生成一个在 [min_num, max_num] 范围的整数，追加为函数的第一个位置参数
+    """
+    def wrapper(func):
+        def decorated(*args, **kwargs):
+            num = random.randint(min_num, max_num)
+            # 将 num 作为第一个参数追加后调用函数
+            return func(num, *args, **kwargs)
+        return decorated
+    return wrapper
+
+
+class Foo:
+    @provide_number(1, 100)
+    def print_random_number(self, num):
+        print(num)
+
+a=Foo()
+a.print_random_number()
+# <__main__.Foo object at 0x7fc4b005b0a0>
+```
+直接输出了类实例 self 
+>之所以会出现这个结果，是因为类方法（method）和函数（function）二者在工作机制上有着细微不同。如果要修复这个问题，provider_number 装饰器在修改类方法的位置参数时，必须聪明的跳过藏在 *args 里面的类实例 self 变量，才能正确的将 num 作为第一个参数注入。
+
+现在使用wrapt来创建这个装饰器看看
+```
+import wrapt
+def provide_number(min_num, max_num):
+    @wrapt.decorator
+    def wrapper(wrapped, instance, args, kwargs):
+        # 参数含义：
+        #
+        # - wrapped：被装饰的函数或类方法
+        # - instance：
+        #   - 如果被装饰者为普通类方法，该值为类实例
+        #   - 如果被装饰者为 classmethod 类方法，该值为类
+        #   - 如果被装饰者为类/函数/静态方法，该值为 None
+        #
+        # - args：调用时的位置参数（注意没有 * 符号）
+        # - kwargs：调用时的关键字参数（注意没有 ** 符号）
+        #
+        num = random.randint(min_num, max_num)
+        # 无需关注 wrapped 是类方法或普通函数，直接在头部追加参数
+        args = (num,) + args
+        return wrapped(*args, **kwargs)
+    return wrapper
+
+class Foo:
+    @provide_number(1, 100)
+    def print_random_number(self, num):
+        print(num)
+
+a=Foo()
+a.print_random_number()
+```
+
+使用 wrapt 模块编写的装饰器，相比原来拥有下面这些优势：
+
+• 嵌套层级少：使用 @wrapt.decorator 可以将两层嵌套减少为一层
+
+• 更简单：处理位置与关键字参数时，可以忽略类实例等特殊情况
+
+• 更灵活：针对 instance 值进行条件判断后，更容易让装饰器变得通用
+
+### 装饰器的嵌套
+```
+@decorator1
+@decorator2
+@decorator3
+def func():
+    pass
+```
+对于多层装饰器，作用顺序为decorator3、decorator2、decorator1
 
 ## 装饰器的缺点
 装饰器的缺点总结：
 （1）被函数装饰器所装饰的对象（函数、类）已经不再是它本身了，虽然从形式上看没有变化，本质上是函数装饰器的内部wrapper；
 
 （2）被类装饰器所装饰的对象（函数、类）也不再是它本身了，虽然从形式上看没有变化，本质上是类装饰器的一个对象。
-
-### 装饰器的嵌套
 
 ## 闭包和装饰器的比较
 装饰器（decorator）    闭包（lexical closure）
@@ -204,7 +403,7 @@ countdown.__annotations__ #  {'n': <class 'int'>}
  装饰器的目的：代码重用+额外功能
  闭包的主要目的：保存函数的运行环境 + 保存闭包的局部变量。虽然二者可以有一些交集。
 
-https://dreamgoing.github.io/Python%E8%A3%85%E9%A5%B0%E5%99%A8.html
 https://github.com/piglei/one-python-craftsman/blob/master/zh_CN/8-tips-on-decorators.md
-https://iswbm.com/47.html#8
 https://python3-cookbook.readthedocs.io/zh_CN/latest/c09/p02_preserve_function_metadata_when_write_decorators.html
+https://so.csdn.net/so/search?q=%E8%A3%85%E9%A5%B0%E5%99%A8&t=blog&u=qq_27825451
+https://www.yisu.com/zixun/641780.html
