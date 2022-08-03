@@ -1,4 +1,4 @@
-
+# vim
 ## 插件
 ### 1、插件管理器vim-plug
 `curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim` 
@@ -460,3 +460,8 @@ github的意见不知道什么原因被删除，一些大家有共同问题的�
 
 ### 输入*号看不见，其他编辑器打开能看见
 indentLine 插件 造成的bug，取消了就好了
+
+# nvim
+## 问题
+### YouCompleteMe unavailable: requires Vim compiled with Python (3.6.0+) support.
+

@@ -403,7 +403,12 @@ def func():
  装饰器的目的：代码重用+额外功能
  闭包的主要目的：保存函数的运行环境 + 保存闭包的局部变量。虽然二者可以有一些交集。
 
+## 推荐
+里面有很多装饰器，可以取学习学习
+https://wiki.python.org/moin/PythonDecorators
+
 https://github.com/piglei/one-python-craftsman/blob/master/zh_CN/8-tips-on-decorators.md
 https://python3-cookbook.readthedocs.io/zh_CN/latest/c09/p02_preserve_function_metadata_when_write_decorators.html
 https://so.csdn.net/so/search?q=%E8%A3%85%E9%A5%B0%E5%99%A8&t=blog&u=qq_27825451
 https://www.yisu.com/zixun/641780.html
+
