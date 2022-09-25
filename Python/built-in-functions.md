@@ -252,7 +252,7 @@ print(sorted(test,key=itemgetter(0,1)))
 # [(1,23),(1,33),(2,12),(2,13)]
 ```
 
-##next()
+## next()
 `next(iterator[,default])`
 
 iterator--可迭代对象
@@ -276,3 +276,10 @@ print(1,2,3,4,5,6,sep=":")#1:2:3:4:5:6
 end 参数
 print(1,2,3,4,5,6,end=";")#123456;
 print(1,2,3,4,5,6,sep=":",end=";")#1:2:3:4:5:6;
+
+## isinstance()
+isinstance 可以接收一个元组,判断是否是多个类型中的一个就非常方便
+```
+isinstance(1.3, (float, int))
+isinstance("1.3", (float, int, str))
+```
