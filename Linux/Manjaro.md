@@ -1229,6 +1229,10 @@ sudo pacman -S noto-fonts-cjk adobe-source-han-sans-cn-fonts adobe-source-han-se
 ### 6、vim进入后行不会根据屏幕自动换行，以及左侧目录栏显示异常
 关闭重新进入vim即可，估计是插件为完全加载的原因
 
+
+### 7、Failed to register AppImage in AppImageLauncherFS: could not open map file #130
+起因是双击打开了一个appimage文件，在设备了设置了appimagelauncher管理，然后退出后通过命令行启动，可能就无法通过appimagelauncher管理了，但是文件又关联了appimagelauncer，就冲突了，设备重启了下就解决了。
+
 ## 使用体验
 
 卡顿的情况缓解了很多，其次很明显的是在更新，不会两三天就提醒更新一次，以前更新的大多是 KDE 的配置文件以及一些自带的软件但是自己没有区使用或者不清楚其用处而又不敢轻易删除的软件。
