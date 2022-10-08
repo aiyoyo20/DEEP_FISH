@@ -1039,6 +1039,8 @@ yay -S ark 解压，自带的engrampa解压速度快但是解压的类型很少
 sudo pacman -R midori mousepad
 ```
 
+
+
 之前配置过zsh，为了方便留了文件，直接本地安装吧
 [https://github.com/ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)下载oh-my-zsh:
 
@@ -1052,8 +1054,14 @@ cp oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 
-## 问题
 
+#### qbittorrent 
+能添加trackers的磁力下载器
+
+#### liferea
+rss 阅读器，重要的是可以配置代理，这样就可以添加一些墙外的源了。
+
+## 问题
 ### 1、.Appimages文件无法打开
 
 不知道是不是动了什么东西，导致最开始能打开的 .Appimages 文件无法打开了，报错忘记截图了，大概意思是 linux 的 fuse 模块没有自动加载，

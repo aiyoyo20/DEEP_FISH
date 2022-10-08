@@ -42,4 +42,19 @@ getTracker ${urlOne} "${arrayOne[*]}"
 
 
 
+## “sudo echo ＞＞”或类似命令串提示权限不够的解决办法
+这是因为重定向符号 “>” 和 “>>” 也是 bash 的命令。sudo 只是让 echo 命令具有了 root 权限，但是没有让 “>” 和 “>>” 命令也具有root 权限，所以 bash 会认为这两个命令都没有写入信息的权限。
 
+解决方法一：
+利用 “sh -c” 命令，它可以让 bash 将一个字串作为完整的命令来执行，这样就可以将 sudo 的影响范围扩展到整条命令。具体用法如下：
+```
+sudo sh -c 'command line'
+sudo sh -c 'echo "114.250.64.34    translate.googleapis.com" >> /etc/hosts'
+```
+
+解决方法二：
+利用管道和 tee 命令，该命令可以从标准输入中读入信息并将其写入标准输出或文件中，具体用法如下：
+```
+echo "strings" | sudo tee -a filename
+echo "114.250.64.34    translate.googleapis.com" | sudo tee -a /etc/hosts 
+```
