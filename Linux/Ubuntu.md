@@ -1,5 +1,3 @@
-
-
 ## questions
 ### Failed to load module "xapp-gtk3-module"
 Installing xapp installs the missing modules and removes the warning
@@ -13,5 +11,11 @@ Installing xapp installs the missing modules and removes the warning
 通过命令行./启动,发现是缺少相应的库，补全即可
 `sudo apt install libfuse2`
 
+### configure: error: glib-compile-schemas not found.
+`apt-get install libglib2.0-dev`
 
+### configure: error: Your intltool is too old.  You need intltool 0.40.4 or later.
+`apt install intltool`
 
+### ubuntu 字体异常
+系统使用全英文时，默认字体Noto Sans CJK优先显示日文汉字，打开文件`/etc/fonts/conf.avail/64-language-selector-prefer.conf`将SC的优先级提到最高后重启电脑即可。
