@@ -9,7 +9,7 @@
 [模式映射](images/vim_mapping.png)
 使用`h key-notation`命令查看帮助信息,查看键盘符号的详细说明
 
-| notation  | meaning         |equivalent| decimal |value(s)    ~           |        |
+|notation   | meaning         |equivalent| decimal |value(s)    ~           |        |
 |-----------|-----------------|----------|---------|--------------          |        |
 |\<Nul>     | zero            |CTRL-@    |0        |  (stored as 10) *<Nul>*|        |
 |\<BS>      | backspace       |CTRL-H    |8        |  *backspace*           |        |
