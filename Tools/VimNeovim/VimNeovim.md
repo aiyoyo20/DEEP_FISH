@@ -3,7 +3,7 @@
 ### 1、插件管理器vim-plug
 `curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim` 
 
-### 2、.vimrc文件内容
+### 2、`.vimrc` 文件内容
 
 ## 快捷键设置
 [模式映射](images/vim_mapping.png)
@@ -11,24 +11,24 @@
 
 |notation   | meaning         |equivalent| decimal |value(s)    ~           |        |
 |-----------|-----------------|----------|---------|--------------          |----|
-|\<Nul\>     | zero            |CTRL-@    |0        |  (stored as 10) *<Nul>*|        |
-|\<BS\>      | backspace       |CTRL-H    |8        |  *backspace*           |        |
-|\<Tab\>     | tab             |CTRL-I    |9        |  *tab* *Tab*           |        |
-|           |                 |*linefeed*|         |                        |        |
+|\<Nul\>     | zero            |CTRL-@    |0        |  (stored as 10) \*<Nul>\|        |
+|\<BS\>      | backspace       |CTRL-H    |8        |  \*backspace\*           |        |
+|\<Tab\>     | tab             |CTRL-I    |9        |  \*tab\* \*Tab\*           |        |
+|           |                 |\*linefeed\*|         |                        |        |
 |\<NL\>      | linefeed        |CTRL-J    |10       |  (used for <Nul>)      |        |
-|\<CR\>      | carriage return |CTRL-M    |13       |  *carriage-return*     |        |
-|\<Return\>  | same as <CR>    |          |         |  *<Return>*            |        |
-|\<Enter\>   | same as <CR>    |          |         |  *<Enter>*             |        |
-|\<Esc\>     | escape          |CTRL-[    |27       |   *escape* *<Esc>*     |        |
-|\<Space\>   | space           |          |32       |   *space*              |        |
-|\<lt\>      | less-than       |\<         |60       |   *<lt>*               |        |
-|\<Bslash\>  | backslash       |\\         |92       |  *backslash* *<Bslash>*|        |
-|\<Bar\>     | vertical bar    |    \\     |         |124                     | *<Bar>*|
+|\<CR\>      | carriage return |CTRL-M    |13       |  \*carriage-return\*     |        |
+|\<Return\>  | same as <CR>    |          |         |  \*<Return>\*            |        |
+|\<Enter\>   | same as <CR>    |          |         |  \*<Enter>\*             |        |
+|\<Esc\>     | escape          |CTRL-[    |27       |   \*escape\* \*<Esc>\*     |        |
+|\<Space\>   | space           |          |32       |   \*space\*              |        |
+|\<lt\>      | less-than       |\<         |60       |   \*<lt>\*               |        |
+|\<Bslash\>  | backslash       |\\         |92       |  \*backslash\* \*<Bslash>\*|        |
+|\<Bar\>     | vertical bar    |    \\     |         |124                     | \*<Bar>\*|
 |\<Del\>     | delete          |          |127      |                        |        |
 
 
-使用 :map 命令，可以列出所有键盘映射
-使用:map!命令，则只列出插入和命令行模式的映射。而:imap，:vmap，:omap，:nmap命令则只是列出相应模式下的映射
+使用 `:map` 命令，可以列出所有键盘映射
+使用`:map!`命令，则只列出插入和命令行模式的映射。而`:imap`，`:vmap`，`:omap`，`:nmap`命令则只是列出相应模式下的映射
 
 
 ### YouCompleteMe 配置
