@@ -28,3 +28,6 @@ Installing xapp installs the missing modules and removes the warning
 `/bin` ,`/usr/bin`,`usr/local/bin`中的软链接指向的都是系统版本
 
 因为在`.bashrc`或`.zshrc`中设置了环境变量，优先级覆盖了
+
+
+崩溃了，早期那会不再使用 ubuntu，就是因为安装软件的依赖无法解决，现在看来还是太菜了，不适合我，新换的系统，一个星期，配置得七七八八了,从 grub 进登录页面也需要花一定时间，可能10秒左右，使用中也有一些卡顿，文件管理器在复制文件的时候会突然崩溃。
