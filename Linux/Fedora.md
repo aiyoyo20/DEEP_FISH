@@ -20,3 +20,22 @@ manjaro的是grub管理，至少之前安装的是，安装的fedora是grub2管�
 
 ### Nautilus 文件管理排序，文件、文件夹变混合排序
 个性化设置可以更改，包括要显示的内容，用户、创建时间，类型等等等等。
+
+
+### gnome-extensions
+#### Clipboard
+Clipboard Indicator
+设置更为丰富，但是感觉不是很需要这些设置
+亮点是有个星标功能，可能对着重的进行标记，会将优先级提到最前
+对于常用的或者可以作为临时备忘录之类的
+
+Clipman
+private mode 
+可以快速将复制的内容转为二维码，需要传输到手机的话很方便
+
+Gnome Clipboard
+
+#### Proxy Switcher
+在状态栏快速设置系统代理的切换，不必再一步步进入设置去开启关闭
+
+
