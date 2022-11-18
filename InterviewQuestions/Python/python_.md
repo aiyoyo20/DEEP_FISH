@@ -1106,7 +1106,7 @@ IP： 网络层 TCP/UDP： 传输层 HTTP、RTSP、FTP： 应用层协议
 
 ##### 19. url 的形式？
 ```
-形式： scheme://host [:port#]/path/…/[?query-string][#anchor]
+形式： `scheme://host [:port#]/path/…/[?query-string][#anchor]`
 scheme：协议(例如：http， https， ftp)
 host：服务器的 IP 地址或者域名
 port：服务器的端口（如果是走协议默认端口，80 or 443）

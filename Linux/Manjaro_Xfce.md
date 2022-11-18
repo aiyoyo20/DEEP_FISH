@@ -1,4 +1,4 @@
-[Manjaro_KDE](ManjaroKDE.md)的大多数内容都是可以应用到这上面来的。
+[Manjaro_KDE](Manjaro_KDE.md)的大多数内容都是可以应用到这上面来的。
 
 之前的 manajaro-kde 为18版本，当时分区`/boot/efi`并没有出错，但是在这次的 manjaro-xfce-20.1 如此分区时安装到后期报错，大概看后解释说是因为先安装有 win10,win10已经存在一个`/boot/efi`分区，因此造成冲突，将win10的分区挂载但是保持不格式化，然后分区`/boot`就可以了。
 美化什么的就不要有太多期望了，可操作性很小，但是其本身虽然是很轻巧的，但是从同图标到整体风格都刚刚好，没有任何粗糙的感觉。安装的东西过程大多相同，但也有些差异。
@@ -203,7 +203,7 @@ sudo pacman -S noto-fonts-cjk adobe-source-han-sans-cn-fonts adobe-source-han-se
 关闭重新进入vim即可，估计是插件为完全加载的原因
 
 
-### 7、Failed to register AppImage in AppImageLauncherFS: could not open map file #130
+### 7、Failed to register AppImage in AppImageLauncherFS: could not open map file
 起因是双击打开了一个appimage文件，在设备了设置了appimagelauncher管理，然后退出后通过命令行启动，可能就无法通过appimagelauncher管理了，但是文件又关联了appimagelauncer，就冲突了，设备重启了下就解决了。
 
 ### 8、无故卡死

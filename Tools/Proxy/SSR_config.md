@@ -3,7 +3,7 @@
 各选项说明（注意，你应该修改使用initcfg.sh脚本初始化后的user-config.json）：
 
 | Name                 | Explanation                                | 中文说明                                      |
-| -------------------- | ------------------------------------------ | --------------------------------------------- |
+| -------------------- | ------------------ | ----- |
 | server               | the address your server listens            | 监听地址                                      |
 | server_ipv6          | the ipv6 address your server listens       | ipv6地址                                      |
 | server_port          | server port                                | 监听端口                                      |

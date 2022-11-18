@@ -627,23 +627,6 @@ console.log (quickSort (Arr));
 
 > `题目：在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。`
 
-```
-function Find (target, array) {
-    let i = 0;
-    let j = array [i].length - 1;
-    while (i < array.length && j>= 0) {if (array [i][j] <target) {i++;} else if (array [i][j] > target) {j--;} else {return true;}
-    }
-    return false;
-}
-
-// 测试⽤例
-console.log (Find (10, [[1, 2, 3, 4],
-        [5, 9, 10, 11],
-        [13, 20, 21, 23]
-    ])
-);
-```
-
 > 另外笔者在面试中遇见过下面的问题：
 
 > `题目：现在我有一个 1~1000 区间中的正整数，需要你猜下这个数字是几，你只能问一个问题：大了还是小了？问需要猜几次才能猜对？`

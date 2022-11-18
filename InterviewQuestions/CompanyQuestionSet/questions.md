@@ -1,12 +1,11 @@
-## 第十一章 企业真题实战 
+## 第十一章 企业真题实战
 ### 一、360 面试题
 #### 1. 请拿出 B 表中的 accd，(A 表中和 B 表中的一样的数据)？
 ```select * from B inner join on B.name = A.name```
 
 #### 2. a = 'abbbccc'，用正则匹配为 abccc, 不管有多少 b，就出现一次？
 ```
-思路：不管有多少个 b 替换成一个 
-re.sub(r'b+', 'b', a)
+思路：不管有多少个 b 替换成一个 re.sub(r'b+', 'b', a)
 ```
 
 #### 3. xpath 使用的什么库？
@@ -326,7 +325,7 @@ response = session.get(url,headers)
 分析：
  （1）手机号位数为 11 位；
  （2）开头为 1，第二位为 3 或 4 或 5 或 7 或 8;
-表达式为：/1 [3,4,5,7,8][0-9]{9}$/; 。
+表达式为：`/1 [3,4,5,7,8][0-9]{9}$/`。
 
 2. 请匹配出变量 A = json({Adam:95,Lisa:85,Bart:59}) 中的 json 字符串。
 ```
@@ -1308,7 +1307,8 @@ print(pl.name,pname)
 print(Person.name) 结果 bbb aaaaaa
 ```
 
-#### 4. 函数式编程与内置函数```
+#### 4. 函数式编程与内置函数
+```
 a = [1,2,3,4,5,6,7] 
 b =filter(lambda x:x>5,a) 
 for i in b : 
@@ -1332,6 +1332,7 @@ List 是 Python 的列表
 a = list() 
 a.append("2")
 ```
+
 dict comprehensions 是 Python 的字典的推导式
 ```
 mcase = {'a': 10, 'b': 34} 

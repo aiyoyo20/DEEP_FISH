@@ -52,7 +52,7 @@ sudo pacman -S yay
 
 ## 3.安装软件
 ### (1)输入法
-[typewriting](../Tools/typewriting.md)
+[typewriting](../Tools/Input_Method/Input_Method.md)
 
 ### (3)命令行利器
 ```
@@ -118,7 +118,7 @@ yay -S axel
 ```
 yay -S aria2
 ```
-下载利器,需要进行配置，配置方法见新篇,详情[aria2配置](Tools/aria2配置.md)
+下载利器,需要进行配置，配置方法见新篇,详情[aria2配置](../Tools/Aria2/Aria2.md)
 轻型的，多协议支持的下载工具，而且还拥有很多实用的扩展工具
 
 #### 编辑工具：
@@ -235,7 +235,12 @@ X-KDE-Username=
 [Python_Development_Environment](../Python/development_envirnment.md)
 
 #### [ 3 ]、Sublime
-[sublime配置](../Tools/Subliem/Sublime.md)
+[sublime 基础](../Tools/Sublime/sublime_base.md)
+[sublime LSP](../Tools/Sublime/sublime_LSP.md)
+[sublime  go](../Tools/Sublime/sublime_go.md)
+[sublime python](../Tools/Sublime/sublime_python.md)
+[sublime markdown](../Tools/Sublime/sublime_markdown.md)
+[sublime 前端](../Tools/Sublime/sublime_frontEnd.md)
 
 
 #### [ 4 ] 、Mysql
@@ -302,7 +307,7 @@ ssh -p port ldz@192.168.0.1
 >
 > 使用 ssh-keygen 命令生成密钥对：
 >
-> ssh-keygen -t rsa   [[-t表示类型选项，这里采用rsa]]加密算法
+> `ssh-keygen -t rsa`   `[[-t表示类型选项，这里采用rsa]]加密算法`
 > 然后根据提示一步步的按enter键即可（其中有一个提示是要求设置私钥口令passphrase，不设置则为空，这里看心情吧，如果不放心私钥的安全可以设置一下），执行结束以后会在 /home/username/ 目录下生成一个 .ssh 文件夹,其中包含私钥文件 id_rsa 和公钥文件 id_rsa.pub。
 >
 > 2、将公钥复制到远程主机中

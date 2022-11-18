@@ -19,7 +19,6 @@ itertools.cycle(iterable)
 # cycle('ABCD') --> A B C D A B C D A B C D ...
 ```
 ## repeat()
-[深入了解 repeat 的妙用](./itertools.repeat.md)
 itertools.repeat(object[, times])
 可以设置两个参数，其中第一个参数要求可迭代，第二个参数为重复次数，第二个参数如不设置则无限循环，一般来说使用时都会设置第二个参数，用来满足预期重复次数后终止：
 创建一个迭代器，不断重复 object 。除非设定参数 times ，否则将无限重复。可用于 map() 函数中的参数，被调用函数可得到一个不变参数。也可用于 zip() 的参数以在元组记录中创建一个不变的部分。
