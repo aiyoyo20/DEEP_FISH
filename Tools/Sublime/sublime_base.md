@@ -68,6 +68,42 @@ sublime4 安装遇到的问题：
 
 是使用sublime的插件管理器安装的，安装到了目录`~/.config/sublime-text/Installed\ Packages`下，而sublime对这个包的默认地址是`~/.config/sublime-text/Packages`下，但是如果在一个目录中找不到就会去另一个文件夹中寻找，所以出现了报错但仍然正常使用的情况，觉得别扭的话将其`~/.config/sublime-text/Installed\ Packages`下的`keymaps`解压移动到`~/.config/sublime-text/Packages`并删除`~/.config/sublime-text/Installed\ Packages`下的`keymaps`包即可
 
+#### AutoFileName
+文件名自动补全
+
+`IndexError`处理，将`autofilename.py`中的代码做个简单修改即可，其实就算报错也能正常使用，但是看着挺别扭，对这个异常的意见挺多，自己又懒得去细究先这样用着吧。
+
+```
+Open autofilename.py, using PackageResourceView. Go to line 162
+
+sel = view.sel()[0].a
+txt = view.substr(sublime.Region(sel-4,sel-3))
+if (self.showing_win_drives and txt == FileNameComplete.sep):
+    self.showing_win_drives = False
+    view.run_command('afn_delete_prefixed_slash')
+
+替换为
+
+try:
+    sel = view.sel()[0].a
+    txt = view.substr(sublime.Region(sel-4,sel-3))
+    if (self.showing_win_drives and txt == FileNameComplete.sep):
+        self.showing_win_drives = False
+        view.run_command('afn_delete_prefixed_slash')
+
+except IndexError:
+    pass
+
+```
+
+
+#### PackageResourceViewer
+对安装的插件进行预览、编辑，压缩包形式的也可以，无需自己解压修改后再压缩。
+
+
+#### FindKeyConflicts
+找出所有插件有冲突的快捷键
+
 ## 一些配置
 ```
 {
@@ -264,5 +300,21 @@ Shift+右键拖动：光标多不，用来更改或插入列内容
 安装的时候选择一个比较容易找到的位置，默认的也可以，不过得去找到安装的位置，安装好之后先不要打开，在 Sublime Text 3 文件夹下新建一个  Data (注意大小写) 文件夹并删除原来的的 Sublime Text 3 配置文件夹，这时候启动安装插件就会在Data目录中了，也可以直接复制自己的配置文件到Data目录中，这个文件夹就可以复制进 u 盘随身带着了，但是依赖的 python、node、go 等需要在新设备上进行安装并修改相应 sublime 配置
 
 ## 问题
-连续的输入`gh`或者`gd`会快速显示h、d后消失。
+### 连续的输入`gh`或者`gd`会快速显示h、d后消失。
 原因是godef定义的快捷键冲突了，更改快捷键或者慢速输入即可。
+
+### path 问题
+sublime 默认使用的是`bash`, 默认 path 路径为
+```
+/usr/local/bin
+/usr/local/sbin
+/usr/bin
+/usr/sbin
+```
+
+自己安装的一些软件不在默认 path 中，
+
+这时要么在`.bash_profile`中添加环境变量，但是设置后要重启系统才生效。
+
+要么创建其软链接在`/usr/local/bin`中，创建软链接的位置非强制但建议，这样在删除软件时更方便也不会和其他的系统软件混淆。
+
