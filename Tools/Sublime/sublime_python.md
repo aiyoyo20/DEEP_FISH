@@ -76,9 +76,14 @@ rm .python-version
 
 #### 方案二
 ```
+Virtualenv
 LSP # Client implementation of the Language Server Protocol for Sublime Text
 LSP-pylsp # 搭配 LSP 使用，可以实现代码补全，检查等功能，需要`python-lsp-server`包
 ```
+
+不支持虚拟环境，`Virtualenv`插件是用来切换运行时的环境。
+
+对于其他环境的包应用补全可以通过设置`"pylsp.plugins.jedi.environment":`来实现，但是代码检查时还是不能识别其他环境的包。
 
 下面的配置根据自己的喜好可进行调整
 LSP-pylsp.sublime-settings:
@@ -192,21 +197,40 @@ LSP-pylsp.sublime-settings:
 
 #### 方案三
 ```
+Virtualenv
 LSP # Client implementation of the Language Server Protocol for Sublime Text
-LSP-pyright # LSP-pylsp 类似，但更快
+LSP-pyright # LSP-pylsp 类似，但更快，且补全检查不依赖 python ，支持虚拟环境
 ```
 
-方案二、三都不能通过 Virtualenv 更改当前的虚拟环境，对于包的补全默认也只有全局环境中的，通过手动修改配置信息可以使用虚拟环境
-
-LSP-pyright.sublime-settings:
+虚拟环境配置：name.sublime-project
 ```
-// Settings in here override those in "LSP-pyright/LSP-pyright.sublime-settings"
 {
+  "folders": [
+    {
+      // "folder_exclude_patterns": ["Backup/"],
+      "path": ".",
+    }
+  ],
   "settings": {
-    // Path to Python. Leave empty to attempt automatic resolution.
-    "python.pythonPath": "/home/aiyoyo/Documents/vir/flask_b/bin/python",
-    // Path to folder with a list of Virtual Environments.
-    // "python.venvPath": "/home/aiyoyo/Documents/vir",
-  }
+    "LSP": {
+      "LSP-pyright": {
+        "enabled": true,
+        "settings": {
+          "pyright.dev_environment": "sublime_text_38",
+          // python 包的查找路径
+          "python.analysis.extraPaths": [
+            "/home/aiyoyo/Documents/vir/flask_b/lib/python3.8/site-packages",
+          ],
+          "python.analysis.logLevel": "Information",
+          "python.venvPath": "",
+        },
+      },
+    },
+  },
+  // 虚拟环境路径，最初可以不用指定,使用 `virtualenv`插件进行环境切换时会自动创建、切换，注释
+  "virtualenv": "/home/aiyoyo/Documents/vir/flask_b",
 }
+
 ```
+
+`Project > Edit Project`会打开相应的项目配置文件编辑即可。为灰色则是没有项目配置文件，`Project > Save Project As`会创建相应的文件，再去编辑即可。
