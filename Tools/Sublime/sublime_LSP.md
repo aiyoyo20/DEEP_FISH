@@ -156,6 +156,8 @@ LSP-pylsp.sublime-settings:
 ##### LSP-pyright
 VERSION	1.1.199
 
+不使用虚拟环境
+
 设置`python.pythonPath`可以使用虚拟环境中的 python，也就能实现对虚拟环境中的包引用和自动补全了。
 
 LSP-pyright.sublime-settings
@@ -169,3 +171,37 @@ LSP-pyright.sublime-settings
     }
 }
 ```
+
+使用虚拟环境
+虚拟环境配置：name.sublime-project
+```
+{
+  "folders": [
+    {
+      // "folder_exclude_patterns": ["Backup/"],
+      "path": ".",
+    }
+  ],
+  "settings": {
+    "LSP": {
+      "LSP-pyright": {
+        "enabled": true,
+        "settings": {
+          "pyright.dev_environment": "sublime_text_38",
+          // python 包的查找路径
+          "python.analysis.extraPaths": [
+            "/home/aiyoyo/Documents/vir/flask_b/lib/python3.8/site-packages",
+          ],
+          "python.analysis.logLevel": "Information",
+          "python.venvPath": "",
+        },
+      },
+    },
+  },
+  // 虚拟环境路径，最初可以不用指定,使用 `virtualenv`插件进行环境切换时会自动创建、切换，注释
+  "virtualenv": "/home/aiyoyo/Documents/vir/flask_b",
+}
+
+```
+
+`Project > Edit Project`会打开相应的项目配置文件编辑即可。为灰色则是没有项目配置文件，`Project > Save Project As`会创建相应的文件，再去编辑即可。
