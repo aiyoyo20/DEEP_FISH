@@ -10,10 +10,10 @@ Clipboard Indicator
 对于常用的或者可以作为临时备忘录之类的
 
 Clipman
-private mode 
-可以快速将复制的内容转为二维码，需要传输到手机的话很方便
+可以快速将复制的内容转为二维码。
 
 Gnome Clipboard
+问题：系统 suspend 后内容会消失
 
 #### Proxy Switcher
 在状态栏快速设置系统代理的切换，不必再一步步进入设置去开启关闭
@@ -54,3 +54,5 @@ Fedora 相对于 Ubuntu 桌面更简介，一些配置是没有的，可以通�
 
 ### vscode 标题栏白色（标题栏颜色不随主题更换变化）
 打开设置，`Title Bar Style`,`native`更改为`custom`
+
+
