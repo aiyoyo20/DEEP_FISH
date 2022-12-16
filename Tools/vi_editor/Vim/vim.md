@@ -33,42 +33,40 @@ syntax on  " 开启文件类型侦测
 filetype plugin indent on  " 启用自动补全
 filetype off
 
-" 定义快捷键的前缀，即<Leader> , 默认为 \
-let mapleader = "\<Space>"
-let g:mapleader = "\<Space>"
-set hidden
-set ttimeout
-set ttimeoutlen=50
-
-
-" 主题配色 ============================================================
-set termguicolors  " 开启24bit的颜色，开启这个颜色会更漂亮一些
-colorscheme gruvbox  " 主题
-set background=dark  " 主题背景 dark-深色; light-浅色
 
 " ===========================插件配置==================================
 call plug#begin('~/.vim/plugged')  " 插件开始的位置
 
-" 配色方案+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+"*********************************************************************
+"" 主题配色
 Plug 'morhetz/gruvbox'
-" --------------------------------------------------------------------
 
-" +++++++++++++Language Server Protocol+++++++++++++++++++++++++++++++
+set termguicolors  " 开启24bit的颜色，开启这个颜色会更漂亮一些
+colorscheme gruvbox  " 主题
+set background=dark  " 主题背景 dark-深色; light-浅色
+"*********************************************************************
+
+
+"*********************************************************************
+" +++++++++++++ Language Server Protocol +++++++++++++++++++++++++++++
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'dense-analysis/ale'  " 代码检查
+
+" 代码检查
+Plug 'dense-analysis/ale'
 Plug 'rhysd/vim-lsp-ale'
 " Plug 'mattn/vim-lsp-settings'
 
+"" Snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 Plug 'thomasfaingnaert/vim-lsp-snippets'
 
 
-" ********bash-language-server*********
+" ******** bash-language-server *********
 if executable('bash-language-server')
     au User lsp_setup call lsp#register_server({
           \ 'name': 'bash-language-server',
@@ -77,7 +75,7 @@ if executable('bash-language-server')
           \ })
 endif
 
-" ********docker-langserver*********
+" ******** docker-langserver *********
 if executable('docker-langserver')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'docker-langserver',
@@ -86,7 +84,7 @@ if executable('docker-langserver')
         \ })
 endif
 
-" ********gppls*********
+" ******** gppls *********
 if executable('gopls')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'gopls',
@@ -99,7 +97,7 @@ if executable('gopls')
 endif
 
 
-" ********pylsp*********
+" ******** pylsp *********
 if executable('pylsp')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'pylsp',
@@ -109,7 +107,7 @@ if executable('pylsp')
 endif
 
 
-" ********golangci-lint-langserver*********
+" ******** golangci-lint-langserver *********
 if executable('golangci-lint-langserver')
   au User lsp_setup call lsp#register_server({
       \ 'name': 'golangci-lint-langserver',
@@ -119,7 +117,7 @@ if executable('golangci-lint-langserver')
       \ })
 endif
 
-" ********rust-analyzer*********
+" ******** rust-analyzer *********
 if executable('rustup')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'rust-analyzer',
@@ -128,7 +126,7 @@ if executable('rustup')
         \ })
 endif
 
-" ********yaml-language-server*********
+" ******** yaml-language-server *********
 if executable('yaml-language-server')
    au User lsp_setup call lsp#register_server({
        \ 'name': 'yaml-language-server',
@@ -174,62 +172,136 @@ augroup lsp_install
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
-
-" ----------------------------------------------------------------------
-
-Plug 'junegunn/vim-easy-align'  " 可以快速对齐的插件
-
-" ctrlp文件搜索 +++++++++++++ ++++++++++++++++++++++++++++++++++++++++++++++++
-Plug 'kien/ctrlp.vim'  " 文件搜索
-
-" 打开ctrlp搜索
-let g:ctrlp_map = '<leader>ff'
-let g:ctrlp_cmd = 'CtrlP'
-
-let g:ctrlp_working_path_mode=0
-let g:ctrlp_match_window_bottom=1
-let g:ctrlp_max_height=15
-let g:ctrlp_match_window_reversed=0
-let g:ctrlp_mruf_max=500
-let g:ctrlp_follow_symlinks=1
-
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
-" let g:ctrlp_custom_ignore = {
-"     \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
-"     \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
-"     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS'
-" }
-
-" 相当于mru功能，show recently opened files
-map <leader>cp :CtrlPMRU<CR>
 " --------------------------------------------------------------------
 
+" markdown +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Plug 'iamcco/mathjax-support-for-mkdp'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
+" markdwon 的快捷键
+map <silent> <leader>mp :MarkdownPreview<CR>
+map <silent> <Leader>ms :MarkdownPreviewStop<CR>
+" --------------------------------------------------------------------
+"*********************************************************************
 
-
-" vim显示相关插件 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+"*********************************************************************
+"" 显示相关插件
+" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Plug 'vim-airline/vim-airline'
-Plug 'sjl/gundo.vim'  " 文件历史插件
-Plug 'jistr/vim-nerdtree-tabs'  " 可以使 nerdtree Tab 标签的名称更友好些
+Plug 'vim-airline/vim-airline-themes'
 
+" vim-airline
+let g:airline_theme = 'powerlineish'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline_skip_empty_sections = 1
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#buffer_nr_show = 0
+let g:airline#extensions#tabline#fnametruncate = 16
+let g:airline#extensions#tabline#fnamecollapse = 2
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+" let g:airline#extensions#virtualenv#enabled = 1
+" if !exists('g:airline_symbols')
+"   let g:airline_symbols = {}
+" endif
+" 
+" if !exists('g:airline_powerline_fonts')
+"   let g:airline#extensions#tabline#left_sep = ' '
+"   let g:airline#extensions#tabline#left_alt_sep = '|'
+"   let g:airline_left_sep          = '▶'
+"   let g:airline_left_alt_sep      = '»'
+"   let g:airline_right_sep         = '◀'
+"   let g:airline_right_alt_sep     = '«'
+"   let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
+"   let g:airline#extensions#readonly#symbol   = '⊘'
+"   let g:airline#extensions#linecolumn#prefix = '¶'
+"   let g:airline#extensions#paste#symbol      = 'ρ'
+"   let g:airline_symbols.linenr    = '␊'
+"   let g:airline_symbols.branch    = '⎇'
+"   let g:airline_symbols.paste     = 'ρ'
+"   let g:airline_symbols.paste     = 'Þ'
+"   let g:airline_symbols.paste     = '∥'
+"   let g:airline_symbols.whitespace = 'Ξ'
+" else
+"   let g:airline#extensions#tabline#left_sep = ''
+"   let g:airline#extensions#tabline#left_alt_sep = ''
+" 
+"   " powerline symbols
+"   let g:airline_left_sep = ''
+"   let g:airline_left_alt_sep = ''
+"   let g:airline_right_sep = ''
+"   let g:airline_right_alt_sep = ''
+"   let g:airline_symbols.branch = ''
+"   let g:airline_symbols.readonly = ''
+"   let g:airline_symbols.linenr = ''
+" endif
+" --------------------------------------------------------------------
+
+" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Plug 'jistr/vim-nerdtree-tabs'  " 可以使 nerdtree Tab 标签的名称更友好些
 Plug 'scrooloose/nerdtree'  " 用来提供一个导航目录的侧边栏
+
+"" NERDTree configuration
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['node_modules','\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']  " 忽略以下文件的显示
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let NERDTreeShowBookmarks=0  " 打开 vim 文件及显示书签列表
 let NERDTreeShowLineNumbers=0  " 显示行号
 let NERDTreeAutoCenter=0  " 打开文件时是否显示目录
 let NERDTreeShowHidden=0  " 是否显示隐藏文件
 let NERDTreeWinSize=31  " 设置宽度
-let NERDTreeIgnore=['\.pyc','\~$','\.swp']  " 忽略一下文件的显示
-let NERDTreeShowBookmarks=0  " 打开 vim 文件及显示书签列表
 let g:nerdtree_tabs_open_on_console_startup=1  " 在终端启动vim时，共享NERDTree
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/
 
 " 打开和关闭NERDTree快捷键
-map <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <silent> <F2> :NERDTreeFind<CR>
 " --------------------------------------------------------------------
 
 
-" 自动括号匹配 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Plug 'jiangmiao/auto-pairs'  " 自动补全括号的插件，包括小括号，中括号，以及花括号
+" 可视化缩进 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Plug 'Yggdroot/indentLine'
+let g:indentLine_enabled = 1
+let g:indentLine_concealcursor = ''
+let g:indentLine_char = '┆'
+let g:indentLine_faster = 1
 
-" 不同括号显示不同颜色
+" let g:indentLine_setColors = 0
+" let g:indentLine_defaultGroup = 'SpecialKey'
+" " Vim
+" let g:indentLine_color_term = 239
+"
+" " GVim
+" let g:indentLine_color_gui = '#A4E57E'
+"
+" " none X terminal
+" let g:indentLine_color_tty_light = 7 " (default: 4)
+" let g:indentLine_color_dark = 1 " (default: 2)
+"
+" " Background (Vim, GVim)
+" let g:indentLine_bgcolor_term = 202
+" let g:indentLine_bgcolor_gui = '#FF5F00'
+"
+" let g:indentLine_char = 'c'
+"
+" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+"
+" let g:indentLine_concealcursor = 'inc'
+" let g:indentLine_conceallevel = 2
+" let g:indentLine_setConceal = 0
+" let g:vim_json_conceal=0
+" let g:markdown_syntax_conceal=0
+" --------------------------------------------------------------------
+
+" 不同括号显示不同颜色+++++++++++++++++++++++++++++++++++++++++++++++++++
 Plug 'kien/rainbow_parentheses.vim'  " 括号匹配高亮
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
@@ -261,85 +333,53 @@ au Syntax * RainbowParenthesesLoadSquare " []
 au Syntax * RainbowParenthesesLoadBraces " {}
 " --------------------------------------------------------------------
 
+" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Plug 'sjl/gundo.vim'  " 文件历史
+" --------------------------------------------------------------------
+"*********************************************************************
 
-" 可视化缩进 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Plug 'Yggdroot/indentLine'
-let g:indentLine_setColors = 0
-let g:indentLine_defaultGroup = 'SpecialKey'
-" Vim
-let g:indentLine_color_term = 239
+"*********************************************************************
+" 其他工具
+" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Plug 'kien/ctrlp.vim'  " 文件搜索
+let g:ctrlp_map = '<leader>ff'
+let g:ctrlp_cmd = 'CtrlP'
 
-" GVim
-let g:indentLine_color_gui = '#A4E57E'
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_follow_symlinks=1
 
-" none X terminal
-let g:indentLine_color_tty_light = 7 " (default: 4)
-let g:indentLine_color_dark = 1 " (default: 2)
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
+" let g:ctrlp_custom_ignore = {
+"     \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+"     \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
+"     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS'
+" }
 
-" Background (Vim, GVim)
-let g:indentLine_bgcolor_term = 202
-let g:indentLine_bgcolor_gui = '#FF5F00'
-
-let g:indentLine_char = 'c'
-
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-
-let g:indentLine_concealcursor = 'inc'
-let g:indentLine_conceallevel = 2
-let g:indentLine_setConceal = 0
-let g:vim_json_conceal=0
-let g:markdown_syntax_conceal=0
+" 相当于mru功能，show recently opened files
+map <leader>cp :CtrlPMRU<CR>
 " --------------------------------------------------------------------
 
-
-
-" 大纲式导航 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" 查看当前代码文件中的变量和函数列表的插件，可以切换和跳转到代码中对应的变量和函数的位置
-Plug 'preservim/tagbar'
-" tagbar 插件打开关闭快捷键
+Plug 'preservim/tagbar'  " 大纲式导航，查看当前代码文件中的变量和函数列表的插件
 nmap <Leader>tt :TagbarToggle<CR>
-" --------------------------------------------------------------------
 
-
-" markdown +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Plug 'iamcco/mathjax-support-for-mkdp'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-
-" markdwon 的快捷键
-map <silent> <leader>mp :MarkdownPreview<CR>
-map <silent> <Leader>ms :MarkdownPreviewStop<CR>
-" --------------------------------------------------------------------
-
-
-
-Plug 'preservim/nerdcommenter'
-" 快速注释
-" 注释<leader>cc
-" 取消注释<leader>cu
-Plug 'godlygeek/tabular'   " 对齐插件
+Plug 'jiangmiao/auto-pairs'  " 自动补全括号的插件，包括小括号，中括号，以及花括号
+Plug 'godlygeek/tabular'   " 对齐
 Plug 'bronson/vim-trailing-whitespace' " 清除尾部空格
+Plug 'preservim/nerdcommenter'  " 快速注释
+Plug 'bling/vim-bufferline'
+"*********************************************************************
 
 
 call plug#end()  " 插件结束的位置，插件全部放在此行上面
 " --------------------------------------------------------------------
 
 
-
-
-" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" 设置 Tab 长度
-au BufNewFile,BufRead *.js, *.html, *.css
-\ set tabstop=2 |
-\ set softtabstop=2 |
-\ set shiftwidth=2
-" --------------------------------------------------------------------
-
-
-
-" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" fileHead 设置
-autocmd BufNewFile *.sh,*.py,*.go exec ":call AutoSetFileHead()"
-autocmd BufWrite *.sh,*.py call SetLastModifiedTimes()
+"*********************************************************************
+"" Functions
 function! AutoSetFileHead()
     " 对于 shell 脚本文件
     if &filetype == 'sh'
@@ -394,14 +434,87 @@ function SetLastModifiedTimes()
     call setline(3,repl)
   endif
 endfunction
-" --------------------------------------------------------------------
+"*********************************************************************
 
-
+"*********************************************************************
+"" Commands
 " 保存 .vimrc 文件后，配置立刻生效
 autocmd! bufwritepost $HOME/.vimrc source %
 
 " 退出插入模式指定类型的文件自动保存
 au InsertLeave *.go,*.sh,*.py,*.md,*.js,*.css,*.html,*.txt write
+
+" fileHead 设置
+autocmd BufNewFile *.sh,*.py,*.go exec ":call AutoSetFileHead()"
+" 更新文件修改时间
+autocmd BufWrite *.sh,*.py call SetLastModifiedTimes()
+
+" 设置 Tab 长度
+au BufNewFile,BufRead *.js, *.html, *.css
+\ set tabstop=2 |
+\ set softtabstop=2 |
+\ set shiftwidth=2
+"*********************************************************************
+
+
+"*********************************************************************
+"" Abbreviations
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+"*********************************************************************
+
+
+"*********************************************************************
+"" Mappings
+"" 有的快捷键已经写在插件配置里，这里写一遍时为了查找方便，不过注释了
+" 定义快捷键的前缀，即<Leader> , 默认为 \
+let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
+set hidden
+set ttimeout
+set ttimeoutlen=50
+
+"" markdown-preview.nvim
+" map <silent> <leader>mp :MarkdownPreview<CR>
+" map <silent> <Leader>ms :MarkdownPreviewStop<CR>
+
+"" ctrlp.vim
+
+
+"" tagbar
+" nmap <Leader>tt :TagbarToggle<CR> " 导航打开关闭
+
+" terminal emulation
+nnoremap <silent> <leader>sh :terminal<CR>
+
+"" vim-trailing-whitespace
+" remove trailing whitespaces
+nmap <Leader>fs :FixWhitespace<CR>
+
+" tabular   " 对齐
+
+"" nerdcommenter 快速注释
+" <leader>cc  注释
+" <leader>cu  取消注释
+
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+"*********************************************************************
 ```
 
 
