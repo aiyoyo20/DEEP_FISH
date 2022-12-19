@@ -21,8 +21,8 @@ Sublime  VERSIONS： Sublime Text 4143
 `go version go1.18 linux/amd64`  在设置了环境变量外部测试能找到命令，但是 sublime 中安装`LSP-gopls`一直报错`go binary could not be found in $PATH`,创建软连接在`/bin`或`/usr/bin`中即可。
 
 #### 插件
-##### LSP 
-VERSIONS： 1.20.0 
+##### LSP
+VERSIONS： 1.20.0
 
 ##### LSP-gopls
 VERSION	1.2.3
@@ -39,6 +39,8 @@ VERSION	1.9.0
 
 ##### LSP-bash
 VERSION	1.1.5
+
+提示`change "SHELLCHECK_PATH" to "shellchcek"`，文件未正确添加`shabang`头导致.
 
 ##### LSP-pylsp
 VERSION	2.6.0
