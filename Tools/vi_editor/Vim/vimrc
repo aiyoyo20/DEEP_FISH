@@ -64,6 +64,11 @@ Plug 'hrsh7th/vim-vsnip-integ'
 " 能够把内容集合到补全里面进行选择
 " NOTE: You can use other key to expand snippet.
 
+" 代码格式化，比如 bash-language-server 不支持代码格式化但代码检查有强制要求
+Plug 'Chiel92/vim-autoformat'
+let g:formatterpath = ['/home/aiyoyo/go/bin']  " 格式化命令的位置，可添加多个
+" 支持的语言很多,而且默认会自动删除尾部多余空格
+
 " Expand
 imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
@@ -513,16 +518,13 @@ set ttimeoutlen=50
 
 
 "" markdown-preview.nvim
-" nmap <leader>mp :MarkdownPreview<CR>
-" nmap <Leader>ms :MarkdownPreviewStop<CR>
-
 nmap <leader>mp <Plug>MarkdownPreview
 nmap <Leader>ms <Plug>MarkdownPreviewStop
 
 
 "" nerdtree
 " 打开和关闭NERDTree快捷键
-nmap <leader>nt <Plug>NERDTreeToggle
+nmap <leader>nt :NERDTreeToggle<CR>
 
 
 "" ctrlp.vim
@@ -531,13 +533,13 @@ nmap <leader>nt <Plug>NERDTreeToggle
 
 "" tagbar
 " nmap <Leader>tt :TagbarToggle<CR> " 导航打开关闭
-nmap <leader>tt <Plug>TagbarToggle
+nmap <leader>tt :TagbarToggle<CR>
 
 " tabular   " 对齐
 
 "" vim-trailing-whitespace
 " remove trailing whitespaces
-nmap <Leader>fs  <Plug>FixWhitespace
+nmap <Leader>fs  :FixWhitespace<CR>
 
 " terminal emulation
 nnoremap <silent> <leader>sh :terminal<CR>
