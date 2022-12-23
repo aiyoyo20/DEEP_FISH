@@ -55,5 +55,7 @@
 让操作浏览器像 vim 一样
 使用教程：[https://xiaoheidiannao.com/articles/Vim-For-Chrome.html#link-operation](https://xiaoheidiannao.com/articles/Vim-For-Chrome.html#link-operation)
 
+## uBlacklist
+能够利用正则匹配对谷歌等多种搜索引擎的搜索结果进行过滤，以前没有太在乎这个，有但不多，近期不知道什么原因多了很多，有的搜索结果，20个里面只有4-5个是正常的，其他的虽然域名不一，但是log、域名后的内容都是一样的，比如一些盗版小说群站。而且该插件支持订阅，标题规则过滤，可谓是很强大了。
 
-
+订阅源：[Google-Chinese-Results-Blocklist](https://github.com/cobaltdisco/Google-Chinese-Results-Blocklist)，由于是国人收集的，也更有帮助。
