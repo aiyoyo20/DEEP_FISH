@@ -45,13 +45,17 @@ set background=dark  " 主题背景 dark-深色; light-浅色
 
 
 "*********************************************************************
-" +++++++++++++ Language Server Protocol +++++++++++++++++++++++++++++
 " 代码补全
 Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-let g:lsp_diagnostics_enabled = 0 " 关闭代码检查功能，使用 ale
+Plug 'prabirshrestha/asyncomplete-file.vim'  " 对文件路进的提示补全
+" 需要进行注册
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'whitelist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
 
 " 代码检查
 Plug 'dense-analysis/ale'
@@ -60,38 +64,22 @@ Plug 'rhysd/vim-lsp-ale'
 "" Snippets
 Plug 'rafamadriz/friendly-snippets'
 Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-" 能够把内容集合到补全里面进行选择
-" NOTE: You can use other key to expand snippet.
+Plug 'hrsh7th/vim-vsnip-integ'  " 能够把内容集合到补全里面进行选择
 
 " 代码格式化，比如 bash-language-server 不支持代码格式化但代码检查有强制要求
 Plug 'Chiel92/vim-autoformat'
 let g:formatterpath = ['/home/aiyoyo/go/bin']  " 格式化命令的位置，可添加多个
 " 支持的语言很多,而且默认会自动删除尾部多余空格
 
-" Expand
-imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 
-" Expand or jump
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-
-" Jump forward or backward
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-" See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap        s   <Plug>(vsnip-select-text)
-xmap        s   <Plug>(vsnip-select-text)
-nmap        S   <Plug>(vsnip-cut-text)
-xmap        S   <Plug>(vsnip-cut-text)
+" +++++++++++++ Language Server Protocol +++++++++++++++++++++++++++++
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+let g:lsp_diagnostics_enabled = 0 " 关闭代码检查功能，使用 ale
 
 
-" ******** bash-language-server *********
+
+" bash-language-server {
 if executable('bash-language-server')
     au User lsp_setup call lsp#register_server({
           \ 'name': 'bash-language-server',
@@ -99,8 +87,9 @@ if executable('bash-language-server')
           \ 'allowlist': ['sh'],
           \ })
 endif
+" }
 
-" ******** docker-langserver *********
+" docker-langserver {
 if executable('docker-langserver')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'docker-langserver',
@@ -108,8 +97,9 @@ if executable('docker-langserver')
         \ 'whitelist': ['dockerfile'],
         \ })
 endif
+" }
 
-" ******** gppls *********
+" gppls {
 if executable('gopls')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'gopls',
@@ -120,9 +110,9 @@ if executable('gopls')
      \   'go': ['vim-lsp', 'golangci-lint'],
      \ }
 endif
+" }
 
-
-" ******** pylsp *********
+" pylsp {
 if executable('pylsp')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'pylsp',
@@ -130,9 +120,9 @@ if executable('pylsp')
         \ 'allowlist': ['python'],
         \ })
 endif
+" }
 
-
-" ******** golangci-lint-langserver *********
+" golangci-lint-langserver {
 if executable('golangci-lint-langserver')
   au User lsp_setup call lsp#register_server({
       \ 'name': 'golangci-lint-langserver',
@@ -141,8 +131,10 @@ if executable('golangci-lint-langserver')
       \ 'whitelist': ['go'],
       \ })
 endif
+" }
 
-" ******** rust-analyzer *********
+
+"" rust-analyzer {
 if executable('rustup')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'rust-analyzer',
@@ -150,8 +142,9 @@ if executable('rustup')
         \ 'allowlist': ['rust'],
         \ })
 endif
+" }
 
-" ******** yaml-language-server *********
+" yaml-language-server {
 if executable('yaml-language-server')
    au User lsp_setup call lsp#register_server({
        \ 'name': 'yaml-language-server',
@@ -169,6 +162,7 @@ if executable('yaml-language-server')
        \ }
        \})
 endif
+" }
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
@@ -199,14 +193,16 @@ augroup lsp_install
 augroup END
 " --------------------------------------------------------------------
 
-" markdown +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" markdown {
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-" --------------------------------------------------------------------
+" }
 "*********************************************************************
 
+
+
 "*********************************************************************
-"" 显示相关插件
+" 显示相关插件
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -227,41 +223,10 @@ let g:airline#extensions#tabline#fnametruncate = 16
 let g:airline#extensions#tabline#fnamecollapse = 2
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
-" let g:airline#extensions#virtualenv#enabled = 1
-" if !exists('g:airline_symbols')
-"   let g:airline_symbols = {}
-" endif
-"
-" if !exists('g:airline_powerline_fonts')
-"   let g:airline#extensions#tabline#left_sep = ' '
-"   let g:airline#extensions#tabline#left_alt_sep = '|'
-"   let g:airline_left_sep          = '▶'
-"   let g:airline_left_alt_sep      = '»'
-"   let g:airline_right_sep         = '◀'
-"   let g:airline_right_alt_sep     = '«'
-"   let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-"   let g:airline#extensions#readonly#symbol   = '⊘'
-"   let g:airline#extensions#linecolumn#prefix = '¶'
-"   let g:airline#extensions#paste#symbol      = 'ρ'
-"   let g:airline_symbols.linenr    = '␊'
-"   let g:airline_symbols.branch    = '⎇'
-"   let g:airline_symbols.paste     = 'ρ'
-"   let g:airline_symbols.paste     = 'Þ'
-"   let g:airline_symbols.paste     = '∥'
-"   let g:airline_symbols.whitespace = 'Ξ'
-" else
-"   let g:airline#extensions#tabline#left_sep = ''
-"   let g:airline#extensions#tabline#left_alt_sep = ''
-"
-"   " powerline symbols
-"   let g:airline_left_sep = ''
-"   let g:airline_left_alt_sep = ''
-"   let g:airline_right_sep = ''
-"   let g:airline_right_alt_sep = ''
-"   let g:airline_symbols.branch = ''
-"   let g:airline_symbols.readonly = ''
-"   let g:airline_symbols.linenr = ''
-" endif
+let g:airline#extensions#virtualenv#enabled = 1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
 " --------------------------------------------------------------------
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -284,8 +249,8 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/
 " --------------------------------------------------------------------
 
 
-" 可视化缩进 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Plug 'Yggdroot/indentLine'
+"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Plug 'Yggdroot/indentLine'  " 可视化缩进
 let g:indentLine_enabled = 1
 let g:indentLine_concealcursor = ''
 let g:indentLine_char = '┆'
@@ -318,8 +283,8 @@ let g:indentLine_faster = 1
 " let g:markdown_syntax_conceal=0
 " --------------------------------------------------------------------
 
-" 不同括号显示不同颜色+++++++++++++++++++++++++++++++++++++++++++++++++++
-Plug 'kien/rainbow_parentheses.vim'  " 括号匹配高亮
+" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Plug 'kien/rainbow_parentheses.vim'  " 括号匹配高亮,不同括号显示不同颜色
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
     \ ['Darkblue',    'SeaGreen3'],
@@ -351,6 +316,8 @@ au Syntax * RainbowParenthesesLoadBraces " {}
 " --------------------------------------------------------------------
 "*********************************************************************
 
+
+
 "*********************************************************************
 " 其他工具
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -372,10 +339,64 @@ let g:ctrlp_custom_ignore = {
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS'}
 " --------------------------------------------------------------------
 
-Plug 'preservim/tagbar'  " 大纲式导航，查看当前代码文件中的变量和函数列表的插件
+
+
+" Plug 'preservim/tagbar'  " 大纲式导航，查看当前代码文件中的变量和函数列表的插件
+Plug 'liuchengxu/vista.vim'
+" tagbar 的替代品
+" How each level is indented and what to prepend.
+" This could make the display more compact or more spacious.
+" e.g., more compact: ["▸ ", ""]
+" Note: this option only works for the kind renderer, not the tree renderer.
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+
+" Executive used when opening vista sidebar without specifying it.
+" See all the avaliable executives via `:echo g:vista#executives`.
+let g:vista_default_executive = 'ctags'
+
+" Set the executive for some filetypes explicitly. Use the explicit executive
+" instead of the default one for these filetypes when using `:Vista` without
+" specifying the executive.
+let g:vista_executive_for = {
+  \ 'py': 'vim_lsp',
+  \ 'go': 'vim_lsp',
+  \ }
+
+" Declare the command including the executable and options used to generate ctags output
+" for some certain filetypes.The file path will be appened to your custom command.
+" For example:
+let g:vista_ctags_cmd = {
+      \ 'haskell': 'hasktags -x -o - -c',
+      \ }
+
+" To enable fzf's preview window set g:vista_fzf_preview.
+" The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
+" For example:
+let g:vista_fzf_preview = ['right:50%']
+
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
 Plug 'jiangmiao/auto-pairs'  " 自动补全括号的插件，包括小括号，中括号，以及花括号
 Plug 'godlygeek/tabular'   " 对齐
-Plug 'bronson/vim-trailing-whitespace' " 清除尾部空格
+Plug 'bronson/vim-trailing-whitespace' " 尾部空格高亮，删除
 Plug 'preservim/nerdcommenter'  " 快速注释
 "*********************************************************************
 
@@ -446,31 +467,35 @@ endfunction
 "*********************************************************************
 
 
+
 "*********************************************************************
 "" Commands
 " {
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " 保存 .vimrc 文件后，配置立刻生效
 autocmd! bufwritepost $HOME/.vimrc source %
-
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " 退出插入模式指定类型的文件自动保存
 au InsertLeave *.go,*.sh,*.py,*.md,*.js,*.css,*.html,*.txt write
-
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " fileHead 设置
 autocmd BufNewFile *.sh,*.py,*.go exec ":call AutoSetFileHead()"
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " 更新文件修改时间
 autocmd BufWrite *.sh,*.py call SetLastModifiedTimes()
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" Python runner:
+autocmd FileType python nnoremap <buffer> <C-i> :w <RETURN> :!python % <RETURN>
+" }
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " 设置 Tab 长度
 au BufNewFile,BufRead *.js, *.html, *.css
 \ set tabstop=2 |
 \ set softtabstop=2 |
-\ set shiftwidth=2
-
-
-" Python runner:
-autocmd FileType python nnoremap <buffer> <C-i> :w <RETURN> :!python % <RETURN>
-" }
+\ set shifidth=2
 "*********************************************************************
+
 
 
 "*********************************************************************
@@ -490,10 +515,11 @@ cnoreabbrev Qall qall
 
 "*********************************************************************
 
+
+
 "*********************************************************************
 "" Mappings
 " {
-" 有的快捷键已经写在插件配置里，这里写一遍时为了查找方便，不过注释了
 " 定义快捷键的前缀，即<Leader> , 默认为 \
 let mapleader = "\<Space>"
 let maplocalleader= "\<Space>"
@@ -531,9 +557,8 @@ nmap <leader>nt :NERDTreeToggle<CR>
 " let g:ctrlp_map = '<leader>ff'
 " let g:ctrlp_cmd = 'CtrlP'
 
-"" tagbar
-" nmap <Leader>tt :TagbarToggle<CR> " 导航打开关闭
-nmap <leader>tt :TagbarToggle<CR>
+"" Vista
+nmap <leader>vs :Vista!!<CR>
 
 " tabular   " 对齐
 
