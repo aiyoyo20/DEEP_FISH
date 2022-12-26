@@ -122,6 +122,16 @@ if executable('pylsp')
 endif
 " }
 
+" marksman {
+if executable('marksman')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'marksman',
+        \ 'cmd': {server_info->['marksman']},
+        \ 'allowlist': ['markdown'],
+        \ })
+endif
+" }
+
 " golangci-lint-langserver {
 if executable('golangci-lint-langserver')
   au User lsp_setup call lsp#register_server({
@@ -134,7 +144,7 @@ endif
 " }
 
 
-"" rust-analyzer {
+" rust-analyzer {
 if executable('rustup')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'rust-analyzer',
@@ -340,8 +350,6 @@ let g:ctrlp_custom_ignore = {
 " --------------------------------------------------------------------
 
 
-
-" Plug 'preservim/tagbar'  " 大纲式导航，查看当前代码文件中的变量和函数列表的插件
 Plug 'liuchengxu/vista.vim'
 " tagbar 的替代品
 " How each level is indented and what to prepend.
@@ -561,6 +569,14 @@ nmap <leader>nt :NERDTreeToggle<CR>
 nmap <leader>vs :Vista!!<CR>
 
 " tabular   " 对齐
+if exists(":Tabularize")
+      nmap <Leader>te :Tabularize /=<CR>
+      vmap <Leader>te :Tabularize /=<CR>
+      nmap <Leader>aa :Tabularize /:\zs<CR>
+      vmap <Leader>aa :Tabularize /:\zs<CR>
+      nmap <Leader>td :Tabularize<CR>
+      vmap <Leader>td :Tabularize<CR>
+    endif
 
 "" vim-trailing-whitespace
 " remove trailing whitespaces
