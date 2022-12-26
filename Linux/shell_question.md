@@ -1,22 +1,23 @@
 ## 数组作为函数参数的问题
-`
-#!/bin/bash 
+
+\`
+\#!/bin/bash
 
 urlOne="https://raw.githubusercontent.com/ngosang/trackerslist/master/"
-arrayOne=("trackers_all.txt" "trackers_all_http.txt" "trackers_all_https.txt" "trackers_all_ip.txt" "trackers_all_udp.txt" "trackers_all_ws.txt" "trackers_best.txt" "trackers_best_ip.txt")
+arrayOne=("trackers\_all.txt" "trackers\_all\_http.txt" "trackers\_all\_https.txt" "trackers\_all\_ip.txt" "trackers\_all\_udp.txt" "trackers\_all\_ws.txt" "trackers\_best.txt" "trackers\_best\_ip.txt")
 
 function getTracker(){
-    array=$2
-    echo ${array[*]}
-    for i in ${array[*]}
-    do  
-        url="${1}${i}"
-        echo "wget $url"
-    done
+array=$2
+echo ${array\[*]}
+for i in ${array\[*]}
+do
+url="${1}${i}"
+echo "wget $url"
+done
 }
 
-getTracker ${urlOne} "${arrayOne[*]}"
-`
+getTracker ${urlOne} "${arrayOne\[*]}"
+\`
 因为不是只传一个数组，要考虑其他参数的情况，而且数组不一定在最前最后，即尽量不在函数内使用"$@"、"@*" 接收再切片的方式。
 
 1、传参
@@ -32,56 +33,50 @@ getTracker ${urlOne} "${arrayOne[*]}"
 
 下面的情况有点迷惑了。
 
-直接输出"$2"得到的是一个整体，这个整体按照shell的理念应该是字符串，无论是直接使用变量名、"${name[*]}"、"${name[@]}"都能正确的循环，也就排除了会动态转为数组的可能。
+直接输出"$2"得到的是一个整体，这个整体按照shell的理念应该是字符串，无论是直接使用变量名、"${name\[\*]}"、"${name\[@]}"都能正确的循环，也就排除了会动态转为数组的可能。
 
 单写了一个测试的，对于不管是""、''包裹的有空格的字符串，for循环都会根据空格去拆分。
 
 于是猜测是不是会自动识别分隔符，更改了`IFS`的值，果然遍历就只输出了一个整体，再对字符串中的某些空格改为新的分隔符，的确是根据分隔符来拆分。
 
-但为了整体的统一，还是在读取循环时也使用"${name[*]}"的方式吧。
-
-
+但为了整体的统一，还是在读取循环时也使用"${name\[\*]}"的方式吧。
 
 ## “sudo echo ＞＞”或类似命令串提示权限不够的解决办法
+
 这是因为重定向符号 “>” 和 “>>” 也是 bash 的命令。sudo 只是让 echo 命令具有了 root 权限，但是没有让 “>” 和 “>>” 命令也具有root 权限，所以 bash 会认为这两个命令都没有写入信息的权限。
 
 解决方法一：
 利用 “sh -c” 命令，它可以让 bash 将一个字串作为完整的命令来执行，这样就可以将 sudo 的影响范围扩展到整条命令。具体用法如下：
-```
-sudo sh -c 'command line'
-sudo sh -c 'echo "114.250.64.34    translate.googleapis.com" >> /etc/hosts'
-```
+
+    sudo sh -c 'command line'
+    sudo sh -c 'echo "114.250.64.34    translate.googleapis.com" >> /etc/hosts'
 
 解决方法二：
 利用管道和 tee 命令，该命令可以从标准输入中读入信息并将其写入标准输出或文件中，具体用法如下：
-```
-echo "strings" | sudo tee -a filename
-echo "114.250.64.34    translate.googleapis.com" | sudo tee -a /etc/hosts 
-```
+
+    echo "strings" | sudo tee -a filename
+    echo "114.250.64.34    translate.googleapis.com" | sudo tee -a /etc/hosts
+
 ### 读取文件的几种方法
 
-```
-while read line
-do
-    echo $line
-done < filename
-```
+    while read line
+    do
+        echo $line
+    done < filename
 
-```
-cat filename | while read line
-do
-    echo $line
-done
-```
+<!---->
+
+    cat filename | while read line
+    do
+        echo $line
+    done
 
 #### IFS 分隔符；cat 逐行读取文件
 
-```
-for line in `cat filename`
-do
-    echo $line
-done
-```
+    for line in `cat filename`
+    do
+        echo $line
+    done
 
 使用上面的方法读取文件时，当行内有空白符(空格、tab、换行)时就不会按行输出了。
 
@@ -91,33 +86,29 @@ a b
 3 4
 ```
 
-```
-for i in `cat test.txt`
-do
-   echo $i
-done
-```
+    for i in `cat test.txt`
+    do
+       echo $i
+    done
 
-```
-a
-b
-1
-2
-3
-4
-```
+<!---->
+
+    a
+    b
+    1
+    2
+    3
+    4
 
 除了更换之前的 while 方法外，还可以通过指定分隔符来实现。
 
-```
-IFS=$'\n' # 定义分割符
-# for i in $(cat file)    # better
-# for i in $(<file)       # in bash
-for i in `cat file`
-do
-    echo "$i"
-done
-```
+    IFS=$'\n' # 定义分割符
+    # for i in $(cat file)    # better
+    # for i in $(<file)       # in bash
+    for i in `cat file`
+    do
+        echo "$i"
+    done
 
 > IFS="\n" # 将字符 n 作为 IFS 的换行符。
 > IFS=$"\n" # 这里\n确实通过$转化为了换行符，但仅当被解释时（或被执行时）才被转化为换行符;第一个和第二个是等价的
