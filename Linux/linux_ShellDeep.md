@@ -1,123 +1,8 @@
-## shebang 符号
-
-`#!`:即为 shebang 符号
-
-> 在 Shebang 之后，可以有一个或数个空白字符，后接解释器的绝对路径，用于指明执行这个脚本文件的解释器。在直接调用脚本时，系统的程序载入器会分析 Shebang 后的内容，将这些内容作为解释器指令，并调用该指令，将载有 Shebang 的文件路径作为该解释器的参数，执行脚本，从而使得脚本文件的调用方式与普通的可执行文件类似。例如，以指令#!/bin/sh 开头的文件，在执行时会实际调用 /bin/sh 程序（通常是 Bourne shell 或兼容的 shell，例如 bash、dash 等）来执行。
-
-## shell 提示符
-
-> 启动 Linux 桌面环境自带的终端模拟包，或者从 Linux 控制台登录后，便可以看到 Shell 命令提示符。看见命令提示符就意味着可以输入命令了。命令提示符不是命令的一部分，它只是起到一个提示作用。
-> `[mozhiyan@localhost ~]$`
-> 各个部分的含义如下：
-> []是提示符的分隔符号，没有特殊含义。
-> mozhiyan 表示当前登录的用户，我现在使用的是 mozhiyan 用户登录。
-> @是分隔符号，没有特殊含义。
-> localhost 表示当前系统的简写主机名（完整主机名是 localhost.localdomain）。
-> ~代表用户当前所在的目录为主目录（home 目录）。如果用户当前位于主目录下的 bin 目录中，那么这里显示的就是 bin。
-> $是命令提示符。Linux 用这个符号标识登录的用户权限等级：如果是超级用户（root 用户），提示符就是#；如果是普通用户，提示符就是$。
-> 第二层命令提示符
-> 有些命令不能在一行内输入完成，需要换行，这个时候就会看到第二层命令提示符。第二层命令提示符默认为>，请看下面的例子：
-> [mozhiyan@localhost ~]$ echo "Shell 教程"
-> Shell 教程
-> [mozhiyan@localhost ~]$ echo "
-> http://
-> c.biancheng.net
-> "
-
-http://
-c.biancheng.net
-
-第一个 echo 命令在一行内输入完成，不会出现第二层提示符。第二个 echo 命令需要多行才能输入完成，提示符>用来告诉用户命令还没输入完成，请继续输入。
-
-echo 命令用来输出一个字符串。字符串是一组由" "包围起来的字符序列，echo 将第一个"作为字符串的开端，将第二个"作为字符串的结尾。对于第二个 echo 命令，我们将字符串分成多行，echo 遇到第一个"认为是不完整的字符串，所以会继续等待用户输入，直到遇见第二个"。
-
-Shell 通过 PS1 和 PS2 两个环境变量来控制提示符格式：
-PS1 控制最外层命令行的提示符格式。
-PS2 控制第二层命令行的提示符格式。
-
-Shell 使用以\为前导的特殊字符来表示命令提示符中包含的要素，这使得 PS1 和 PS2 的格式看起来可能有点奇怪。下表展示了可以在 PS1 和 PS2 中使用的特殊字符。
-Bash shell 提示符可以包含的要素
-|字符| 描述|
-|\a |铃声字符|
-|\d |格式为“日 月 年”的日期|
-|\e |ASCII 转义字符|
-|\h |本地主机名|
-|\H |完全合格的限定域主机名|
-|\j |shell 当前管理的作业数|
-|\1 |shell 终端设备名的基本名称|
-|\n |ASCII 换行字符|
-|\r |ASCII 回车|
-|\s |shell 的名称|
-|\t |格式为“小时:分钟:秒”的 24 小时制的当前时间|
-|\T |格式为“小时:分钟:秒”的 12 小时制的当前时间|
-|\@ |格式为 am/pm 的 12 小时制的当前时间|
-|\u |当前用户的用户名|
-|\v |bash shell 的版本|
-|\V |bash shell 的发布级别|
-|\w |当前工作目录|
-|\W |当前工作目录的基本名称|
-|\! |该命令的 bash shell 历史数|
-|\# |该命令的命令数量|
-|\$ |如果是普通用户，则为美元符号$；如果超级用户（root 用户），则为井号#。|
-|\nnn| 对应于八进制值 nnn 的字符|
-|\\ |斜杠|
-|\[ |控制码序列的开头|
-|\] |控制码序列的结尾|
-注意，所有的特殊字符均以反斜杠\开头，目的是与普通字符区分开来。您可以在命令提示符中使用以上任何特殊字符的组合。
-
-我们可以通过修改 PS1 变量来修改提示符格式，例如：`[name@localhost ~]$ PS1="[\t][\u]\$ "`
-
-`[17:27:34][name]$` 新的 Shell 提示符现在可以显示当前的时间和用户名。不过这个新定义的 PS1 变量只在当前 Shell 会话期间有效，再次启动 Shell 时将重新使用默认的提示符格式。
-
-## 注释
-shell 的单行、多行注释均以 # 开头。
-
-## 变量
-
-shell 在定义变量时通常不需要指明类型，直接赋值就可以
-
-在 Bash shell 中，每一个变量的值都是字符串，无论你给变量赋值时有没有使用引号，值都会以字符串的形式存储。
-
-这意味着，Bash shell 在默认情况下不会区分变量类型，即使你将整数和小数赋值给变量，它们也会被视为字符串，这一点和大部分的编程语言不同。例如在 C 语言或者 C++ 中，变量分为整数、小数、字符串、布尔等多种类型。
-
-当然，如果有必要，你也可以使用 Shell declare 关键字显式定义变量的类型，但在一般情况下没有这个需求，Shell 开发者在编写代码时自行注意值的类型即可。
-
-#### 定义变量
-
-Shell 支持以下三种定义变量的方式：
-variable=value
-variable='value'
-variable="value"
-
-variable 是变量名，value 是赋给变量的值。如果 value 不包含任何空白符（例如空格、Tab 缩进等），那么可以不使用引号；如果 value 包含了空白符，那么就必须使用引号包围起来。使用单引号和使用双引号也是有区别的，稍后我们会详细说明。
-
-注意，赋值号=的周围不能有空格，这可能和你熟悉的大部分编程语言都不一样。
-
-Shell 变量的命名规范和大部分编程语言都一样：
-变量名由数字、字母、下划线组成；
-必须以字母或者下划线开头；
-不能使用 Shell 里的关键字（通过 help 命令可以查看保留关键字）
-
 ### 使用变量
 
-使用一个定义过的变量，只要在变量名前面加美元符号$即可，如：
+使用一个定义过的变量，只要在变量名前面加美元符号$即可.
 
-```
-author="严长生"
-echo $author
-echo ${author}
-```
-
-变量名外面的花括号{ }是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：
-
-```
-skill="Java"
-echo "I am good at ${skill}Script"
-```
-
-如果不给 skill 变量加花括号，写成 echo "I am good at $skillScript"，解释器就会把 $skillScript 当成一个变量（其值为空），代码执行结果就不是我们期望的样子了。
-
-推荐给所有变量加上花括号{ }，这是个良好的编程习惯。
+变量名外面的花括号{ }是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界.
 
 ### 单引号和双引号的区别
 
@@ -142,46 +27,23 @@ variable=$(command)
 
 使用 readonly 命令可以将变量定义为只读变量，只读变量的值不能被改变。
 
-下面的例子尝试更改只读变量，结果报错：
-
-```
-#!/bin/bash
-myUrl="http://c.biancheng.net/shell/"
-readonly myUrl
-myUrl="http://c.biancheng.net/shell/"
-```
-
-运行脚本，结果如下：
-bash: myUrl: This variable is read only.
-
 ### 删除变量
 
-使用 unset 命令可以删除变量。语法：
-`unset variable_name`
-变量被删除后不能再次使用；unset 命令不能删除只读变量。
-
-举个例子：
-
-```
-#!/bin/sh
-myUrl="http://c.biancheng.net/shell/"
-unset myUrl
-echo $myUrl
-```
-
-上面的脚本没有任何输出。
+使用 unset 命令可以删除变量。语法：`unset variable_name`,变量被删除后不能再次使用；unset 命令不能删除只读变量。
 
 ### 特殊变量
 
-|Shell 特殊变量及其含义|
-|变量 |含义|
-|$0	|当前脚本的文件名。|
-|$n|（n≥1） 传递给脚本或函数的参数。n 是一个数字，表示第几个参数。例如，第一个参数是 $1，第二个参数是 $2。|
-|$# |传递给脚本或函数的参数个数。|
-|$*	|传递给脚本或函数的所有参数。|
-|$@ |传递给脚本或函数的所有参数。当被双引号" "包含时，$@ 与 $* 稍有不同，我们将在《Shell $*和$@的区别》一节中详细讲解。|
-|$?	|上个命令的退出状态，或函数的返回值，我们将在《Shell $?》一节中详细讲解。|
-|$$ |当前 Shell 进程 ID。对于 Shell 脚本，就是这些脚本所在的进程 ID。|
+Shell 特殊变量及其含义
+
+| 变量 | 含义                                                                                                               |
+| ---  | ---                                                                                                                |
+| $0   | 当前脚本的文件名。                                                                                                 |
+| $n   | （n≥1） 传递给脚本或函数的参数。n 是一个数字，表示第几个参数。例如，第一个参数是 $1，第二个参数是 $2。             |
+| $#   | 传递给脚本或函数的参数个数。                                                                                       |
+| $*   | 传递给脚本或函数的所有参数。                                                                                       |
+| $@   | 传递给脚本或函数的所有参数。当被双引号" "包含时，$@ 与 $* 稍有不同，我们将在《Shell $*和$@的区别》一节中详细讲解。 |
+| $?   | 上个命令的退出状态，或函数的返回值，我们将在《Shell $?》一节中详细讲解。                                           |
+| $$   | 当前 Shell 进程 ID。对于 Shell 脚本，就是这些脚本所在的进程 ID。                                                   |
 
 ### 环境变量
 
@@ -490,17 +352,17 @@ echo -n "dereferenced " ;eval t=\$$t; echo "\"t\" = $t"
 ## 输入、输出
 
 read:用来从标准输入中读取数据并赋值给变量。如果没有进行重定向，默认就是从键盘读取用户输入的数据；如果进行了重定向，那么可以从文件中读取数据。
+
 `$REPLY`:当没有参数变量提供给 read 命令的时候，这个变量会作为默认变量提供给 read 命令。
 
-```
 read 命令用于从标准输入读取数值。
 
 read 内部命令被用来从标准输入读取单行数据。这个命令可以用来读取键盘输入，当使用重定向的时候，可以读取文件中的一行数据。
 
-语法
-read [-ers] [-a aname] [-d delim] [-i text] [-n nchars] [-N nchars] [-p prompt] [-t timeout] [-u fd] [name ...]
-参数说明:
+语法:`read [-ers] [-a aname] [-d delim] [-i text] [-n nchars] [-N nchars] [-p prompt] [-t timeout] [-u fd] [name ...]`
 
+|参数|说明|
+|---|---|
 -a 后跟一个变量，该变量会被认为是个数组，然后给其赋值，默认是以空格为分割符。
 -d 后面跟一个标志符，其实只有其后的第一个字符有用，作为结束的标志。
 -p 后面跟提示信息，即在输入前打印提示信息。
@@ -512,66 +374,43 @@ read [-ers] [-a aname] [-d delim] [-i text] [-n nchars] [-N nchars] [-p prompt] 
 -u 后面跟 fd，从文件描述符中读入，该文件描述符可以是 exec 新开启的。
 
 ### 读取文件的几种方法
-
 ```
-
 while read line
 do
 echo $line
 done < filename
-
 ```
 
 ```
-
 cat filename | while read line
 do
 echo $line
 done
-
 ```
 
 #### IFS 分隔符；cat 逐行读取文件
 
 ```
-
 for line in `cat filename`
 do
 echo $line
 done
-
-````
+```
 
 使用上面的方法读取文件时，当行内有空白符(空格、tab、换行)时就不会按行输出了。
-
-```test.txt
-a b
-1 2
-3 4
-````
-
 ```
 for i in `cat test.txt`
 do
    echo $i
 done
-```
-
-```
-a
-b
-1
-2
-3
-4
-```
 
 除了更换之前的 while 方法外，还可以通过指定分隔符来实现。
+```
 
 ```
 IFS=$'\n' # 定义分割符
 # for i in $(cat file)    # better
-# for i in $(<file)       # in bash
+# for i in $(<file>)       # in bash
 for i in `cat file`
 do
     echo "$i"
@@ -588,7 +427,6 @@ Shell 的环境变量分为 set, env 两种，其中 set 变量可以通过 expo
 
 IFS 是一种 set 变量，当 shell 处理"命令替换"和"参数替换"时，shell 根据 IFS 的值，默认是 space, tab, newline 来拆解读入的变量，然后对特殊字符进行处理，最后重新组合赋值给该变量.
 
-```
 
 echo:用来在终端输出字符串，并在最后默认加上换行符。
 
@@ -597,15 +435,7 @@ printf:用来在终端输出。
 ## 字符串
 字符串可以由单引号' '包围，也可以由双引号" "包围，也可以不用引号。它们之间是有区别的
 
-字符串举例：
-```
-
-str1=c.biancheng.net
-str2="shell script"
-str3='C 语言中文网'
-
-```
-下面我们说一下三种形式的区别：
+三种形式的区别：
 
 1) 由单引号' '包围的字符串：
 任何字符都会原样输出，在其中使用变量是无效的。
@@ -629,14 +459,6 @@ str3='C 语言中文网'
 
 
 ## 数组
-数组（Array）是若干数据的集合，其中的每一份数据都称为元素（Element）。
-
-Shell 并且没有限制数组的大小，理论上可以存放无限量的数据。和 C++、Java、C# 等类似，Shell 数组元素的下标也是从 0 开始计数。
-
-获取数组中的元素要使用下标[ ]，下标可以是一个整数，也可以是一个结果为整数的表达式；当然，下标必须大于等于 0。
-
-遗憾的是，常用的 Bash Shell 只支持一维数组，不支持多维数组。
-
 在 Shell 中，用括号( )来表示数组，数组元素之间用空格来分隔。由此，定义数组的一般形式为：
 array_name=(ele1  ele2  ele3 ... elen)
 
@@ -649,37 +471,30 @@ array_name=(ele1  ele2  ele3 ... elen)
 
 使用@或*可以获取数组中的所有元素:
 ```
-
 ${nums[*]}
 ${nums[@]}
-
 ```
 
 ### 获取数组长度
 ```
-
 ${#array_name[@]}
 ${#array_name[*]}
-
 ```
+
 其中 array_name 表示数组名。两种形式是等价的，选择其一即可。
 
 ### 数组合并
 ```
-
 array_new=(${array1[@]}  ${array2[@]})
 array_new=(${array1[*]} ${array2[*]})
-
 ```
 
 两种方式是等价的，选择其一即可。其中，array1 和 array2 是需要拼接的数组，array_new 是拼接后形成的新数组。
 
 ### 删除数组元素
 ```
-
 unset array_name[index] # 删除数组元素
 unset array_name # 删除数组
-
 ```
 
 ## 关联数组(“键值对（key-value）”数组)
@@ -689,42 +504,34 @@ unset array_name # 删除数组
 
 例如，我们可以创建一个叫做 color 的关联数组，并用颜色名字作为下标。
 ```
-
 declare -A color
 color["red"]="#ff0000"
 color["green"]="#00ff00"
 color["blue"]="#0000ff"
-
 ```
+
 也可以在定义的同时赋值：
-```
 
+```
 declare -A color=(["red"]="#ff0000", ["green"]="#00ff00", ["blue"]="#0000ff")
-
 ```
+
 不同于普通数组，关联数组必须使用带有-A选项的 declare 命令创建。
 
 ### 访问关联数组元素
-访问关联数组元素的方式几乎与普通数组相同
-`array_name["index"]`
+访问关联数组元素的方式几乎与普通数组相同`array_name["index"]`
 
 ### 获取所有元素的下标和值
 ```
-
 # 获得关联数组的所有元素值：
-
 ${array_name[@]}
 ${array_name[*]}
-
 ```
 
 ```
-
 # 获取关联数组的所有下标值：
-
 ${!array_name[@]}
 ${!array_name[*]}
-
 ```
 
 ## 数学计算
@@ -741,8 +548,8 @@ ${!array_name[*]}
 ### (())
 (( )) 只能进行整数运算，不能对小数（浮点数）或者字符串进行运算。
 Shell (( )) 的用法
-双小括号 (( )) 的语法格式为：
-((表达式))
+
+双小括号 (( )) 的语法格式为：`((表达式))`
 
 通俗地讲，就是将数学运算表达式放在((和))之间。
 
@@ -761,106 +568,110 @@ An arbitrary precision calculator language
 在终端输入bc命令，然后回车即可进入 bc 进行交互式的数学计算。在 Shell 编程中，我们也可以通过管道和输入重定向来使用 bc。
 
 ## 运算符
-### 算术运算符
 
 ### 关系运算符
 基于整数的判断
-|选 项			|作 用|
-|num1 -eq num2	|判断 num1 是否和 num2 相等。|
-|num1 -ne num2	|判断 num1 是否和 num2 不相等。|
-|num1 -gt num2	|判断 num1 是否大于 num2 。|
-|num1 -lt num2	|判断 num1 是否小于 num2。|
-|num1 -ge num2	|判断 num1 是否大于等于 num2。|
-|num1 -le num2	|判断 num1 是否小于等于 num2。|
+| 选 项         | 作 用                          |
+| ---           | ---                            |
+| num1 -eq num2 | 判断 num1 是否和 num2 相等。   |
+| num1 -ne num2 | 判断 num1 是否和 num2 不相等。 |
+| num1 -gt num2 | 判断 num1 是否大于 num2 。     |
+| num1 -lt num2 | 判断 num1 是否小于 num2。      |
+| num1 -ge num2 | 判断 num1 是否大于等于 num2。  |
+| num1 -le num2 | 判断 num1 是否小于等于 num2。  |
 
 ### 布尔运算符
-|运算符|说明|举例|
-|!|非运算，表达式为 true 则返回 false，否则返回 true。|[ ! false ] 返回 true。|
-|-o|或运算，有一个表达式为 true 则返回 true。|[ $a -lt 20 -o $b -gt 100 ] 返回 true。|
-|-a|与运算，两个表达式都为 true 才返回 true。|[ $a -lt 20 -a $b -gt 100 ] 返回 false。|
+| 运算符 | 说明                                                | 举例                                     |
+| ---    | ---                                                 |                                          |
+| !      | 非运算，表达式为 true 则返回 false，否则返回 true。 | [ ! false ] 返回 true。                  |
+| -o     | 或运算，有一个表达式为 true 则返回 true。           | [ $a -lt 20 -o $b -gt 100 ] 返回 true。  |
+| -a     | 与运算，两个表达式都为 true 才返回 true。           | [ $a -lt 20 -a $b -gt 100 ] 返回 false。 |
 
 
 ### 字符串运算符
-|选 项	作 用|
-|-z str	|判断字符串 str 是否为空。|
-|-n str	|判断宇符串 str 是否为非空。|
-|str1 = str2|判断 str1 是否和 str2 相等。|
-|str1 == str2	|=和==是等价的，都用来判断 str1 是否和 str2 相等。|
-|str1 != str2	|判断 str1 是否和 str2 不相等。|
-|str1 \> str2	|判断 str1 是否大于 str2。\>是>的转义字符，这样写是为了防止>被误认为成重定向运算符。|
-|str1 \< str2	|判断 str1 是否小于 str2。同样，\<也是转义字符。|
-|$str|检测字符串是否为空，不为空返回 true。|[ $a ] 返回 true。|
+| 选 项        | 作 用                                                                               |
+| ---          | ---                                                                                 |
+| -z str       | 判断字符串 str 是否为空。                                                           |
+| -n str       | 判断宇符串 str 是否为非空。                                                         |
+| str1 = str2  | 判断 str1 是否和 str2 相等。                                                        |
+| str1 == str2 | =和==是等价的，都用来判断 str1 是否和 str2 相等。                                   |
+| str1 != str2 | 判断 str1 是否和 str2 不相等。                                                      |
+| str1 \> str2 | 判断 str1 是否大于 str2。\>是>的转义字符，这样写是为了防止>被误认为成重定向运算符。 |
+| str1 \< str2 | 判断 str1 是否小于 str2。同样，\<也是转义字符。                                     |
+| $str         | 检测字符串是否为空，不为空返回 true. [ $a ] 返回 true。                             |
 
 ### 文件测试运算符
 文件测试运算符用于检测 Unix 文件的各种属性。
 
-|文件类型判断|
-|选 项	|作 用|
-|-b filename	|判断文件是否存在，并且是否为块设备文件。|
-|-c filename	|判断文件是否存在，并且是否为字符设备文件。|
-|-d filename	|判断文件是否存在，并且是否为目录文件。|
-|-e filename	|判断文件是否存在。|
-|-f filename	|判断文件是否存在，井且是否为普通文件。|
-|-L filename	|判断文件是否存在，并且是否为符号链接文件。|
-|-p filename	|判断文件是否存在，并且是否为管道文件。|
-|-s filename	|判断文件是否存在，并且是否为非空。|
-|-S filename	|判断该文件是否存在，并且是否为套接字文件。|
+文件类型判断
 
-|文件权限判断|
-|选 项	|作 用|
-|-r filename	|判断文件是否存在，并且是否拥有读权限。|
-|-w filename	|判断文件是否存在，并且是否拥有写权限。|
-|-x filename	|判断文件是否存在，并且是否拥有执行权限。|
-|-u filename	|判断文件是否存在，并且是否拥有 SUID 权限。|
-|-g filename	|判断文件是否存在，并且是否拥有 SGID 权限。|
-|-k filename	|判断该文件是否存在，并且是否拥有 SBIT 权限。|
+| 选 项       | 作 用                                      |
+| ---         | ---                                        |
+| -b filename | 判断文件是否存在，并且是否为块设备文件。   |
+| -c filename | 判断文件是否存在，并且是否为字符设备文件。 |
+| -d filename | 判断文件是否存在，并且是否为目录文件。     |
+| -e filename | 判断文件是否存在。                         |
+| -f filename | 判断文件是否存在，井且是否为普通文件。     |
+| -L filename | 判断文件是否存在，并且是否为符号链接文件。 |
+| -p filename | 判断文件是否存在，并且是否为管道文件。     |
+| -s filename | 判断文件是否存在，并且是否为非空。         |
+| -S filename | 判断该文件是否存在，并且是否为套接字文件。 |
 
-|文件比较|
-|选 项	|作 用|
-|filename1 -nt filename2	|判断 filename1 的修改时间是否比 filename2 的新。|
-|filename -ot filename2		|判断 filename1 的修改时间是否比 filename2 的旧。|
-|filename1 -ef filename2	|判断 filename1 是否和 filename2 的 inode 号一致，可以理解为两个文件是否为同一个文件。这个判断用于判断硬链接是很好的方法|
+文件权限判断
+
+| 选 项       | 作 用                                        |
+| ---         | ---                                          |
+| -r filename | 判断文件是否存在，并且是否拥有读权限。       |
+| -w filename | 判断文件是否存在，并且是否拥有写权限。       |
+| -x filename | 判断文件是否存在，并且是否拥有执行权限。     |
+| -u filename | 判断文件是否存在，并且是否拥有 SUID 权限。   |
+| -g filename | 判断文件是否存在，并且是否拥有 SGID 权限。   |
+| -k filename | 判断该文件是否存在，并且是否拥有 SBIT 权限。 |
+
+文件比较
+
+| 选 项                   | 作 用                                                                                                                   |
+| ---                     | ---                                                                                                                     |
+| filename1 -nt filename2 | 判断 filename1 的修改时间是否比 filename2 的新。                                                                        |
+| filename -ot filename2  | 判断 filename1 的修改时间是否比 filename2 的旧。                                                                        |
+| filename1 -ef filename2 | 判断 filename1 是否和 filename2 的 inode 号一致，可以理解为两个文件是否为同一个文件。这个判断用于判断硬链接是很好的方法 |
 
 ## 条件判断
 ### if
 语句中的 condition 用法都是一样的，你可以使用 test 或 [] 命令，也可以使用 (()) 或 [[]]，
+
 语法格式为：
 ```
-
 if condition
 then
 statement(s)
 fi
-
 ```
+
 condition是判断条件，如果 condition 成立（返回“真”），那么 then 后边的语句将会被执行；如果 condition 不成立（返回“假”），那么不会执行任何语句。
 
 也可以将 then 和 if 写在一行：
 ```
-
 if condition; then
 statement(s)
 fi
-
 ```
+
 请注意 condition 后边的分号;，当 if 和 then 位于同一行的时候，这个分号是必须的，否则会有语法错误。
 
 ### if else
 格式为：
 ```
-
 if condition
 then
 statement1
 else
 statement2
 fi
-
 ```
 ### if elif else
 格式为：
 ```
-
 if condition1
 then
 statement1
@@ -874,13 +685,11 @@ statement3
 else
 statementn
 fi
-
 ```
 
 ### case in
 格式如下：
 ```
-
 case expression in
 pattern1)
 statement1
@@ -895,7 +704,6 @@ statement3
 \*)
 statementn
 esac
-
 ```
 case、in 和 esac 都是 Shell 关键字，expression 表示表达式，pattern 表示匹配模式。
 expression 既可以是一个变量、一个数字、一个字符串，还可以是一个数学计算表达式，或者是命令的执行结果，只要能够得到 expression 的值就可以。
@@ -906,25 +714,27 @@ case 会将 expression  的值与 pattern1、pattern2、pattern3 逐个进行匹
 如果 expression 没有匹配到任何一个模式，那么就执行*)后面的语句（*表示其它所有值），直到遇见双分号;;或者esac才结束。*)相当于多个 if 分支语句中最后的 else 部分。
 
 case in 的 pattern 部分支持简单的正则表达式，具体来说，可以使用以下几种格式：
-|格式	|说明|
-|*		|表示任意字符串。|
-|[abc]	|表示 a、b、c 三个字符中的任意一个。比如，[15ZH] 表示 1、5、Z、H 四个字符中的任意一个。|
-|[m-n]	|表示从 m 到 n 的任意一个字符。比如，[0-9] 表示任意一个数字，[0-9a-zA-Z] 表示字母或数字。|
-|\|		|表示多重选择，类似逻辑运算中的或运算。比如，abc | xyz 表示匹配字符串 "abc" 或者 "xyz"。|
+| 格式  | 说明                                                                                     |
+| ---   | ---                                                                                      |
+| *     | 表示任意字符串。                                                                         |
+| [abc] | 表示 a、b、c 三个字符中的任意一个。比如，[15ZH] 表示 1、5、Z、H 四个字符中的任意一个。   |
+| [m-n] | 表示从 m 到 n 的任意一个字符。比如，[0-9] 表示任意一个数字，[0-9a-zA-Z] 表示字母或数字。 |
+| \     | 表示多重选择，类似逻辑运算中的或运算。比如，abc                                          |
+| xyz   | 表示匹配字符串 "abc" 或者 "xyz"。                                                        |
 
 
 ## 循环
 ### while
 语句中的 condition 用法都是一样的，你可以使用 test 或 [] 命令，也可以使用 (()) 或 [[]]，
+
 用法如下：
 ```
-
 while condition
 do
 statements
 done
-
 ```
+
 condition表示判断条件，statements表示要执行的语句（可以只有一条，也可以有多条），do和done都是 Shell 中的关键字。
 
 while 循环的执行流程为：
@@ -939,12 +749,10 @@ until 的使用场景很少，一般使用 while 即可。
 
 Shell until 循环的用法如下：
 ```
-
 until condition
 do
 statements
 done
-
 ```
 
 condition表示判断条件，statements表示要执行的语句（可以只有一条，也可以有多条），do和done都是 Shell 中的关键字。
@@ -958,13 +766,12 @@ until 循环的执行流程为：
 #### C语言风格的 for 循环
 用法如下：
 ```
-
 for((exp1; exp2; exp3))
 do
 statements
 done
-
 ```
+
 几点说明：
 exp1、exp2、exp3 是三个表达式，其中 exp2 是判断条件，for 循环根据 exp2 的结果来决定是否继续下一次循环；
 statements 是循环体语句，可以有一条，也可以有多条；
@@ -989,12 +796,10 @@ for 循环中的 exp1（初始化语句）、exp2（判断条件）和 exp3（�
 #### Python 风格的 for in 循环
 用法如下：
 ```
-
 for variable in value_list
 do
 statements
 done
-
 ```
 
 variable 表示变量，value_list 表示取值列表，in 是 Shell 中的关键字。
@@ -1016,47 +821,45 @@ start 表示起始值，end 表示终止值；注意中间用两个点号相连�
 ###### 使用 Shell 通配符
 shell 通配符 / glob 模式通常用来匹配目录以及文件，而不是文本！！！
 
-|字符				|解释|
-|*					|匹配任意长度任意字符|
-|?					|匹配任意单个字符|
-|[list]				|匹配指定范围内（list）任意单个字符，也可以是单个字符组成的集合|
-|[^list]			|匹配指定范围外的任意单个字符或字符集合|
-|[!list]			|同[^list]|
-|{str1,str2,...}	|匹配 srt1 或者 srt2 或者更多字符串，也可以是集合|
+| 字符            | 解释                                                           |
+| ---             | ---                                                            |
+| *               | 匹配任意长度任意字符                                           |
+| ?               | 匹配任意单个字符                                               |
+| [list]          | 匹配指定范围内（list）任意单个字符，也可以是单个字符组成的集合 |
+| [^list]         | 匹配指定范围外的任意单个字符或字符集合                         |
+| [!list]         | 同[^list]                                                      |
+| {str1,str2,...} | 匹配 srt1 或者 srt2 或者更多字符串，也可以是集合               |
 
 
-|字符		|意义|
-|[:alnum:]	|任意数字或者字母|
-|[:alpha:]	|任意字母|
-|[:space:]	|空格|
-|[:lower:]	|小写字母|
-|[:digit:]	|任意数字|
-|[:upper:]	|任意大写字母|
-|[:cntrl:]	|控制符|
-|[:graph:]	|图形|
-|[:print:]	|可打印字符|
-|[:punct:]	|标点符号|
-|[:xdigit:]	|十六进制数|
-|[:blank:]	|空白字符（未验证）|
+| 字符       | 意义               |
+| ---        | ---                |
+| [:alnum:]  | 任意数字或者字母   |
+| [:alpha:]  | 任意字母           |
+| [:space:]  | 空格               |
+| [:lower:]  | 小写字母           |
+| [:digit:]  | 任意数字           |
+| [:upper:]  | 任意大写字母       |
+| [:cntrl:]  | 控制符             |
+| [:graph:]  | 图形               |
+| [:print:]  | 可打印字符         |
+| [:punct:]  | 标点符号           |
+| [:xdigit:] | 十六进制数         |
+| [:blank:]  | 空白字符（未验证） |
 
-###### 使用特殊变量
 
 ### select in
 select in 循环用来增强交互性，它可以显示出带编号的菜单，用户输入不同的编号就可以选择不同的菜单，并执行不同的功能。
 
 用法如下：
 ```
-
 select variable in value_list
 do
 statements
 done
-
 ```
 
 例子：
 ```
-
 #!/bin/bash
 echo "What is your favourite OS?"
 select name in "Linux" "Windows" "Mac OS" "UNIX" "Android"
@@ -1064,12 +867,10 @@ do
 echo $name
 done
 echo "You have selected $name"
-
 ```
 
 运行结果：
 ```
-
 What is your favourite OS?
 
 1. Linux
@@ -1086,8 +887,8 @@ What is your favourite OS?
    #? 2↙
    You have selected Windows
    #?^D
-
 ```
+
 >#?用来提示用户输入菜单编号；^D表示按下 Ctrl+D 组合键，它的作用是结束 select in 循环。
 运行到 select 语句后，取值列表 value_list 中的内容会以菜单的形式显示出来，用户输入菜单编号，就表示选中了某个值，这个值就会赋给变量 variable，然后再执行循环体中的 statements（do 和 done 之间的部分）。
 每次循环时 select 都会要求用户输入菜单编号，并使用环境变量 PS3 的值作为提示符，PS3 的默认值为#?，修改 PS3 的值就可以修改提示符。
@@ -1098,7 +899,6 @@ What is your favourite OS?
 select in 通常和 case in 一起使用，在用户输入不同的编号时可以做出不同的反应。
 
 ```
-
 #!/bin/bash
 
 echo "What is your favourite OS?"
@@ -1129,7 +929,6 @@ break
 echo "输入错误，请重新输入"
 esac
 done
-
 ```
 
 ### break和continue跳出循环详解
@@ -1157,13 +956,12 @@ continue 关键字也通常和 if 语句一起使用，即满足条件时便跳�
 ## 函数
 Shell 函数必须先定义后使用
 Shell 函数定义的语法格式如下：
-```
 
+```
 function name() {
 statements
 [return value]
 }
-
 ```
 
 对各个部分的说明：
@@ -1188,7 +986,7 @@ Shell 函数返回值只能是整数，一般用来表示函数执行成功与�
 3）echo 返回值
 安全的返回方式，即通过输出到标准输出返回。因为子进程会继承父进程的标准输出，因此，子进程的输出也就直接反应到父进程。因此不存在上面提到的由于管道导致返回值失效的情况。在外边只需要获取函数的返回值即可。
 
-但是有一点一定要注意，不能向标准输出一些不是结果的东西（也就是说，不能随便echo一些不需要的信息），比如调试信息，这些信息可以重定向到一个文件中解决，特别要注意的是，脚本中用到其它类似grep这样的命令的时候，一定要记得1>/dev/null 2>&1来空这些输出信息输出到空设备，避免这些命令的输出。
+但是有一点一定要注意，不能向标准输出一些不是结果的东西（也就是说，不能随便echo一些不需要的信息），比如调试信息，这些信息可以重定向到一个文件中解决，特别要注意的是，脚本中用到其它类似grep这样的命令的时候，一定要记得`1>/dev/null 2>&1`来空这些输出信息输出到空设备，避免这些命令的输出。
 
 
 总结：
