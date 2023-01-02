@@ -1,3 +1,6 @@
+在 Manjaro-KDE 和 Manjaro-XFCE 正常配置。
+
+
 #### fcitx 安装
 
     sudo pacman -S --noconfirm fcitx-im kcm-fcitx fcitx-configtool
@@ -319,7 +322,7 @@ Theme=Material-Color
 
 #### 其他
 
-fcitx 修改 luna\_pinyin.custom.yaml 可以对全半角符号进行修改且有效，但是在换到fcitx5后就无效了，建议先去看 user.yaml 文件的内容
+fcitx 修改 luna\_pinyin.custom.yaml 可以对全半角符号进行修改且有效，但是在换到 fcitx5 后就无效了，建议先去看 user.yaml 文件的内容
 比如内容为:
 
     var:
