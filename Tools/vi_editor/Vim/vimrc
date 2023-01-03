@@ -122,6 +122,16 @@ if executable('pylsp')
 endif
 " }
 
+" protobuf {
+if executable('bufls')
+    au User lsp_setup call lsp#register_server({
+      \ 'name': 'bufls',
+      \ 'cmd': {server_info->['bufls', 'serve']},
+      \ 'whitelist': ['proto'],
+      \ })
+endif
+" }
+
 " marksman {
 if executable('marksman')
     au User lsp_setup call lsp#register_server({
@@ -204,6 +214,7 @@ augroup END
 " --------------------------------------------------------------------
 
 " markdown {
+Plug 'dkarter/bullets.vim'  " automated bullet lists
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 " }
@@ -406,6 +417,8 @@ Plug 'jiangmiao/auto-pairs'  " 自动补全括号的插件，包括小括号，�
 Plug 'godlygeek/tabular'   " 对齐
 Plug 'bronson/vim-trailing-whitespace' " 尾部空格高亮，删除
 Plug 'preservim/nerdcommenter'  " 快速注释
+
+Plug 'lilydjwg/fcitx.vim'
 "*********************************************************************
 
 
