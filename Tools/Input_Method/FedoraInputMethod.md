@@ -1,8 +1,37 @@
-官方的包管理器并没有 fcitx 相关的包，能不能自己编译安装没有测试。由于该版本的桌面环境是 gnome，内置了ibus框架，在安装使用较其他的要复杂一些。
+# OS : Fedora Linux 36 (Workstation Edition)
+`cat /etc/os-release`
+
+```
+NAME="Fedora Linux"
+VERSION="36 (Workstation Edition)"
+ID=fedora
+VERSION_ID=36
+VERSION_CODENAME=""
+PLATFORM_ID="platform:f36"
+PRETTY_NAME="Fedora Linux 36 (Workstation Edition)"
+ANSI_COLOR="0;38;2;60;110;180"
+LOGO=fedora-logo-icon
+CPE_NAME="cpe:/o:fedoraproject:fedora:36"
+HOME_URL="https://fedoraproject.org/"
+DOCUMENTATION_URL="https://docs.fedoraproject.org/en-US/fedora/f36/system-administrators-guide/"
+SUPPORT_URL="https://ask.fedoraproject.org/"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+REDHAT_BUGZILLA_PRODUCT="Fedora"
+REDHAT_BUGZILLA_PRODUCT_VERSION=36
+REDHAT_SUPPORT_PRODUCT="Fedora"
+REDHAT_SUPPORT_PRODUCT_VERSION=36
+PRIVACY_POLICY_URL="https://fedoraproject.org/wiki/Legal:PrivacyPolicy"
+SUPPORT_END=2023-05-16
+VARIANT="Workstation Edition"
+VARIANT_ID=workstation
+```
+
+
+官方的包管理器并没有 fcitx 相关的包，能不能自己编译安装没有测试。由于该版本的桌面环境是 gnome，内置了 ibus 框架，在安装使用较其他的要复杂一些。
 
 ### 安裝
 
-    sudo dnf install fcitx5 fcitx5 im-chooser
+    sudo dnf install fcitx5 fcitx5-rime im-chooser
 
 Fedora 沒有內置的工具`im-config`，但是可以安装使用类似的工具`im-chooser`。
 
