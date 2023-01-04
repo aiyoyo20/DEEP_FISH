@@ -1,6 +1,38 @@
+# OS : Fedora Linux 36 (Workstation Edition)
+`cat /etc/os-release`
+
+```
+NAME="Fedora Linux"
+VERSION="36 (Workstation Edition)"
+ID=fedora
+VERSION_ID=36
+VERSION_CODENAME=""
+PLATFORM_ID="platform:f36"
+PRETTY_NAME="Fedora Linux 36 (Workstation Edition)"
+ANSI_COLOR="0;38;2;60;110;180"
+LOGO=fedora-logo-icon
+CPE_NAME="cpe:/o:fedoraproject:fedora:36"
+HOME_URL="https://fedoraproject.org/"
+DOCUMENTATION_URL="https://docs.fedoraproject.org/en-US/fedora/f36/system-administrators-guide/"
+SUPPORT_URL="https://ask.fedoraproject.org/"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+REDHAT_BUGZILLA_PRODUCT="Fedora"
+REDHAT_BUGZILLA_PRODUCT_VERSION=36
+REDHAT_SUPPORT_PRODUCT="Fedora"
+REDHAT_SUPPORT_PRODUCT_VERSION=36
+PRIVACY_POLICY_URL="https://fedoraproject.org/wiki/Legal:PrivacyPolicy"
+SUPPORT_END=2023-05-16
+VARIANT="Workstation Edition"
+VARIANT_ID=workstation
+```
+
 ## 输入法
 
 默认的是ibus框架，直接进入输入法配置添加了`Intelligent Pinyin `，每次配置 fcitx 挺麻烦，这次使用发现挺好的。
+
+虽然麻烦但是后面还是换成了 fcitx5，但是不要卸载 ibus，ibus 是 gnome 内置的，可能会导致桌面系统崩溃。
+
+换的原因是有时候会卡键，按一下后面连续输出该键的字母，敲击其他的键才会停下。
 
 ## 看图软件
 ### geeqie
@@ -77,4 +109,6 @@ Fedora 相对于 Ubuntu 桌面更简介，一些配置是没有的，可以通�
 打开设置，`Title Bar Style`,`native`更改为`custom`
 
 ### 软件崩溃
-在使用软件时界面常常崩溃，然后弹出提示页面无响应，有时候弹窗自动消失恢复，有时候整个软件崩溃，更有甚整个桌面系统崩溃，回到登陆界面。主要是 Chrome 浏览器引起的次数居多，可能不是 chrome,查的时候看到较早的版本有人是使用 firefox经常有类似的问题，可能是内存资源的占用、gpu驱动方面的问题吧，暂时没解决。
+在使用软件时界面常常崩溃，然后弹出提示页面无响应，有时候弹窗自动消失恢复，有时候整个软件崩溃，更有甚整个桌面系统崩溃，回到登陆界面。主要是 Chrome 浏览器引起的次数居多，可能不是 chrome,查的时候看到较早的版本有人是使用 firefox 经常有类似的问题，可能是内存资源的占用、gpu 驱动方面的问题吧，暂时没解决。
+
+后面进行了一次整体升级，这个问题就没出现了。
