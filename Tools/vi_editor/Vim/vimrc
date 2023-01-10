@@ -27,6 +27,7 @@ syntax enable
 syntax on  " 开启文件类型侦测
 filetype plugin indent on  " 启用自动补全
 filetype off
+
 " }
 "*********************************************************************
 
@@ -272,36 +273,13 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/
 
 "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Plug 'Yggdroot/indentLine'  " 可视化缩进
-let g:indentLine_enabled = 1
-let g:indentLine_concealcursor = ''
 let g:indentLine_char = '┆'
-let g:indentLine_faster = 1
 
-" let g:indentLine_setColors = 0
-" let g:indentLine_defaultGroup = 'SpecialKey'
-" " Vim
-" let g:indentLine_color_term = 239
-"
-" " GVim
-" let g:indentLine_color_gui = '#A4E57E'
-"
-" " none X terminal
-" let g:indentLine_color_tty_light = 7 " (default: 4)
-" let g:indentLine_color_dark = 1 " (default: 2)
-"
-" " Background (Vim, GVim)
-" let g:indentLine_bgcolor_term = 202
-" let g:indentLine_bgcolor_gui = '#FF5F00'
-"
-" let g:indentLine_char = 'c'
-"
-" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-"
-" let g:indentLine_concealcursor = 'inc'
-" let g:indentLine_conceallevel = 2
-" let g:indentLine_setConceal = 0
-" let g:vim_json_conceal=0
-" let g:markdown_syntax_conceal=0
+" json
+let g:vim_json_conceal=0
+
+" markdown
+let g:markdown_syntax_conceal=0
 " --------------------------------------------------------------------
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -419,6 +397,8 @@ Plug 'bronson/vim-trailing-whitespace' " 尾部空格高亮，删除
 Plug 'preservim/nerdcommenter'  " 快速注释
 
 Plug 'lilydjwg/fcitx.vim'
+let g:fcitx5_remote = '/usr/bin/fcitx5-remote'
+let g:fcitx5_rime = 1
 "*********************************************************************
 
 
