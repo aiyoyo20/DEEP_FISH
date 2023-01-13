@@ -524,7 +524,20 @@ if __name__ == '__main__':
 
 实际上后续的代码也完完整整的走过一遍了的，但是在递归的时候，`yieldNumberList([1:])`该语句并不是单单纯的函数了，而是一个生成器，这里创建了一个生成器，但是没有对其进行迭代，而后续的生成器中的生成器也是同理，也就是该生成器实际是一个多重生成器，但是只迭代出了第一重。
 
+改进
+```
+def yieldNumberList(numberList):
+    yield numberList[0]
+    yield from yieldNumberList(numberList[1:])
 
+if __name__ == '__main__':
+    numberList = [1,2,3,4]
+
+    for number in yieldNumberList(numberList):
+        print(number)
+
+# 1
+```
 #### 参考
 
 [Python生成器](https://www.yiibai.com/python/generator.html#article-start)
