@@ -147,6 +147,14 @@ vim、sublime 通过插件和设置能够实现较为完美的编辑、预览环
 	官网：<https://obsidian.md/>
 	Github 项目地址：<https://github.com/obsidianmd/obsidian-releases/releases>
 
+#### 几种开源双向链编辑器对比
+
+|软件|包大小|内存占用|github star|
+|---|---|---|---|
+|Joplin|205M|233M|34k|
+|Logseq|151M|219M|19.7k|
+|Obsidian|94M|164M|3.9k|
+
 #### Trilium
 
 超高自由度的个人知识库。
@@ -185,5 +193,3 @@ vim、sublime 通过插件和设置能够实现较为完美的编辑、预览环
 	语言：中英两种语言
 	Github项目地址:  <https://github.com/getgridea/gridea/>
 	官网地址:  <https://gridea.dev/docs/>
-
-	
