@@ -2,18 +2,13 @@
 " KEY MAPS
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Plug 'liuchengxu/vim-which-key'
-let g:mapleader = "\<Space>"
-let g:maplocalleader = "\<Space>"
+Plug 'liuchengxu/vim-which-key',{ 'on': ['WhichKey', 'WhichKey!'] }
 
-" Map leader to which_key
-nnoremap <silent> <leader> :silent WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
+set nocompatible
 
-" Create map to add keys to
-let g:which_key_map =  {}
-" Define a separator
-let g:which_key_sep = '→'
+let g:mapleader="\<Space>"
+let g:which_key_map =  {}  " Create map to add keys to
+let g:which_key_sep = '→'  " Define a separator
 " set timeoutlen=100
 
 " Not a fan of floating windows for this
@@ -30,47 +25,27 @@ autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
-" Single mappings
-let g:which_key_map['/'] = [ '<Plug>NERDCommenterToggle'  , 'comment' ]
-let g:which_key_map['e'] = [ ':CocCommand explorer'       , 'explorer' ]
-let g:which_key_map['f'] = [ ':Files'                     , 'search files' ]
-let g:which_key_map['h'] = [ '<C-W>s'                     , 'split below']
-let g:which_key_map['r'] = [ ':Ranger'                    , 'ranger' ]
-let g:which_key_map['S'] = [ ':Startify'                  , 'start screen' ]
-let g:which_key_map['T'] = [ ':Rg'                        , 'search text' ]
-let g:which_key_map['v'] = [ '<C-W>v'                     , 'split right']
-let g:which_key_map['z'] = [ 'Goyo'                       , 'zen' ]
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
-" s is for search
-let g:which_key_map.s = {
-      \ 'name' : '+search' ,
-      \ '/' : [':History/'     , 'history'],
-      \ ';' : [':Commands'     , 'commands'],
-      \ 'a' : [':Ag'           , 'text Ag'],
-      \ 'b' : [':BLines'       , 'current buffer'],
-      \ 'B' : [':Buffers'      , 'open buffers'],
-      \ 'c' : [':Commits'      , 'commits'],
-      \ 'C' : [':BCommits'     , 'buffer commits'],
-      \ 'f' : [':Files'        , 'files'],
-      \ 'g' : [':GFiles'       , 'git files'],
-      \ 'G' : [':GFiles?'      , 'modified git files'],
-      \ 'h' : [':History'      , 'file history'],
-      \ 'H' : [':History:'     , 'command history'],
-      \ 'l' : [':Lines'        , 'lines'] ,
-      \ 'm' : [':Marks'        , 'marks'] ,
-      \ 'M' : [':Maps'         , 'normal maps'] ,
-      \ 'p' : [':Helptags'     , 'help tags'] ,
-      \ 'P' : [':Tags'         , 'project tags'],
-      \ 's' : [':Snippets'     , 'snippets'],
-      \ 'S' : [':Colors'       , 'color schemes'],
-      \ 't' : [':Rg'           , 'text Rg'],
-      \ 'T' : [':BTags'        , 'buffer tags'],
-      \ 'w' : [':Windows'      , 'search windows'],
-      \ 'y' : [':Filetypes'    , 'file types'],
-      \ 'z' : [':FZF'          , 'FZF'],
+let g:which_key_map.t =  {
+      \ 'name': '+tab' ,
+      \ 'N'      : ['tabNext'     ,'tabN[ext](跳到前一个标签页)'               ] ,
+      \ 'c'      : ['tabclose'    ,'tabc[lose](关闭当前标签页)'                ] ,
+      \ 'd'      : ['tabdo'       ,'tabdo(为每个标签页执行命令)'               ] ,
+      \ 'e'      : ['tabedit'     ,'tabe[dit](在新标签页里编辑文件)'           ] ,
+      \ 'f'      : ['tabfirst'    ,'tabfir[st](转到首个标签页)'                ] ,
+      \ 'l'      : ['tablast'     ,'tabl[ast](转到末个标签页)'                 ] ,
+      \ 'm'      : ['tabmove'     ,'tabm[ove](把标签页移到别的位置)'           ] ,
+      \ 'x'      : ['tabnew'      ,'tabnew(在新标签页里编辑文件)'              ] ,
+      \ 'n'      : ['tabnext'     ,'tabn[ext](转到后一个标签页)'               ] ,
+      \ 'o'      : ['tabonly'     ,'tabo[nly](关闭所有除了当前标签页以外的所有标签页)'] ,
+      \ 'p'      : ['tabprevious' ,'tabp[revious](转到前一个标签页)'           ] ,
+      \ 'r'      : ['tabrewind'   ,'tabr[ewind](转到首个标签页)'               ] ,
+      \ 's'      : ['tabs'        ,'tabs(列出标签页以及里面包含的内容)'        ] ,
       \ }
 
-" Register which key map
-call which_key#register('<Space>', "g:which_key_map")
-"*********************************************************************
 
+" Register which key map
+autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")
+"*********************************************************************
