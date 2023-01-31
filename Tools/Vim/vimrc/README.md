@@ -125,6 +125,8 @@
         vim-startify
         vim 的初始页面美化小工具
 
+`whichKey`的部分快捷键设置参考了[spaceVim](https://github.com/liuchengxu/space-vim/blob/master/core/autoload/spacevim/map/leader.vim)，想要自己的快捷键系统也可以去看看做个参考。
+
 暂时先这样，够用了，后续有其他的再更新。
 
 
