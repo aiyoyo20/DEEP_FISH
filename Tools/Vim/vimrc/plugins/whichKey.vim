@@ -30,19 +30,19 @@ nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
 let g:which_key_map.t =  {
       \ 'name': '+tab' ,
-      \ 'N'      : ['tabNext'     ,'tabN[ext](跳到前一个标签页)'               ] ,
-      \ 'c'      : ['tabclose'    ,'tabc[lose](关闭当前标签页)'                ] ,
-      \ 'd'      : ['tabdo'       ,'tabdo(为每个标签页执行命令)'               ] ,
-      \ 'e'      : ['tabedit'     ,'tabe[dit](在新标签页里编辑文件)'           ] ,
-      \ 'f'      : ['tabfirst'    ,'tabfir[st](转到首个标签页)'                ] ,
-      \ 'l'      : ['tablast'     ,'tabl[ast](转到末个标签页)'                 ] ,
-      \ 'm'      : ['tabmove'     ,'tabm[ove](把标签页移到别的位置)'           ] ,
-      \ 'x'      : ['tabnew'      ,'tabnew(在新标签页里编辑文件)'              ] ,
-      \ 'n'      : ['tabnext'     ,'tabn[ext](转到后一个标签页)'               ] ,
-      \ 'o'      : ['tabonly'     ,'tabo[nly](关闭所有除了当前标签页以外的所有标签页)'] ,
-      \ 'p'      : ['tabprevious' ,'tabp[revious](转到前一个标签页)'           ] ,
-      \ 'r'      : ['tabrewind'   ,'tabr[ewind](转到首个标签页)'               ] ,
-      \ 's'      : ['tabs'        ,'tabs(列出标签页以及里面包含的内容)'        ] ,
+      \ 'N'      : ['tabNext'     ,'tabN[ext] (跳到前一个标签页)'          ],
+      \ 'c'      : ['tabclose'    ,'tabc[lose](关闭当前标签页)'            ],
+      \ 'd'      : ['tabdo'       ,'tabdo(为每个标签页执行命令)'           ],
+      \ 'e'      : ['tabedit'     ,'tabe[dit](在新标签页里编辑文件)'       ],
+      \ 'f'      : ['tabfirst'    ,'tabfir[st](转到首个标签页)'            ],
+      \ 'l'      : ['tablast'     ,'tabl[ast](转到末个标签页)'             ],
+      \ 'm'      : ['tabmove'     ,'tabm[ove](把标签页移到别的位置)'       ],
+      \ 'x'      : ['tabnew'      ,'tabnew(在新标签页里编辑文件)'          ],
+      \ 'n'      : ['tabnext'     ,'tabn[ext](转到后一个标签页)'           ],
+      \ 'o'      : ['tabonly'     ,'tabo[nly](关闭其他所有标签页)'         ],
+      \ 'p'      : ['tabprevious' ,'tabp[revious](转到前一个标签页)'       ],
+      \ 'r'      : ['tabrewind'   ,'tabr[ewind](转到首个标签页)'           ],
+      \ 's'      : ['tabs'        ,'tabs(列出标签页以及里面包含的内容)'    ],
       \ }
 
 let g:which_key_map.b = {
@@ -74,19 +74,57 @@ let g:which_key_map.w = {
       \ 'l' : ['<C-W>l'     , 'window-right'          ] ,
       \ 'k' : ['<C-W>k'     , 'window-up'             ] ,
       \ 'H' : ['<C-W>5<'    , 'expand-window-left'    ] ,
-      \ 'J' : [':resize +5'  , 'expand-window-below'  ] ,
+      \ 'J' : [':resize +5' , 'expand-window-below'   ] ,
       \ 'L' : ['<C-W>5>'    , 'expand-window-right'   ] ,
-      \ 'K' : [':resize -5'  , 'expand-window-up'     ] ,
+      \ 'K' : [':resize -5' , 'expand-window-up'      ] ,
       \ '=' : ['<C-W>='     , 'balance-window'        ] ,
       \ 's' : ['<C-W>s'     , 'split-window-below'    ] ,
       \ 'v' : ['<C-W>v'     , 'split-window-below'    ] ,
       \ }
 
+" vim-trailing-whitespace
+" Vista
 let g:which_key_map.f = {
+      \ 'name' : '+find/format/fix',
+      \ 'f' : ['CtrlP'          , 'search file'            ],
+      \ 'r' : ['FixWhitespace'  , 'remove trailing spaces' ],
+      \ 'v' : ['Vista!!'        , 'View and search symbols'],
+      \ }
+
+let g:which_key_map.c = {
+      \ 'name' : '+commenter',
+      \ 'i' : ['NERDCommenterInvert'     ,  '切换注释'  ],
+      \ 'c' : ['NERDCommenterComment'    ,  '注释'      ],
+      \ 'u' : ['NERDCommenterUncomment'  ,  '取消注释'  ],
+      \ }
+
+" vim-autoformat
+" terminal emulation
+let g:which_key_map.t = {
       \ 'name' : '+find/format',
-      \ 'f' : ['CtrlP', 'search file' ],
+      \ 'n' : ['NERDTreeToggle', 'open/close file tree' ],
+      \ 's' : ['terminal'      , 'terminal emulation'   ],
+      \ 'f' : ['autoformat'    , 'format file'          ],
+      \ }
+
+let g:which_key_map.l = {
+      \ 'name' : '+LSP/Language' ,
+      \ 'h' : ['LspHover'                   , 'hover'                  ] ,
+      \ 'g' : ['LspDefinition'              , 'go definition'          ] ,
+      \ 'f' : ['LspDocumentFormat'          , 'Format entire document' ] ,
+      \ 'S' : ['LspStatus'                  , 'workspace-symbol'       ] ,
+      \ 'r' : ['LspRename'                  , 'Rename symbol'          ] ,
+      \ 'd' : ['LspDocumentDiagnostics'     , 'diagnostics information'] ,
+      \ 'n' : ['LspNextError'               , 'next error'             ] ,
+      \ 'p' : ['LspPreviousError'           , 'previous error'         ] ,
+      \ 'm' : {
+        \ 'name' : '+markdown',
+        \ 'p' : ['MarkdownPreview'     , 'Markdown-Preview'       ],
+        \ 's' : ['MarkdownPreviewStop' , 'Markdown-Preview-Stop'  ],
+        \ },
       \ }
 
 " Register which key map
 autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")
 "*********************************************************************
+
