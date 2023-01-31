@@ -326,3 +326,14 @@ sublime 默认使用的是`bash`, 默认 path 路径为
 这时要么在`.bash_profile`中添加环境变量，但是设置后要重启系统才生效。
 
 要么创建其软链接在`/usr/local/bin`中，创建软链接的位置非强制但建议，这样在删除软件时更方便也不会和其他的系统软件混淆。
+
+### 字符纵向对齐问题
+终端中打印的正常图：
+
+![normal](images/normal.png)
+
+sublime 中的异常显示：
+
+![abnormal](images/abnormal.png)
+
+应该是中英文混写，字体解析导致的问题，看其他人的有左右字符高低不同的问题，我这到还好。但是在 fedora 中的 sublime 4 试了找到的方法都无效。
