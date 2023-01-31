@@ -26,5 +26,105 @@
     .vimrc : 原来的集合配置，保留项
 
 
+插件目录：
+
+        asyncomplete.vim
+        异步补全工具
+
+        asyncomplete-file.vim
+        用于提示补全目录、文件名
+
+        asyncomplete-lsp.vim
+        asyncomplete.vim 和 vim-lsp 的连接工具
+
+        ale
+        Asynchronous Lint Engine（异步语法检查引擎），应该是目前 vim 的最强语法检查工具。支持多种语言的多种工具，同种语言的多种语言联合增强使用也是可以的。
+
+        vim-lsp-ale
+        使 vim-lsp 和 ale 插件互通，联合使用。
+
+        vim-lsp
+        vim 使用 lsp 的工具，目前已经支持异常浮动可视（异常显示在语句后，而不是光标移动到异常行后才在 airline 等工具上显示）
+
+        async.vim
+        normalize async job control api for vim and neovim
+
+        bullets.vim
+        markdown 列表自动美化工具
+
+        ctrlp.vim
+        文件搜索工具
+
+        markdown-preview.nvim
+        markdown 文件在浏览器同步预览
+
+        mathjax-support-for-mkdp
+        markdown 的增强工具
+
+        nerdcommenter
+        快速注释工具
+
+        nerdtree
+        文件树浏览工具
+
+        vim-nerdtree-tabs
+        nerdtree 增强工具
+
+        tabular
+        用于文本过滤和对齐
+
+        vim-airline
+        状态栏增强工具
+
+        vim-airline-themes
+        vim-airline 的主题
+
+        vim-autoformat
+        格式化工具，支持多种语言的多种格式化工具（需要自己安装语言格式化需要的依赖）
+
+        vim-pydocstring
+        用于在 python 快速插入注释模板
+
+        vim-trailing-whitespace
+        可高亮显示行尾多余空格，同时支持命令快速删除
+
+        vim-which-key
+        快捷键管理工具，可定制带提示的快捷键系统
+
+        vista.vim
+        tagbar 的替代品，用于显示函数、变量树
+
+    语法片段插件：
+
+        friendly-snippets
+        为所有类型的编程语言预配置的语法片段集
+
+        vim-vsnip
+        语法片段引擎
+
+        vim-vsnip-integ
+
+    安装，配置后自动生效的插件：
+
+        auto-pairs
+        自动补全括号、引号的后半部分
+
+        fcitx.vim
+        配合 fcitx 、fcitx5 输入框架实现中英文的自动切换
+        个人主要是用于在 normal 模式时确保是英文输入法
+
+        gruvbox
+        主题
+
+        rainbow_parentheses.vim
+        括号配对高亮（亮色）显示
+
+        indentLine
+        缩进可视化
+
+        vim-startify
+        vim 的初始页面美化小工具
+
 暂时先这样，够用了，后续有其他的再更新。
+
 
