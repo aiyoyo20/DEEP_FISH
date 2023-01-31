@@ -82,6 +82,11 @@ let g:which_key_map.w = {
       \ 'v' : ['<C-W>v'     , 'split-window-below'    ] ,
       \ }
 
+let g:which_key_map.f = {
+      \ 'name' : '+find/format',
+      \ 'f' : ['CtrlP', 'search file' ],
+      \ }
+
 " Register which key map
 autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")
 "*********************************************************************
