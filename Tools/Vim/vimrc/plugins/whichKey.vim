@@ -45,6 +45,22 @@ let g:which_key_map.t =  {
       \ 's'      : ['tabs'        ,'tabs(列出标签页以及里面包含的内容)'        ] ,
       \ }
 
+let g:which_key_map.b = {
+      \ 'name' : '+buffer' ,
+      \ '1' : ['b1' ,  'buffer-1'         ] ,
+      \ '2' : ['b2' ,  'buffer-2'         ] ,
+      \ '3' : ['b3' ,  'buffer-3'         ] ,
+      \ '4' : ['b4' ,  'buffer-4'         ] ,
+      \ '5' : ['b5' ,  'buffer-5'         ] ,
+      \ '6' : ['b6' ,  'buffer-6'         ] ,
+      \ '7' : ['b7' ,  'buffer-7'         ] ,
+      \ '8' : ['b8' ,  'buffer-8'         ] ,
+      \ '9' : ['b9' ,  'buffer-9'         ] ,
+      \ 'f' : ['bf' ,  'first-buffer'     ] ,
+      \ 'd' : ['bl' ,  'last-buffer'      ] ,
+      \ 'n' : ['bn' ,  'next-buffer'      ] ,
+      \ 'p' : ['bp' ,  'previous-buffer'  ] ,
+      \ }
 
 " Register which key map
 autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")
