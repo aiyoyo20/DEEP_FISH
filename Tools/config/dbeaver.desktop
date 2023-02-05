@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Name=DBeaver Enterprise
+GenericName=UniversaL Database Manager
+Comment=Enterprise Database Manager.
+Path=/opt/dbeaver/
+Exec=/opt/dbeaver/dbeaver
+Icon=/opt/dbeaver/dbeaver.png
+Categories=IDE;Development
+WM_CLASS=DBeaverEE
+StartupWMClass=DBeaverEE
+StartupNotify=true
+Keywords=Database;SQL;IDE;JDBC;ODBC;MySQL;PostgreSQL;Oracle;DB2;MariaDB
+MimeType=application/sql

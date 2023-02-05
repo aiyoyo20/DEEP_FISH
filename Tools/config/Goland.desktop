@@ -1,0 +1,18 @@
+   [Desktop Entry]
+    Categories=Development;IDE;
+    Comment[en_US]=The smartest Go IDE
+    Comment=The smartest Go IDE
+    Exec="/opt/GoLand-2019.3.1/bin/goland.sh" %f
+    GenericName[en_US]=
+    GenericName=
+    Icon=/opt/GoLand-2019.3.1/bin/goland.svg
+    MimeType=
+    Name[en_US]=Goland
+    Name=Goland
+    Path=
+    StartupNotify=true
+    StartupWMClass=jetbrains-goland
+    Terminal=false
+    TerminalOptions=
+    Type=Application
+    Version=1.0
