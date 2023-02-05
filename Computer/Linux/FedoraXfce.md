@@ -1,3 +1,30 @@
+#### 使用更美观的 `greeter`
+查看当前使用的桌面显示器：
+
+    Debian/Ubuntu：`cat /etc/X11/default-display-manager`
+
+    RedHat & Fedora：`cat /etc/sysconfig/desktop`
+
+    OpenSuSe：`cat /etc/sysconfig/displaymanager`
+
+xfce 默认的是 `LightDM` ，配置文件在 `/etc/lightdm`
+
+`lightdm.conf` 是主配置文件，`greeter-session=slick-greeter`指定主题。
+
+`slick-greeter`,`lightdm-gtk-greeter`则是主题。
+
+主题中也可以修改配色主题（`ls /usr/share/themes` 查看拥有的主题配色），背景图，用户头像等。
+
+一些参数例子：
+
+```
+theme-name=Adwaita-dark
+icon-theme-name=Adwaita
+background=/usr/share/backgrounds/2.jpg
+```
+
+查看有那些可用的 `greeter` ，`ls /usr/share/xgreeters`。也可以安装其他的。
+
 #### dnf 包管理的一个强力功能
 在尝试安装 kde-connect 的过程中使用的安装命令是`sudo dnf install  builddep kde-connect`，想要去卸载。
 
