@@ -90,3 +90,12 @@ lightDM greeter 默认使用的`lightdm-gtk-greeter`。
 
 #### 安装`p7zip`包后无法使用`7z`命令
 在网上搜索到的解压`7z`压缩包的包是`p7zip`,安装后无法像后面说的使用`7z`解压，测试后发现正确的解压命令是`7za`
+
+#### vim 使用 vim-which-key 拓展行尾有空格问题
+严格来说不是 vim-which-key 的问题。因为多个显示内容需要对齐，不足的就用空格填充。而我使用的另一个插件 vim-trailing-whitespace 默认会高亮显示行尾空格。所以就出现了视觉上的问题。
+
+大概样子：
+
+![view_error](images/viewError.png)
+
+后续自己看能不能改改 vim-which-key 的填充代码，让尾部不是空格是一些像`|`容易忽视的字符。
