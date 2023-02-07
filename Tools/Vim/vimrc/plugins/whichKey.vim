@@ -45,22 +45,33 @@ let g:which_key_map.t =  {
       \ 's'      : ['tabs'        ,'tabs'            ],
       \ }
 
+nmap <leader>b1 :b1<CR>
+nmap <leader>b2 :b2<CR>
+nmap <leader>b3 :b3<CR>
+nmap <leader>b4 :b4<CR>
+nmap <leader>b5 :b5<CR>
+nmap <leader>b6 :b6<CR>
+nmap <leader>b7 :b7<CR>
+nmap <leader>b8 :b8<CR>
+nmap <leader>b9 :b9<CR>
+
 let g:which_key_map.b = {
       \ 'name' : '+buffer' ,
-      \ '1' : ['b1' ,  'buffer-1'         ] ,
-      \ '2' : ['b2' ,  'buffer-2'         ] ,
-      \ '3' : ['b3' ,  'buffer-3'         ] ,
-      \ '4' : ['b4' ,  'buffer-4'         ] ,
-      \ '5' : ['b5' ,  'buffer-5'         ] ,
-      \ '6' : ['b6' ,  'buffer-6'         ] ,
-      \ '7' : ['b7' ,  'buffer-7'         ] ,
-      \ '8' : ['b8' ,  'buffer-8'         ] ,
-      \ '9' : ['b9' ,  'buffer-9'         ] ,
-      \ 'f' : ['bf' ,  'first-buffer'     ] ,
-      \ 'd' : ['bl' ,  'last-buffer'      ] ,
-      \ 'n' : ['bn' ,  'next-buffer'      ] ,
-      \ 'p' : ['bp' ,  'previous-buffer'  ] ,
+      \ '1' :  'buffer-1'         ,
+      \ '2' :  'buffer-2'         ,
+      \ '3' :  'buffer-3'         ,
+      \ '4' :  'buffer-4'         ,
+      \ '5' :  'buffer-5'         ,
+      \ '6' :  'buffer-6'         ,
+      \ '7' :  'buffer-7'         ,
+      \ '8' :  'buffer-8'         ,
+      \ '9' :  'buffer-9'         ,
+      \ 'f' :  'first-buffer'     ,
+      \ 'd' :  'last-buffer'      ,
+      \ 'n' :  'next-buffer'      ,
+      \ 'p' :  'previous-buffer'  ,
       \ }
+
 
 let g:which_key_map.w = {
       \ 'name' : '+windows' ,
