@@ -30,19 +30,19 @@ nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
 let g:which_key_map.t =  {
       \ 'name': '+tab' ,
-      \ 'N'      : ['tabNext'     ,'tabN[ext] (跳到前一个标签页)'          ],
-      \ 'c'      : ['tabclose'    ,'tabc[lose](关闭当前标签页)'            ],
-      \ 'd'      : ['tabdo'       ,'tabdo(为每个标签页执行命令)'           ],
-      \ 'e'      : ['tabedit'     ,'tabe[dit](在新标签页里编辑文件)'       ],
-      \ 'f'      : ['tabfirst'    ,'tabfir[st](转到首个标签页)'            ],
-      \ 'l'      : ['tablast'     ,'tabl[ast](转到末个标签页)'             ],
-      \ 'm'      : ['tabmove'     ,'tabm[ove](把标签页移到别的位置)'       ],
-      \ 'x'      : ['tabnew'      ,'tabnew(在新标签页里编辑文件)'          ],
-      \ 'n'      : ['tabnext'     ,'tabn[ext](转到后一个标签页)'           ],
-      \ 'o'      : ['tabonly'     ,'tabo[nly](关闭其他所有标签页)'         ],
-      \ 'p'      : ['tabprevious' ,'tabp[revious](转到前一个标签页)'       ],
-      \ 'r'      : ['tabrewind'   ,'tabr[ewind](转到首个标签页)'           ],
-      \ 's'      : ['tabs'        ,'tabs(列出标签页以及里面包含的内容)'    ],
+      \ 'N'      : ['tabNext'     ,'tabN[ext]'       ],
+      \ 'c'      : ['tabclose'    ,'tabc[lose]'      ],
+      \ 'd'      : ['tabdo'       ,'tabdo'           ],
+      \ 'e'      : ['tabedit'     ,'tabe[dit]'       ],
+      \ 'f'      : ['tabfirst'    ,'tabfir[st]'      ],
+      \ 'l'      : ['tablast'     ,'tabl[ast]'       ],
+      \ 'm'      : ['tabmove'     ,'tabm[ove]'       ],
+      \ 'x'      : ['tabnew'      ,'tabnew'          ],
+      \ 'n'      : ['tabnext'     ,'tabn[ext]'       ],
+      \ 'o'      : ['tabonly'     ,'tabo[nly]'       ],
+      \ 'p'      : ['tabprevious' ,'tabp[revious]'   ],
+      \ 'r'      : ['tabrewind'   ,'tabr[ewind]'     ],
+      \ 's'      : ['tabs'        ,'tabs'            ],
       \ }
 
 let g:which_key_map.b = {
@@ -91,11 +91,12 @@ let g:which_key_map.f = {
       \ 'v' : ['Vista!!'        , 'View and search symbols'],
       \ }
 
+" commentary.vim
 let g:which_key_map.c = {
       \ 'name' : '+commenter',
-      \ 'i' : ['NERDCommenterInvert'     ,  '切换注释'  ],
-      \ 'c' : ['NERDCommenterComment'    ,  '注释'      ],
-      \ 'u' : ['NERDCommenterUncomment'  ,  '取消注释'  ],
+      \ 'c' : ['Commentary'     ,  'commentary'            ],
+      \ 'l' : ['CommentaryLine' ,  'commentaryLine'        ],
+      \ 'u' : ['ChangeCommentary'  ,  'change commentary'  ],
       \ }
 
 " vim-autoformat
