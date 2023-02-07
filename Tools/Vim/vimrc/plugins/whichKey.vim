@@ -94,8 +94,8 @@ let g:which_key_map.f = {
 " commentary.vim
 let g:which_key_map.c = {
       \ 'name' : '+commenter',
-      \ 'c' : ['Commentary'     ,  'commentary'            ],
-      \ 'l' : ['CommentaryLine' ,  'commentaryLine'        ],
+      \ 'c' : ['Commentary'        ,  'commentary'         ],
+      \ 'l' : ['CommentaryLine'    ,  'commentaryLine'     ],
       \ 'u' : ['ChangeCommentary'  ,  'change commentary'  ],
       \ }
 
