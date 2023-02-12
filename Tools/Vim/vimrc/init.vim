@@ -40,60 +40,7 @@ source $VIM/plugin.vim
 "*********************************************************************
 "" Functions
 " {
-function! AutoSetFileHead()
-    " 对于 shell 脚本文件
-    if &filetype == 'sh'
-        call setline(1, "#!/bin/bash")
-        call append(1, "# Author: aiyoyo")
-        call append(2,"# create time   : ".strftime("%Y-%m-%d %H:%M:%S"))
-        call append(3,"# last modified : ".strftime("%Y-%m-%d %H:%M:%S"))
-        call append(4, "")
-        call append(5, "")
-        "自动将光标定位到文件末尾"
-        normal G
-    endif
-
-    " 对于 python3 文件
-    if &filetype == 'python'
-        call setline(1, "#!/usr/bin/env python3")
-        call append(1, "# Author: aiyoyo")
-        call append(2,"# create time   : ".strftime("%Y-%m-%d %H:%M:%S"))
-        call append(3,"# last modified : ".strftime("%Y-%m-%d %H:%M:%S"))
-        call append(4, "")
-        call append(5, "")
-        call append(6, "def main():")
-        call append(7, "    pass")
-        call append(8, "")
-        call append(9, "")
-        call append(10, "if __name__ == '__main__':")
-        call append(11, "    main()")
-        normal 6gg
-    endif
-
-    " 对于 golang 文件
-    if &filetype == 'go'
-        call setline(1, "#!/usr/bin/env go")
-        call append(1, "// Author: aiyoyo")
-        call append(2,"// create time   : ".strftime("%Y-%m-%d %H:%M:%S"))
-        call append(3,"// last modified : ".strftime("%Y-%m-%d %H:%M:%S"))
-        call append(4, "")
-        call append(5, "package main")
-        call append(6, "")
-        call append(7, "")
-        "自动将光标定位到文件末尾"
-        normal G
-    endif
-endfunc
-
-function SetLastModifiedTimes()
-  let line = getline(3)
-  let newtime = "# last modified : ".strftime("%Y-%m-%d %H:%M:%S")
-  let repl = substitute(line,".*$",newtime,"g")
-  let res = search("# last modified","w")
-  if res
-    call setline(3,repl)
-  endif
-endfunction
+"
 " }
 "*********************************************************************
 
@@ -108,12 +55,6 @@ autocmd! bufwritepost $HOME/.vimrc source %
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " 退出插入模式指定类型的文件自动保存
 au InsertLeave *.go,*.sh,*.py,*.md,*.js,*.css,*.html,*.txt write
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-" fileHead 设置
-autocmd BufNewFile *.sh,*.py,*.go exec ":call AutoSetFileHead()"
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-" 更新文件修改时间
-autocmd BufWrite *.sh,*.py call SetLastModifiedTimes()
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Python runner:
 autocmd FileType python nnoremap <buffer> <C-i> :w <RETURN> :!python % <RETURN>
