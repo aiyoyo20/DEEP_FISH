@@ -15,7 +15,7 @@
 
 	'prabirshrestha/asyncomplete.vim'
 
-	'prabirshrestha/asyncomplete-file.vim'  " 
+	'prabirshrestha/asyncomplete-file.vim'  "
 	对文件路径的提示补全
 
 	'dense-analysis/ale'
@@ -24,11 +24,12 @@
 
 	'rafamadriz/friendly-snippets'
 	'hrsh7th/vim-vsnip'
-	'hrsh7th/vim-vsnip-integ'  
+	'hrsh7th/vim-vsnip-integ'
 	" 语法片段补增强补全插件，三个需要联合使用，`friendly-snippets` 可选，也可以自己定义能够把内容集合到补全里面进行选择
 
 	'Chiel92/vim-autoformat'
-	代码格式化插件，使用 LSP ，有的是
+	代码格式化插件
+    使用 LSP ,并没有提供支持格式化代码的功能，但是我们了解到一些比较好的规范并希望去遵循这些规范，这个插件的格式化程序较为全面，可以用作 lsp-format 的补充。
 
 ### color.vim
 
@@ -40,12 +41,12 @@
 
 ### ctrlp.vim
 
-	'kien/ctrlp.vim'  
+	'kien/ctrlp.vim'
 	文件搜索
 
 ### indentLine.vim
 
-	'Yggdroot/indentLine'  
+	'Yggdroot/indentLine'
 	可视化缩进
 
 #### markdown.vim
@@ -53,31 +54,39 @@
 	'dkarter/bullets.vim'  " automated bullet lists
 	'iamcco/mathjax-support-for-mkdp'
 	'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-
+    可在浏览器中预览 markdown 渲染结果，也是该作者对 markdown 预览的新插件，相较于老版本，感觉更快。而且老版本会因为文本太多而导致预览卡住，新版本没有这个问题
 
 ### nerdtree.vim
 
-	'jistr/vim-nerdtree-tabs'  " 可以使 nerdtree Tab 标签的名称更友好些
-	'scrooloose/nerdtree'  " 用来提供一个导航目录的侧边栏
+	'jistr/vim-nerdtree-tabs'
+    可以使 nerdtree Tab 标签的名称更友好些
+
+	'scrooloose/nerdtree'
+    用来提供一个导航目录的侧边栏
 
 ### rainbow.vim
 
-	'kien/rainbow_parentheses.vim'  " 括号匹配高亮,不同括号显示不同颜色
+	'kien/rainbow_parentheses.vim'
+    括号匹配高亮,不同括号显示不同颜色
 
 ### tools.vim
 
-	'jiangmiao/auto-pairs'  
+	'jiangmiao/auto-pairs'
 	自动补全括号的插件，包括小括号，中括号，以及花括号
 
-	'godlygeek/tabular'   " 对齐
+	'godlygeek/tabular'
+    文本对齐插件，如文本的根据 `=` 对齐，根据 `|` 对齐等等
 
-	'bronson/vim-trailing-whitespace' 
+	'bronson/vim-trailing-whitespace'
 	尾部空格高亮，删除
+    暂时放弃了这个插件，使用 `vim-autoformat` 中类似的命令去删除行尾空格，并且实际中没有什么会特意在行尾增加空格，直接写成自动化命令，在保存的时候自取去执行命令，有就直接删除，没有也不影响，并且不使用这个插件还可以避免与 `vim-trailing-whitespace` 的冲突
 
-	'joom/vim-commentary'  
+	'joom/vim-commentary'
 	快速注释
+    有另一个插件`preservim/nerdcommenter`也是快速注释，看文档提供了更多的注释方式，但是个人并不需要这么多，只需要一个轻量的注释插件能够注释和取消注释即可
 
 	'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
+    在 python 文件中为函数插入函数文档，可修改风格
 
 	'lilydjwg/fcitx.vim'
 	需要 fcitx 或 fcitx5 支持，新版本拓展到了其他输入法框架，如果使用 fcitx 系列需要特别开启某配置
@@ -104,4 +113,4 @@
 
 	这个问题起始花了不少时间，因为其表面呈现的是列表的形式，但是出现异常的是最后行的行尾。正常来说是把视觉上的一行当作实际文本的一行。正是这个误区困扰了很久。实际不是，是一个单行列表可能每一个单元的布局是`填充空格 + key：value + 填充空格`。
 
-	而`vim-trailing-whitespace`插件默认会高亮行尾多余空格，所以最后拖着个尾巴。
+	而 `vim-trailing-whitespace` 插件默认会高亮行尾多余空格，所以最后拖着个尾巴。
