@@ -58,6 +58,9 @@ au InsertLeave *.go,*.sh,*.py,*.md,*.js,*.css,*.html,*.txt write
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Python runner:
 autocmd FileType python nnoremap <buffer> <C-i> :w <RETURN> :!python % <RETURN>
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" 保存时自动删除文件中行尾的多余空格
+autocmd InsertLeave *  RemoveTrailingSpaces
 " }
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
