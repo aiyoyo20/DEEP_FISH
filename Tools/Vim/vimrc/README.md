@@ -128,4 +128,5 @@
 
 暂时先这样，够用了，后续有其他的再更新。
 
-
+### change log
+在这个项目不再更新这个板块的内容，所有的更新转至 [vim_nvim_conf](https://github.com/aiyoyo20/vim_nvim_conf)
