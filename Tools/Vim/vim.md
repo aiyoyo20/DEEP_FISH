@@ -5,8 +5,7 @@
 `curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
 
 ### 其他插件及配置
-
-配置文件[vimrc](./vimrc)里面有详细的备注，就不一个个展开了。
+[../config/vim_nvim_conf](../config/vim_nvim_conf) 有详细的配置。
 
 ## 快捷键设置
 
