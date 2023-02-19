@@ -101,10 +101,10 @@
 
 	'prabirshrestha/vim-lsp'
 	'prabirshrestha/asyncomplete-lsp.vim'
-    为 lsp 提供补全等支持
+        为 lsp 提供补全等支持
 
 	'liuchengxu/vista.vim'
-    函数、变量标签栏
+        函数、变量标签栏
 
 
 	'liuchengxu/vim-which-key',{ 'on': ['WhichKey', 'WhichKey!'] }
