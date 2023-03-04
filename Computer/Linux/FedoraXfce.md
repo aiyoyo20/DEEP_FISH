@@ -131,3 +131,38 @@ sublime 添加设置 `"font_face":"Sarasa Mono Slab SC"` 更换字体。
 
 通常比例是 中：英文 = 2：1，但使用这种字体英文看起来会很费劲，建议只在特定的软件中使用。
 vim 、终端不会受影响，是因为有个不明显的限制，当字符超出范围后会自动压缩，这也是为什么一些 linux 里面中文很怪异的原因（比如 ubuntu）
+
+目前测试过三款字体，大多数字体都是不能对齐的。
+
+`sarasa(更纱黑体)`，部分能
+
+`Sauce Code Pro`，nerd 和 SourceCodePro 的整合，不能
+
+`InconsolataGo`，nerd 和 InconsolataGo 的整合，部分能，其他的 inconsolata 的也应该可以
+
+#### asyncomplete.vim 插件在 markdown 中使用 Tab 上屏失效
+在其他类型文件，甚至包括没有明确指定文件类似的文件都可以使用 <PageUp> 、<PageDown> 来上下选择然后使用 <Tab> 键来确认上屏，但是在 markdown 文件中能选择，但是 <Tab> 后成回车调到下一行，并没有内容填充。
+
+去找来一圈没有找到资料，去作者的 github 下留言没有得到回复，去尝试看了下源码也没理清楚。
+
+保留其中一段代码的解释：
+
+```
+function! asyncomplete#force_refresh() abort
+    return asyncomplete#menu_selected() ? "\<c-y>\<c-r>=asyncomplete#_force_refresh()\<CR>" : "\<c-r>=asyncomplete#_force_refresh()\<CR>"
+endfunction
+
+function! asyncomplete#menu_selected() abort
+    return pumvisible() && !empty(v:completed_item)
+endfunction
+```
+
+原理:
+这段代码是 Vim 插件 Asyncomplete 的一部分，它提供了自动完成功能。其中，第一个函数 asyncomplete#force_refresh() 用于强制刷新自动完成菜单，第二个函数 asyncomplete#menu_selected() 判断是否已经选择了某个自动完成项。
+
+应用:
+第一个函数 asyncomplete#force_refresh() 中，如果已经选择了某个自动完成项，则使用 Ctrl+y Ctrl+r 快捷键来强制刷新菜单；否则使用 Ctrl+r 快捷键来强制刷新菜单。第二个函数 asyncomplete#menu_selected() 用于判断是否已经选择了某个自动完成项，如果菜单可见并且已经选择了某个自动完成项，则返回真。
+
+目前的解决方案是按照官方给的文档添加快捷键然后使用 `<Ctrl> + n`，这个快捷键会直接将结果上屏并滚动直到关闭浮动窗口。
+
+原因不清楚，可能这个快捷键才是插件的本意。
