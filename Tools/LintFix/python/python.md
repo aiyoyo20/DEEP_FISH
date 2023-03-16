@@ -4,6 +4,8 @@
 
     pycodestyle 是一款简单的代码检查工具，之前名字叫 pep8，为了减少混淆改名成 pycodestyle
 
+    实际使用过程中发现会误报，比如括号少后半部分，会影响后续的代码
+
 2. [PyFlakes](https://github.com/PyCQA/pyflakes)：
 
     一个简单的 python 错误检查工具,通过解析源代码而不是 import 来检测不同的错误，通常只能检查出一些逻辑错误
@@ -85,6 +87,7 @@
     用于查找和删除未使用的导入语句的格式化程序
 
 ### fixer：
+前面两个基本 PEP8 ，后面三个都有大项目使用，建议可以直接选择后面三个中的一个，基本都符合 PEP8 ，但使用一个即可，使用多个可能有冲突。
 
 1. [autoflake](https://github.com/PyCQA/autoflake)  
 
@@ -94,7 +97,7 @@
 
     Fix PEP8 issues with autopep8.
 
-1. [black](https://github.com/psf/black)
+3. [black](https://github.com/psf/black)
 
     Fix PEP8 issues with black.
 
@@ -106,24 +109,29 @@
 
     Fix Python files with yapf.
 
-6. [reorder-python-imports](https://github.com/asottile/reorder_python_imports)
 
-    Sort Python imports with reorder-python-imports.
-    
-    自动重新排序 python 导入的工具，类似于 isort 但更多地使用静态分析
+下面的为包处理工具，除了 isort 用于包排序，pyflyby 后面的功能都相似且 pyflyby 都能做到，建议选择 pyflyby
 
 1. [isort](https://github.com/PyCQA/isort)    
 
     Sort Python imports with isort.
 
-8. [pycln](https://github.com/hadialqattan/pycln)
-
-    remove unused python import statements
-
-9. [pyflyby](https://github.com/deshaw/pyflyby)
+2. [pyflyby](https://github.com/deshaw/pyflyby)
 
     Tidy Python imports with pyflyby.
 
-10. [autoimport](https://github.com/lyz-code/autoimport)
+3. [autoimport](https://github.com/lyz-code/autoimport)
 
     Fix import issues with autoimport.
+
+4. [reorder-python-imports](https://github.com/asottile/reorder_python_imports)
+
+    Sort Python imports with reorder-python-imports.
+    
+    自动重新排序 python 导入的工具，类似于 isort 但更多地使用静态分析
+
+5. [pycln](https://github.com/hadialqattan/pycln)
+
+    remove unused python import statements
+
+
