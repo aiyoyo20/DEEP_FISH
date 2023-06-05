@@ -169,3 +169,10 @@ endfunction
 
 #### rustdesk 安装失败
 缺少依赖，先`sudo dnf install libxdo`安装依赖后在安装 rpm 包即可
+
+#### zip 文件解压失败
+unsupported compression method 99
+
+windows和linux的加密算法不一致，原zip是在windows环境上设定密码压缩的。
+
+在 window 加密压缩时，选用 zip 传统加密。
