@@ -1,3 +1,0 @@
-[submodule "Tools/config/vim_nvim_conf"]
-	path = Tools/config/vim_nvim_conf
-	url = https://github.com/aiyoyo20/vim_nvim_conf.git
