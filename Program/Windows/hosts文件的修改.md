@@ -1,0 +1,1 @@
+windows 的 hosts 文件的地址在 `C:\Windows\System32\drivers\etc\hosts`
