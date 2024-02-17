@@ -240,3 +240,17 @@ adb -d shell am force-stop org.kde.kdeconnect_tp  # 这部会关闭应用，重�
 
 ### charles的多网卡问题
 在同时连接有线、无线、以及启动了docker会有一个虚拟网口，这些网口都会被使用，但是在给手机配置的时候得到的不是想要的那个，导致安装认证文件失败，目前没有好的办法，只有去禁用其他的网口，确定只有一个网口的情况下才能正常
+
+### ssh 连接失败
+提示：`no matching host key type found. Their offer: ssh-rsa`
+
+可使用`ssh -oHostKeyAlgorithms=+ssh-rsa`来解决，实际测试`ssh -o HostKeyAlgorithms=+ssh-rsa`也可以，`-o`用于指定ssh的配置，连写也能识别，但在其他的shell命令中不一定，建议还是分开写更好
+
+或在`~/.ssh/config`中加入`HostKeyAlgorithms +ssh-rsa`，`HostKeyAlgorithms=+ssh-rsa`也可以
+
+如果执行指定特定的 ip、域名这样使用，则如添加下面这样添加：
+
+```txt
+Host [ipaddress]
+    HostKeyAlgorithms=+ssh-rsa
+```
