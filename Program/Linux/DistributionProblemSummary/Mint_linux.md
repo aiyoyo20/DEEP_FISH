@@ -254,3 +254,73 @@ adb -d shell am force-stop org.kde.kdeconnect_tp  # 这部会关闭应用，重�
 Host [ipaddress]
     HostKeyAlgorithms=+ssh-rsa
 ```
+
+## 添加的源无效
+
+添加源的命令为：`echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null`
+
+去查看文件`/etc/apt/sources.list.d/docker.list`的内容为：
+
+`deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu victoria stable`
+
+格式上也没有什么不对。
+
+然后去查看其他的源的格式：`deb [signed-by=/etc/apt/keyrings/hluk-copyq-jammy.gpg] https://ppa.launchpadcontent.net/hluk/copyq/ubuntu jammy main`
+
+前部分有差异但问题不大。后部分的 `victoria` 和 `jammy` 不一样。
+
+尝试将 `victoria` 修改为 `jammy` 再次更新发现正常了。
+
+去访问 `https://download.docker.com/linux/ubuntu` 进入 `dists` 页面发现有:
+
+`artful/`,
+`bionic/`,
+`cosmic/`,
+`disco/`,
+`eoan/`,
+`focal/`,
+`groovy/`,
+`hirsute/`,
+`impish/`,
+`jammy/`,
+`kinetic/`,
+`lunar/`,
+`mantic/`,
+`trusty/`,
+`xenial/`,
+`yakkety/`,
+`zesty/`,
+
+这么多版本，但是就是没有 `victoria` 这个版本。
+
+回想起来自己在使用 mint 的过程中并没有换源，但是使用的体验却非常好。而使用 ubuntu 或者 debian 的时候都是需要换源的。查看`/etc/apt/sources.list`的内容为空。应该是在很大程度上使用了 MINT 自己的源。
+
+`VERSION_CODENAME`变量的特殊含义在于，它提供了一个统一的方式来获取操作系统版本的代号。因此这是 mint 的版本代号。而不是 ubuntu 的版本代号。
+
+完整的`/etc/os-release`文件如下 :
+
+```sh
+NAME="Linux Mint"
+VERSION="21.2 (Victoria)"
+ID=linuxmint
+ID_LIKE="ubuntu debian"
+PRETTY_NAME="Linux Mint 21.2"
+VERSION_ID="21.2"
+HOME_URL="https://www.linuxmint.com/"
+SUPPORT_URL="https://forums.linuxmint.com/"
+BUG_REPORT_URL="http://linuxmint-troubleshooting-guide.readthedocs.io/en/latest/"
+PRIVACY_POLICY_URL="https://www.linuxmint.com/"
+VERSION_CODENAME=victoria
+UBUNTU_CODENAME=jammy
+```
+
+可以看到有另一个：`UBUNTU_CODENAME` 的变量的值为 `jammy`。之前的代码应该是在 ubuntu 的环境下运行的。而当前环境下是在 mint 的环境下运行的。若想添加ubuntu的源应该获取的是ubuntu的版本代号。即`UBUNTU_CODENAME`的值。
+
+## sublime 4 无故卡死
+具体原因尚不清楚。在打字的时候突然就卡死了、也不会说整个软件崩溃后闪退，就一直卡着不懂，鼠标、键盘都没反应。
+
+这在一定程度上还是有影响，如果之前没有保存，那部分的内容在重启软件后就丢失了。
+
+## 设置了代理变量 `ALL_PROXY` 但是 wget 依旧报错
+
+详解在 [代理变量详解](../Shell/Syntax/代理变量详解.md)
