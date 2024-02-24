@@ -46,3 +46,20 @@ WSL（Windows Subsystem for Linux）和 WSL 2 都是 Windows 操作系统中的�
 ## 安装的 linux 提示网络问题
 
 删除重装可解决这个问题。
+
+## 额外补充
+
+1. 某些主板的 bios 中虚拟化默认是关闭的。要使用 WSL 需要打开。打开方式不同品牌、不同型号的主板是不一样的。
+
+2. WSL2 是基于 `hyper-v` 的，如果系统是家庭版，则没有 `hyper-v` ，win10、win11都没有。在选择开启的选项里没有显示 `hyper-v`，但能不能使用像 `dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart`这样的方式去打开隐藏的内容没有尝试。查到的资料说这个可以。
+
+安装脚本：
+```
+pushd "%~dp0"
+dir /b %SystemRoot%\servicing\Packages\*Hyper-V*.mum >hyper-v.txt
+for /f %%i in ('findstr /i . hyper-v.txt 2^>nul') do dism /online /norestart /add-package:"%SystemRoot%\servicing\Packages\%%i"
+del hyper-v.txt
+Dism /online /enable-feature /featurename:Microsoft-Hyper-V-All /LimitAccess /ALL
+```
+
+3. 安装了 `hyper-v`，再使用 VM 会冲突。将 `hyper-v` 禁用后可以正常使用 VM。
