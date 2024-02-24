@@ -350,6 +350,8 @@ ENV https_proxy proto://ip:port
 
 这将在构建 Docker 镜像时设置 HTTP 和 HTTPS 代理。在运行容器时，这些代理设置将自动传递给容器。
 
+TODO:内容较多，后续补充
+
 ## wget 使用代理
 1. 在终端使用环境变量设置代理
 
