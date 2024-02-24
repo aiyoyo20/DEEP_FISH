@@ -30,11 +30,11 @@
 
 详细的就不累赘了，我了解的也不是很完全，墙内目前也有些介绍，但是只要能翻出去，资料就很多了。这里给出几篇文章，里面有详细介绍，防止失效，自己留了PDF文件。
 
-[科学上网的主流协议大对比！这里面有你在使用的吗？](./images/科学上网的主流协议大对比.pdf): 文章来自<https://www.techfens.com/posts/kexueshangwang.html>
+[科学上网的主流协议大对比！这里面有你在使用的吗？](./images/科学上网的主流协议大对比.pdf): 文章来自: <https://www.techfens.com/posts/kexueshangwang.html>
 
-[一次搞懂Xray/V2ray/Trojan/Trojan-go/SSR/SS的区别，不再选择困难症](./images/d0e0b912-88d6-4066-9cfa-e69dc894c888.pdf): 文章来自<https://www.lbtlm.com/archives/167>
+[一次搞懂Xray/V2ray/Trojan/Trojan-go/SSR/SS的区别，不再选择困难症](./images/d0e0b912-88d6-4066-9cfa-e69dc894c888.pdf): 文章来自: <https://www.lbtlm.com/archives/167>
 
-[SS、SSR、V2ray、Trojan、Xray 这五种翻墙协议与 VPN 对比有何不同？](./images/057c79d0-6f08-4cab-87b7-2d11483ed21f.pdf): 文章来自<https://topvpn.wiki/vpn-ssr-v2ray-trojan-xray/>
+[SS、SSR、V2ray、Trojan、Xray 这五种翻墙协议与 VPN 对比有何不同？](./images/057c79d0-6f08-4cab-87b7-2d11483ed21f.pdf): 文章来自: <https://topvpn.wiki/vpn-ssr-v2ray-trojan-xray/>
 
 ## 可连接代理软件
 
@@ -141,21 +141,38 @@ setProxy() {
         port="8080"
     fi
 
+    export http_proxy=$proto://$ip:$port
+    export https_proxy=$proto://$ip:$port
+    export socks_proxy=$proto://$ip:$port
+    export all_proxy=$proto://$ip:$port
+
+    export HTTP_PROXY=$proto://$ip:$port
+    export HTTPS_PROXY=$proto://$ip:$port
+    export SOCKS_PROXY=$proto://$ip:$port
     export ALL_PROXY=$proto://$ip:$port
+
     echo "setting proxy $proto://$ip:$port success"
 }
 
 # 调用示例
-# setProxy http 192.168.1.1 12345   # http://192.168.1.1:12345
-# setProxy http 192.168.1.1         # http://192.168.1.1:8080
-# setProxy http 12345               # http://127.0.0.1:12345
-# setProxy 192.168.1.1 12345        # socks://192.168.1.1:12345
-# setProxy http                     # http://127.0.0.1:8080
-# setProxy 192.168.1.1              # socks5://192.168.1.1:8080
-# setProxy 12345                    # socks5://127.0.0.1:12345
+# setProxy http 192.168.1.1 12345
+# setProxy http 192.168.1.1      
+# setProxy http 12345            
+# setProxy 192.168.1.1 12345     
+# setProxy http                  
+# setProxy 192.168.1.1           
+# setProxy 12345                 
 
 # 取消终端代理
 function unsetProxy() {
+    unset http_proxy
+    unset https_proxy
+    unset socks_proxy
+    unset all_proxy
+
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+    unset SOCKS_PROXY
     unset ALL_PROXY
 }
 
@@ -174,7 +191,6 @@ function testProxy() {
     fi
 }
 # END ------------------------------------------------------------------------------- END
-
 ```
 
 ## 浏览器代理
@@ -264,11 +280,158 @@ Chrome 浏览器可以通过在终端使用命令 `google-chrome-stable --proxy-
 
 ![pic\_10 telegram](images/M_P_telegram.png)
 
+## git 加速
+
+使用的是 github 的花，很明显是被墙的，所以需要加速
+
+而 git 传输的方式有两种：
+
+HTTP 形式 ：`git clone https://github.com/owner/git.git`
+
+SSH 形式  ：`git clone git@github.com/owner/git.git`
+
+### 一、HTTP 形式
+
+#### 法一：
+
+走 HTTP 代理:
+
+```sh
+git config --global http.proxy "http://127.0.0.1:12333"
+git config --global https.proxy "http://127.0.0.1:12333"
+```
+
+走 socks5 代理:
+
+```sh
+git config --global http.proxy "socks5://127.0.0.1:1080"
+git config --global https.proxy "socks5://127.0.0.1:1080"
+```
+
+取消代理设置：
+
+```sh
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+
+#### 法二：
+
+在 ~/.gitconfig 文件中加入以下配置:
+```yaml
+[http]
+    proxy = socks5://127.0.0.1:1080
+```
+
+注意，上明配置等同于命令 `git config --global http.proxy 'socks5://127.0.0.1:1080'`
+
+### 二、SSH 形式
+
+在 ~/.ssh/config 文件中加入以下配置:
+```yaml
+Host github.com
+    HostName github.com
+    User git
+    ProxyCommand nc -X connect -x localhost:1080 %h %p
+```
+
+## docker 使用代理
+1. 使用 Docker run 命令时指定代理参数。你可以在运行容器时使用 -e 选项来设置 http_proxy 和 https_proxy 环境变量。
+
+`docker run -e http_proxy=proto://ip:port -e https_proxy=proto://ip:port myimage`
+
+这将在容器内部设置 HTTP 和 HTTPS 代理，以便容器内部的进程可以使用代理访问网络。
+
+2. 在 Dockerfile 中设置代理。你可以在 Dockerfile 中使用 ENV 命令来设置环境变量。
+```
+ENV http_proxy proto://ip:port
+ENV https_proxy proto://ip:port
+```
+
+这将在构建 Docker 镜像时设置 HTTP 和 HTTPS 代理。在运行容器时，这些代理设置将自动传递给容器。
+
+## wget 使用代理
+1. 在终端使用环境变量设置代理
+
+```sh
+export http_proxy=proto://ip:port
+export https_proxy=proto://ip:port
+```
+
+`wget` 只能使用小写的，大写的不被支持。而 `curl` 则使用大写的。
+
+但是需要注意的是 `all_proxy`
+
+之前一直认为 `all_proxy` = `http_proxy` + `https_proxy` + `ftp_proxy` + `socks_proxy`，实际并不一定。
+
+实际的使用并不是这样，使用了`all_proxy`，然后在访问 `https://raw.githubusercontent.com/` 这样的链接时一直报错，信息很明确就是代理的问题。逐个去尝试 `http_proxy`、`https_proxy`才发现 `http_proxy` 是有效的。`https_proxy` 请求后会跳转，跳转后的内容访问只能通过 `http_proxy`
+
+2. 通过参数 `-e` 设置代理
+
+```sh
+wget -e http_proxy=proto://ip:port -e https_proxy=proto://ip:port https://raw.githubusercontent.com/
+```
+
+代理可以给出多个，他们之间互不冲突。但是需要注意另一个参数 `use_proxy`。这个参数的值有`on/off`两种。设置代理时默认为`on`，即使添加了也不要紧。但如果强行设置为`off`时则会忽略代理设置。
+
+在最新版本的 wget 文档中没有看到 `--proxy` 参数，但是实际使用有效。等同于参数 `use_proxy`，但使用不是 `--prxoy on/off` 而是 `--proxy=on/off`
+
+3. 在配置文件中设置代理
+
+在 ~/.wgetrc 文件中加入以下配置:
+
+```yaml
+http_proxy=proto://ip:port
+https_proxy=proto://ip:port
+```
+
+这样在运行 `wget` 命令时就可以使用代理了。这个文件默认可能不会存在。需要自己创建。
+
+## curl 使用代理
+1. 在终端使用环境变量设置代理
+
+```sh
+export HHTP_PROXY=proto://ip:port
+export HTTPS_PROXY=proto://ip:port
+```
+
+或者
+```sh
+export http_proxy=proto://ip:port
+export https_proxy=proto://ip:port
+```
+
+`curl` 命令相对宽松，哪种方式都可以。甚至是 `export all_proxy`也能使用。
+
+2. 通过参数 `-x` 设置代理
+
+```sh
+curl -x proto://ip:port https://raw.githubusercontent.com/xxx
+```
+
+3. 通过参数 `--proxy` 设置代理
+
+```sh
+curl --proxy proto://ip:port https://raw.githubusercontent.com/xxx
+```
+
+和 `-x` 相似。
+
+4. 在配置文件中设置代理
+
+在 `~/.curlrc` 文件中加入以下配置:
+
+```yaml
+proxy=proto://ip:port
+```
+
+保存即可。
+
 ### 其他分享
 
-https://zgq-inc.github.io/overthefirewall/
+<https://zgq-inc.github.io/overthefirewall/>
 
-https://github.com/Loyalsoldier/v2ray-rules-dat
+<https://github.com/Loyalsoldier/v2ray-rules-dat>
 
-https://github.com/gfwlist/gfwlist
+<https://github.com/gfwlist/gfwlist>
 
