@@ -324,3 +324,19 @@ UBUNTU_CODENAME=jammy
 ## 设置了代理变量 `ALL_PROXY` 但是 wget 依旧报错
 
 详解在 [代理变量详解](../Shell/Syntax/代理变量详解.md)
+
+## docker 未启动
+
+使用 docker 命令报错：
+
+`docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?.` 
+
+原因是 docker 没有启动
+
+使用命令 `sudo systemctl restart docker` 报错：
+
+```
+Job for docker.service failed because the control process exited with error code.
+See "systemctl status docker.service" and "journalctl -xeu docker.service" for details.
+```
+也是 docker 没有启动
