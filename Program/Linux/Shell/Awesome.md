@@ -83,21 +83,104 @@
 
 
 ## 实现类似于python 的 if __name__ == "__main__": 的功能
-
 ```sh
-#!/bin/bash
-
-function comm(){
-	# 所有要执行的命令
+function test(){
+   ...
 }
 
-IMPORT_STATUS=0
-
-if [[ $IMPORT_STATUS -eq 0 ]]; then
-	comm
+if [ -z "${MY_SCRIPT_IMPORTED}" ]; then
+   # 代码执行逻辑
+   test
 fi
 ```
 
-当这个文件被直接执行时，会执行`comm`函数，也就是执行这个文件中的所有命令、而当被其他文件引用时，
+当这个文件被直接执行时，`MY_SCRIPT_IMPORTED`不存在。因此会执行里面的代码。 而当被其他文件引用时，需要在引用前设置 `MY_SCRIPT_IMPORTED`参数不为`0`。而不希望被执行的代码被函数包裹。这时加载这个文件，并不会直接执行这个代码块，只有当直接调用这个函数才会执行。
 
-TODO：未完成后面补充
+这样既能直接执行这个文件的代码做单个测试，而又不必去修改总文件，不断的注释或者删除引用。
+
+## `return` 的几种实现
+
+1. 使用全局变量
+
+```sh
+function func1() {
+   a="123"
+}
+
+func1
+
+echo $a
+```
+
+输出:`123`
+
+2. 使用引用传递
+
+```sh
+# 定义函数，通过引用传递返回值
+my_function() {
+    local -n result=$1
+    # 函数逻辑
+    result=42
+}
+
+# 调用函数，并传递变量的引用
+my_function return_value
+
+# 输出返回值
+echo "Return value: $return_value"
+```
+
+输出:`Return value: 42`
+
+通过传递变量的引用给函数，在函数内部修改该变量的值，从而实现返回值的传递。
+
+在上述示例中，函数my_function通过引用传递将返回值存储在传递的变量中。在函数中，通过local -n声明一个引用，将传递的变量名作为参数，并在函数内部将其赋值为返回值。
+
+3. 使用命令替换捕获函数的输出再获取最后一个值
+
+```sh
+my_function() {
+    echo 1
+    echo 4
+    echo "output_arg"
+}
+
+# 使用命令替换捕获函数的输出
+result=$(my_function)
+
+# 将result按行分割为数组
+IFS=$'\n' read -d '' -r -a result_array <<< "$result"
+
+# 获取result_array的最后一个值
+last_value=${result_array[-1]}
+
+# 输出最后一个值
+echo "Last value of result: $last_value"
+```
+
+## 变量的间接引用
+
+假设一个变量的值是第二个变量的名字。如果 a=letter_of_alphabet 并且 letter_of_alphabet=z，
+
+它被称为间接引用。我们能够通过引用变量 a 来获得 z，它使用 `eval var1=\$$var2 `这种不平常的形式。
+
+```sh
+table_cell_3=24
+t=table_cell_3
+
+echo "\"table_cell_3\" = $table_cell_3"            # "table_cell_3" = 24
+echo -n "dereferenced \"t\" = ${t}"     # dereferenced "t" = table_cell_3%
+
+echo '------------'
+
+echo -n "dereferenced \"t\" = "; eval echo \$$t    # dereferenced "t" = 24
+echo '------------'
+# eval echo \$$t  可以理解为下面的 eval t=\$$t; echo "\"t\" = $t" 的简化
+echo -n "dereferenced " ;eval t=\$$t; echo "\"t\" = $t"
+```
+
+很早以前记录的，当时不是很熟悉shell，认为不能使用`a=1;b=$a`这种形式。实际可以。上面的代码实际是使用字符串的方式构建了一个访问变量的命令。
+
+## TODO
+命令替换有哪几种，哪些命令会导致后续的命令失效
