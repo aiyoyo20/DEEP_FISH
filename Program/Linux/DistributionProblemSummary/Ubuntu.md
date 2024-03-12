@@ -35,3 +35,7 @@ Installing xapp installs the missing modules and removes the warning
 `/bin` ,`/usr/bin`,`usr/local/bin`中的软链接指向的都是系统版本
 
 因为在`.bashrc`或`.zshrc`中设置了环境变量，优先级覆盖了
+
+## 安装libevent报错：configure: error: openssl is a must but can not be found. 
+
+有 openssl 的情况下安装 `openssl-devel` 即可
